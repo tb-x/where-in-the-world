@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14204a">
+<title>Where in the World?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" crossorigin="anonymous">
+<link rel="stylesheet" href="styles.css?v=9">
+</head>
+<body>
+<a id="home" href="../index.html" aria-label="All games" title="All games"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8V20h12V9.8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M10 20v-5.5h4V20" fill="currentColor"/></svg></a>
+<button id="back" hidden aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<canvas id="globe" aria-label="The globe: drag to turn it, pinch to zoom, tap a country to hear its name"></canvas>
+<div id="stickers" aria-hidden="true"></div>
+<div id="ring" aria-hidden="true"></div>
+<div id="label" aria-live="polite"></div>
+
+<section id="start" hidden>
+  <h1>Where in the World?</h1>
+  <div class="row">
+    <button id="play" class="big" aria-label="Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+    <button id="look" class="big alt" aria-label="Look around the globe">🔍</button>
+    <button id="pass" class="big alt" aria-label="My passport">🛂</button>
+  </div>
+</section>
+
+<section id="passport" hidden>
+  <div id="pages"></div>
+</section>
+
+<div id="cards" hidden></div>
+
+<section id="levels" hidden>
+  <div id="levelgrid"></div>
+</section>
+
+<div id="quizbar" hidden>
+  <button id="hear" aria-label="Hear the question again">🔊</button>
+  <div id="dots" aria-hidden="true"></div>
+</div>
+
+<nav id="places" hidden>
+  <button data-go="world" aria-label="The whole world">🌍</button>
+  <button data-go="EU" aria-label="Europe">🏰</button>
+  <button data-go="AF" aria-label="Africa">🦁</button>
+  <button data-go="AS" aria-label="Asia">🐼</button>
+  <button data-go="NA" aria-label="North America">🦅</button>
+  <button data-go="SA" aria-label="South America">🦜</button>
+  <button data-go="OC" aria-label="Australia and Oceania">🦘</button>
+  <button data-go="AN" aria-label="Antarctica">🐧</button>
+  <button data-go="home" aria-label="Poland, home">🏠</button>
+</nav>
+
+<section id="end" hidden>
+  <div class="card">
+    <h2>What a trip!</h2>
+    <div id="endstars" aria-hidden="true"></div>
+    <div id="stamps"></div>
+    <div class="row">
+      <button id="again" aria-label="Play this trip again"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12a7 7 0 1 1-2.05-4.95M19 4v4h-4" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button id="tolevels" aria-label="All trips">🗺️</button>
+      <button id="next" class="go" aria-label="Next trip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<div id="loading" aria-hidden="true">🌍</div>
+<script type="module" src="game.js?v=18"></script>
+</body>
+</html>

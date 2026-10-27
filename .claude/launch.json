@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "world-map",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5235"],
+      "port": 5235
+    }
+  ]
+}

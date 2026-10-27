@@ -1,0 +1,856 @@
+{
+ "note": "Levels (PLAN.md section 2). ask = names as in world.json, continents, or islands below. pick = how many to ask (at random) when ask is longer. camera: 'globe' (whole globe turned to the answer), 'continent' (each question flies to the answer's continent), 'level' (one view for the whole level: region key or {lon, lat, ext}), 'island' (a wide view of the ocean with the island off-centre). pale: countries not asked (and not home) are drawn pale. flags: how many questions show five flags. Without lightup, each is about a country already found in the trip (the painted flags are hidden meanwhile, so it's remembering, not matching); with lightup the country lights up unfound. cards: how the four wrong flags are chosen: far (other continents), near (same continent), alike (look-alike flags first). dev/voices.py renders the question lines for every name asked here. regions: the camera's view of each continent (centre and half-width in degrees). closer: a place smaller than minPx on the shorter side of a phone (360 px), outside the planned view, or on an island level, gets a view of its own: view[0] times its size, at least view[1] and at most view[2] degrees each way, wide on purpose so it isn't the obvious answer, the place pushed off-centre by up to offset of the view (children can pinch to zoom in). tour: the endless World tour after level 12; most questions come from the passport, `new` of them from the places not stamped yet (its ask list adds countries no level asks). capitals: each country's capital city, with where it is (for the star); a level with capitals: true asks every question as \"Find the country with the capital city …\", and a number asks that many of a trip's questions that way (only for countries listed here).",
+ "regions": {
+  "EU": {
+   "lon": 15,
+   "lat": 52,
+   "ext": 20
+  },
+  "AF": {
+   "lon": 18,
+   "lat": 2,
+   "ext": 37
+  },
+  "AS": {
+   "lon": 88,
+   "lat": 38,
+   "ext": 45
+  },
+  "NA": {
+   "lon": -98,
+   "lat": 46,
+   "ext": 36
+  },
+  "SA": {
+   "lon": -60,
+   "lat": -20,
+   "ext": 32
+  },
+  "OC": {
+   "lon": 148,
+   "lat": -24,
+   "ext": 32
+  },
+  "AN": {
+   "lon": 30,
+   "lat": -80,
+   "ext": 30
+  }
+ },
+ "closer": {
+  "minPx": 10,
+  "view": [
+   6,
+   15,
+   30
+  ],
+  "offset": 0.7
+ },
+ "continents": {
+  "EU": "Europe",
+  "AS": "Asia",
+  "AF": "Africa",
+  "NA": "North America",
+  "SA": "South America",
+  "OC": "Australia",
+  "AN": "Antarctica"
+ },
+ "lookalikes": [
+  [
+   "Poland",
+   "Indonesia",
+   "Monaco"
+  ],
+  [
+   "Italy",
+   "Ireland",
+   "Mexico",
+   "Ivory Coast",
+   "Hungary"
+  ],
+  [
+   "France",
+   "Netherlands",
+   "Russia",
+   "Luxembourg",
+   "Croatia"
+  ],
+  [
+   "Russia",
+   "Slovakia",
+   "Slovenia",
+   "Serbia"
+  ],
+  [
+   "Romania",
+   "Chad",
+   "Moldova",
+   "Andorra"
+  ],
+  [
+   "Norway",
+   "Iceland",
+   "Denmark",
+   "Sweden",
+   "Finland"
+  ],
+  [
+   "Germany",
+   "Belgium",
+   "Lithuania"
+  ],
+  [
+   "Austria",
+   "Latvia",
+   "Lebanon"
+  ],
+  [
+   "Australia",
+   "New Zealand"
+  ],
+  [
+   "Colombia",
+   "Ecuador",
+   "Venezuela"
+  ],
+  [
+   "Senegal",
+   "Mali",
+   "Guinea",
+   "Cameroon"
+  ],
+  [
+   "Japan",
+   "Bangladesh",
+   "South Korea"
+  ]
+ ],
+ "islands": {
+  "Great Britain": {
+   "country": "United Kingdom",
+   "at": [
+    -1.5,
+    52.5
+   ]
+  },
+  "Sicily": {
+   "country": "Italy",
+   "at": [
+    14.1,
+    37.5
+   ]
+  },
+  "Crete": {
+   "country": "Greece",
+   "at": [
+    24.9,
+    35.2
+   ]
+  },
+  "Tasmania": {
+   "country": "Australia",
+   "at": [
+    146.5,
+    -42.0
+   ]
+  },
+  "Hawaii": {
+   "country": "United States",
+   "box": [
+    -160.6,
+    18.8,
+    -154.7,
+    22.4
+   ]
+  }
+ },
+ "capitals": {
+  "Poland": [
+   "Warsaw",
+   21.01,
+   52.23
+  ],
+  "Germany": [
+   "Berlin",
+   13.4,
+   52.52
+  ],
+  "France": [
+   "Paris",
+   2.35,
+   48.86
+  ],
+  "United Kingdom": [
+   "London",
+   -0.13,
+   51.51
+  ],
+  "Italy": [
+   "Rome",
+   12.5,
+   41.9
+  ],
+  "Spain": [
+   "Madrid",
+   -3.7,
+   40.42
+  ],
+  "Russia": [
+   "Moscow",
+   37.62,
+   55.75
+  ],
+  "Ukraine": [
+   "Kyiv",
+   30.52,
+   50.45
+  ],
+  "Czechia": [
+   "Prague",
+   14.42,
+   50.08
+  ],
+  "Greece": [
+   "Athens",
+   23.73,
+   37.98
+  ],
+  "Egypt": [
+   "Cairo",
+   31.24,
+   30.04
+  ],
+  "Japan": [
+   "Tokyo",
+   139.69,
+   35.69
+  ],
+  "China": [
+   "Beijing",
+   116.4,
+   39.9
+  ],
+  "United States": [
+   "Washington",
+   -77.04,
+   38.91
+  ],
+  "Canada": [
+   "Ottawa",
+   -75.7,
+   45.42
+  ],
+  "Australia": [
+   "Canberra",
+   149.13,
+   -35.28
+  ],
+  "India": [
+   "New Delhi",
+   77.21,
+   28.61
+  ],
+  "Brazil": [
+   "Brasilia",
+   -47.88,
+   -15.79
+  ],
+  "Argentina": [
+   "Buenos Aires",
+   -58.38,
+   -34.6
+  ],
+  "Mexico": [
+   "Mexico City",
+   -99.13,
+   19.43
+  ],
+  "Kenya": [
+   "Nairobi",
+   36.82,
+   -1.29
+  ],
+  "Norway": [
+   "Oslo",
+   10.75,
+   59.91
+  ],
+  "Sweden": [
+   "Stockholm",
+   17.95,
+   59.36
+  ],
+  "Portugal": [
+   "Lisbon",
+   -9.18,
+   38.79
+  ],
+  "Austria": [
+   "Vienna",
+   16.37,
+   48.21
+  ],
+  "Hungary": [
+   "Budapest",
+   19.04,
+   47.5
+  ],
+  "Netherlands": [
+   "Amsterdam",
+   4.9,
+   52.37
+  ],
+  "Ireland": [
+   "Dublin",
+   -6.26,
+   53.35
+  ],
+  "Turkey": [
+   "Ankara",
+   32.85,
+   39.93
+  ],
+  "Thailand": [
+   "Bangkok",
+   100.5,
+   13.76
+  ],
+  "South Korea": [
+   "Seoul",
+   126.98,
+   37.57
+  ],
+  "Peru": [
+   "Lima",
+   -77.04,
+   -12.05
+  ],
+  "Finland": [
+   "Helsinki",
+   24.94,
+   60.17
+  ],
+  "Denmark": [
+   "Copenhagen",
+   12.42,
+   55.68
+  ],
+  "Switzerland": [
+   "Bern",
+   7.45,
+   46.95
+  ],
+  "Belgium": [
+   "Brussels",
+   4.35,
+   50.85
+  ],
+  "Romania": [
+   "Bucharest",
+   26.1,
+   44.43
+  ],
+  "Lithuania": [
+   "Vilnius",
+   25.28,
+   54.69
+  ],
+  "Slovakia": [
+   "Bratislava",
+   17.11,
+   48.15
+  ],
+  "Belarus": [
+   "Minsk",
+   27.56,
+   53.9
+  ],
+  "Chile": [
+   "Santiago",
+   -70.67,
+   -33.45
+  ],
+  "Colombia": [
+   "Bogota",
+   -74.07,
+   4.71
+  ],
+  "Cuba": [
+   "Havana",
+   -82.37,
+   23.11
+  ],
+  "Iceland": [
+   "Reykjavik",
+   -21.8,
+   64.1
+  ],
+  "New Zealand": [
+   "Wellington",
+   174.78,
+   -41.29
+  ],
+  "Indonesia": [
+   "Jakarta",
+   106.85,
+   -6.21
+  ],
+  "Philippines": [
+   "Manila",
+   120.98,
+   14.6
+  ],
+  "Morocco": [
+   "Rabat",
+   -6.84,
+   34.02
+  ],
+  "Nigeria": [
+   "Abuja",
+   7.49,
+   9.06
+  ],
+  "Ethiopia": [
+   "Addis Ababa",
+   38.75,
+   9.03
+  ],
+  "South Africa": [
+   "Pretoria",
+   28.19,
+   -25.75
+  ],
+  "Saudi Arabia": [
+   "Riyadh",
+   46.72,
+   24.71
+  ],
+  "Croatia": [
+   "Zagreb",
+   15.98,
+   45.81
+  ]
+ },
+ "levels": [
+  {
+   "trip": "Continents",
+   "icon": "🗺️",
+   "camera": "globe",
+   "ask": [
+    "Europe",
+    "Asia",
+    "Africa",
+    "North America",
+    "South America",
+    "Australia",
+    "Antarctica"
+   ]
+  },
+  {
+   "trip": "Home and giants",
+   "flags": 2,
+   "cards": "far",
+   "icon": "🏠",
+   "camera": "continent",
+   "pale": true,
+   "ask": [
+    "Poland",
+    "Russia",
+    "China",
+    "United States",
+    "Canada",
+    "Brazil",
+    "Australia",
+    "India"
+   ]
+  },
+  {
+   "trip": "Poland's neighbors",
+   "flags": 3,
+   "cards": "far",
+   "icon": "🤝",
+   "camera": "level",
+   "view": {
+    "lon": 23,
+    "lat": 51.5,
+    "ext": 11
+   },
+   "pale": true,
+   "ask": [
+    "Germany",
+    "Czechia",
+    "Slovakia",
+    "Ukraine",
+    "Belarus",
+    "Lithuania"
+   ]
+  },
+  {
+   "trip": "Big Europe",
+   "flags": 3,
+   "cards": "far",
+   "icon": "🏰",
+   "camera": "level",
+   "view": "EU",
+   "ask": [
+    "France",
+    "Spain",
+    "Italy",
+    "United Kingdom",
+    "Norway",
+    "Sweden",
+    "Greece",
+    "Portugal"
+   ]
+  },
+  {
+   "trip": "The Americas",
+   "flags": 3,
+   "cards": "far",
+   "icon": "🦅",
+   "camera": "continent",
+   "pick": 8,
+   "ask": [
+    "United States",
+    "Canada",
+    "Mexico",
+    "Cuba",
+    "Brazil",
+    "Argentina",
+    "Chile",
+    "Peru",
+    "Colombia"
+   ]
+  },
+  {
+   "trip": "Africa",
+   "flags": 3,
+   "cards": "far",
+   "icon": "🦁",
+   "camera": "level",
+   "view": "AF",
+   "ask": [
+    "Egypt",
+    "Morocco",
+    "Algeria",
+    "Nigeria",
+    "Kenya",
+    "Ethiopia",
+    "South Africa",
+    "Madagascar"
+   ]
+  },
+  {
+   "trip": "Asia",
+   "flags": 4,
+   "cards": "near",
+   "icon": "🐼",
+   "camera": "level",
+   "view": "AS",
+   "pick": 8,
+   "ask": [
+    "China",
+    "Japan",
+    "India",
+    "Mongolia",
+    "Saudi Arabia",
+    "Turkey",
+    "Thailand",
+    "South Korea",
+    "Indonesia"
+   ]
+  },
+  {
+   "trip": "Famous islands",
+   "flags": 3,
+   "cards": "far",
+   "icon": "🏝️",
+   "camera": "island",
+   "pick": 8,
+   "ask": [
+    "Greenland",
+    "Iceland",
+    "Ireland",
+    "Great Britain",
+    "Sicily",
+    "Crete",
+    "Cyprus",
+    "Madagascar",
+    "Sri Lanka",
+    "Japan",
+    "New Zealand",
+    "Tasmania",
+    "Hawaii",
+    "Cuba",
+    "Jamaica",
+    "Philippines"
+   ]
+  },
+  {
+   "trip": "Flag party",
+   "icon": "🎉",
+   "camera": "level",
+   "view": "EU",
+   "flags": 6,
+   "lightup": true,
+   "cards": "near",
+   "pick": 8,
+   "ask": [
+    "Germany",
+    "Czechia",
+    "Slovakia",
+    "Ukraine",
+    "Lithuania",
+    "France",
+    "Spain",
+    "Italy",
+    "United Kingdom",
+    "Sweden",
+    "Greece"
+   ]
+  },
+  {
+   "trip": "Little Europe",
+   "flags": 4,
+   "cards": "near",
+   "icon": "🧀",
+   "camera": "level",
+   "view": {
+    "lon": 12,
+    "lat": 50,
+    "ext": 11
+   },
+   "pick": 8,
+   "ask": [
+    "Netherlands",
+    "Belgium",
+    "Switzerland",
+    "Austria",
+    "Hungary",
+    "Denmark",
+    "Finland",
+    "Romania",
+    "Croatia"
+   ]
+  },
+  {
+   "trip": "Look-alike flags",
+   "icon": "👯",
+   "camera": "continent",
+   "flags": 6,
+   "lightup": true,
+   "cards": "alike",
+   "pick": 8,
+   "ask": [
+    "Poland",
+    "Indonesia",
+    "Italy",
+    "Ireland",
+    "Mexico",
+    "France",
+    "Netherlands",
+    "Russia",
+    "Romania",
+    "Chad",
+    "Norway",
+    "Iceland",
+    "Denmark",
+    "Sweden",
+    "Finland"
+   ]
+  },
+  {
+   "trip": "Capital cities",
+   "icon": "🏙️",
+   "camera": "continent",
+   "capitals": true,
+   "pick": 8,
+   "ask": [
+    "Poland",
+    "Germany",
+    "France",
+    "United Kingdom",
+    "Italy",
+    "Spain",
+    "Russia",
+    "Ukraine",
+    "Czechia",
+    "Greece",
+    "Egypt",
+    "Japan",
+    "China",
+    "United States",
+    "Canada",
+    "Australia",
+    "India",
+    "Brazil",
+    "Argentina",
+    "Mexico",
+    "Kenya",
+    "Norway",
+    "Sweden",
+    "Portugal"
+   ]
+  },
+  {
+   "trip": "Round the world",
+   "flags": 4,
+   "cards": "near",
+   "icon": "✈️",
+   "camera": "continent",
+   "mix": true,
+   "pick": 8,
+   "ask": [],
+   "capitals": 1
+  },
+  {
+   "trip": "World tour",
+   "icon": "🌐",
+   "camera": "continent",
+   "tour": true,
+   "new": 2,
+   "flags": 2,
+   "cards": "near",
+   "pick": 8,
+   "ask": [
+    "Vietnam",
+    "Pakistan",
+    "Iran",
+    "Iraq",
+    "Afghanistan",
+    "Kazakhstan",
+    "Nepal",
+    "Bangladesh",
+    "Malaysia",
+    "Venezuela",
+    "Bolivia",
+    "Ecuador",
+    "Uruguay",
+    "Paraguay",
+    "Libya",
+    "Sudan",
+    "Tanzania",
+    "DR Congo",
+    "Angola",
+    "Namibia",
+    "Ghana",
+    "Somalia",
+    "Senegal",
+    "Cameroon",
+    "Zimbabwe",
+    "Serbia",
+    "Bulgaria",
+    "Estonia",
+    "Latvia",
+    "Albania",
+    "Slovenia"
+   ],
+   "capitals": 2
+  }
+ ],
+ "stickers": {
+  "Poland": "🥟",
+  "Russia": "🪆",
+  "China": "🐼",
+  "United States": "🗽",
+  "Canada": "🍁",
+  "Brazil": "⚽",
+  "Australia": "🦘",
+  "India": "🐅",
+  "Germany": "🥨",
+  "Czechia": "🏰",
+  "Slovakia": "⛰️",
+  "Ukraine": "🌻",
+  "Belarus": "🦬",
+  "Lithuania": "🏀",
+  "France": "🥐",
+  "Spain": "💃",
+  "Italy": "🍕",
+  "United Kingdom": "💂",
+  "Norway": "⛷️",
+  "Sweden": "🦌",
+  "Greece": "🏛️",
+  "Portugal": "🐓",
+  "Mexico": "🌮",
+  "Cuba": "🚗",
+  "Argentina": "🐄",
+  "Chile": "🌶️",
+  "Peru": "🦙",
+  "Colombia": "☕",
+  "Egypt": "🐫",
+  "Morocco": "🫖",
+  "Algeria": "🏜️",
+  "Nigeria": "🥁",
+  "Kenya": "🦒",
+  "Ethiopia": "🏃",
+  "South Africa": "🦁",
+  "Madagascar": "🐒",
+  "Japan": "🍣",
+  "Mongolia": "🐎",
+  "Saudi Arabia": "🌴",
+  "Turkey": "🧿",
+  "Thailand": "🐘",
+  "South Korea": "🥢",
+  "Indonesia": "🦎",
+  "New Zealand": "🥝",
+  "Iceland": "🌋",
+  "Ireland": "☘️",
+  "Philippines": "🥭",
+  "Netherlands": "🌷",
+  "Belgium": "🧇",
+  "Switzerland": "🧀",
+  "Austria": "🎻",
+  "Hungary": "♨️",
+  "Denmark": "🧱",
+  "Finland": "🎅",
+  "Romania": "🐻",
+  "Croatia": "⛵",
+  "Chad": "🐊",
+  "Greenland": "🐻‍❄️",
+  "Cyprus": "🍊",
+  "Sri Lanka": "🍵",
+  "Jamaica": "🎶",
+  "Great Britain": "☂️",
+  "Sicily": "🍋",
+  "Crete": "🏺",
+  "Tasmania": "🌲",
+  "Hawaii": "🌺",
+  "Europe": "🏰",
+  "Asia": "🐼",
+  "Africa": "🦁",
+  "North America": "🦅",
+  "South America": "🦜",
+  "Antarctica": "🐧",
+  "Vietnam": "🍜",
+  "Pakistan": "🏏",
+  "Iran": "🐈",
+  "Kazakhstan": "🍎",
+  "Nepal": "🏔️",
+  "Bangladesh": "🛺",
+  "Malaysia": "🦧",
+  "Venezuela": "🏞️",
+  "Bolivia": "🧂",
+  "Ecuador": "🐢",
+  "Uruguay": "🧉",
+  "Tanzania": "🦓",
+  "DR Congo": "🦍",
+  "Namibia": "🐆",
+  "Ghana": "🍫",
+  "Senegal": "🌳",
+  "Cameroon": "⚽",
+  "Zimbabwe": "💦",
+  "Bulgaria": "🌹",
+  "Albania": "🦅",
+  "Afghanistan": "🪁",
+  "Iraq": "🌴",
+  "Paraguay": "🦜",
+  "Libya": "🏜️",
+  "Sudan": "🐪",
+  "Angola": "🦒",
+  "Somalia": "🐪",
+  "Serbia": "🎾",
+  "Estonia": "🦌",
+  "Latvia": "🌲",
+  "Slovenia": "🐻"
+ }
+}

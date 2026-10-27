@@ -1,0 +1,3487 @@
+{
+ "tool": "Kokoro-82M v1.0 (kokoro-onnx), run locally",
+ "voice": "af_heart",
+ "speed": 0.85,
+ "clips": {
+  "And guess what? When it's winter here, it's summer in Australia!": {
+   "file": "and-guess-what-when-it-s-winter-here-it-4ad3c4.mp3",
+   "dur": 4.37,
+   "made": "2026-10-27"
+  },
+  "And it always points the same way, at the North Star.": {
+   "file": "and-it-always-points-the-same-way-at-the-cd406e.mp3",
+   "dur": 3.64,
+   "made": "2026-10-27"
+  },
+  "Brrr! It's winter.": {
+   "file": "brrr-it-s-winter-59a3dc.mp3",
+   "dur": 2.19,
+   "made": "2026-10-27"
+  },
+  "Every year, the Earth travels all the way around the Sun.": {
+   "file": "every-year-the-earth-travels-all-the-way-6f9b73.mp3",
+   "dur": 3.82,
+   "made": "2026-10-27"
+  },
+  "Fall!": {
+   "file": "fall-480b1a.mp3",
+   "dur": 1.17,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Abuja.": {
+   "file": "find-the-country-with-the-capital-city-a-577c23.mp3",
+   "dur": 3.47,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Addis Ababa.": {
+   "file": "find-the-country-with-the-capital-city-a-3bf504.mp3",
+   "dur": 3.68,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Amsterdam.": {
+   "file": "find-the-country-with-the-capital-city-a-315c00.mp3",
+   "dur": 3.62,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Ankara.": {
+   "file": "find-the-country-with-the-capital-city-a-784c7e.mp3",
+   "dur": 3.51,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Athens.": {
+   "file": "find-the-country-with-the-capital-city-a-7b9a68.mp3",
+   "dur": 3.37,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Bangkok.": {
+   "file": "find-the-country-with-the-capital-city-b-6fbbbf.mp3",
+   "dur": 3.42,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Beijing.": {
+   "file": "find-the-country-with-the-capital-city-b-b22d0d.mp3",
+   "dur": 3.39,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Berlin.": {
+   "file": "find-the-country-with-the-capital-city-b-0e1e75.mp3",
+   "dur": 3.29,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Bern.": {
+   "file": "find-the-country-with-the-capital-city-b-a58121.mp3",
+   "dur": 3.28,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Bogota.": {
+   "file": "find-the-country-with-the-capital-city-b-3819ae.mp3",
+   "dur": 3.61,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Brasilia.": {
+   "file": "find-the-country-with-the-capital-city-b-a72eff.mp3",
+   "dur": 3.65,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Bratislava.": {
+   "file": "find-the-country-with-the-capital-city-b-8b326d.mp3",
+   "dur": 3.84,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Brussels.": {
+   "file": "find-the-country-with-the-capital-city-b-356803.mp3",
+   "dur": 3.44,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Bucharest.": {
+   "file": "find-the-country-with-the-capital-city-b-02fe26.mp3",
+   "dur": 3.63,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Budapest.": {
+   "file": "find-the-country-with-the-capital-city-b-293268.mp3",
+   "dur": 3.63,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Buenos Aires.": {
+   "file": "find-the-country-with-the-capital-city-b-279553.mp3",
+   "dur": 3.94,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Cairo.": {
+   "file": "find-the-country-with-the-capital-city-c-3be822.mp3",
+   "dur": 3.31,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Canberra.": {
+   "file": "find-the-country-with-the-capital-city-c-e00635.mp3",
+   "dur": 3.39,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Copenhagen.": {
+   "file": "find-the-country-with-the-capital-city-c-fcfd0d.mp3",
+   "dur": 3.8,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Dublin.": {
+   "file": "find-the-country-with-the-capital-city-d-11bc45.mp3",
+   "dur": 3.39,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Havana.": {
+   "file": "find-the-country-with-the-capital-city-h-d29d9d.mp3",
+   "dur": 3.45,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Helsinki.": {
+   "file": "find-the-country-with-the-capital-city-h-3194fd.mp3",
+   "dur": 3.6,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Jakarta.": {
+   "file": "find-the-country-with-the-capital-city-j-20394a.mp3",
+   "dur": 3.6,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Kyiv.": {
+   "file": "find-the-country-with-the-capital-city-k-97f834.mp3",
+   "dur": 3.27,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Lima.": {
+   "file": "find-the-country-with-the-capital-city-l-a299e7.mp3",
+   "dur": 3.22,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Lisbon.": {
+   "file": "find-the-country-with-the-capital-city-l-b2cabd.mp3",
+   "dur": 3.33,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city London.": {
+   "file": "find-the-country-with-the-capital-city-l-1c466b.mp3",
+   "dur": 3.35,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Madrid.": {
+   "file": "find-the-country-with-the-capital-city-m-5a8b6b.mp3",
+   "dur": 3.38,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Manila.": {
+   "file": "find-the-country-with-the-capital-city-m-b84b09.mp3",
+   "dur": 3.35,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Mexico City.": {
+   "file": "find-the-country-with-the-capital-city-m-185e86.mp3",
+   "dur": 3.92,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Minsk.": {
+   "file": "find-the-country-with-the-capital-city-m-dce19c.mp3",
+   "dur": 3.19,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Moscow.": {
+   "file": "find-the-country-with-the-capital-city-m-3e3be3.mp3",
+   "dur": 3.41,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Nairobi.": {
+   "file": "find-the-country-with-the-capital-city-n-9e9036.mp3",
+   "dur": 3.55,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city New Delhi.": {
+   "file": "find-the-country-with-the-capital-city-n-a65180.mp3",
+   "dur": 3.42,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Oslo.": {
+   "file": "find-the-country-with-the-capital-city-o-d6b8b2.mp3",
+   "dur": 3.4,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Ottawa.": {
+   "file": "find-the-country-with-the-capital-city-o-c61261.mp3",
+   "dur": 3.3,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Paris.": {
+   "file": "find-the-country-with-the-capital-city-p-dc5d64.mp3",
+   "dur": 3.33,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Prague.": {
+   "file": "find-the-country-with-the-capital-city-p-b4b8ff.mp3",
+   "dur": 3.27,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Pretoria.": {
+   "file": "find-the-country-with-the-capital-city-p-254c81.mp3",
+   "dur": 3.57,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Rabat.": {
+   "file": "find-the-country-with-the-capital-city-r-505db6.mp3",
+   "dur": 3.37,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Reykjavik.": {
+   "file": "find-the-country-with-the-capital-city-r-e7313a.mp3",
+   "dur": 3.6,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Riyadh.": {
+   "file": "find-the-country-with-the-capital-city-r-34810f.mp3",
+   "dur": 3.39,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Rome.": {
+   "file": "find-the-country-with-the-capital-city-r-933c8a.mp3",
+   "dur": 3.25,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Santiago.": {
+   "file": "find-the-country-with-the-capital-city-s-d726df.mp3",
+   "dur": 3.76,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Seoul.": {
+   "file": "find-the-country-with-the-capital-city-s-35b00f.mp3",
+   "dur": 3.13,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Stockholm.": {
+   "file": "find-the-country-with-the-capital-city-s-e98f0a.mp3",
+   "dur": 3.57,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Tokyo.": {
+   "file": "find-the-country-with-the-capital-city-t-517532.mp3",
+   "dur": 3.48,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Vienna.": {
+   "file": "find-the-country-with-the-capital-city-v-7720a0.mp3",
+   "dur": 3.35,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Vilnius.": {
+   "file": "find-the-country-with-the-capital-city-v-077112.mp3",
+   "dur": 3.41,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Warsaw.": {
+   "file": "find-the-country-with-the-capital-city-w-967312.mp3",
+   "dur": 3.44,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Washington.": {
+   "file": "find-the-country-with-the-capital-city-w-c5f0b8.mp3",
+   "dur": 3.6,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Wellington.": {
+   "file": "find-the-country-with-the-capital-city-w-ed7cf9.mp3",
+   "dur": 3.5,
+   "made": "2026-10-27"
+  },
+  "Find the country with the capital city Zagreb.": {
+   "file": "find-the-country-with-the-capital-city-z-b3b716.mp3",
+   "dur": 3.4,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Afghanistan.": {
+   "file": "find-the-flag-of-afghanistan-c38ced.mp3",
+   "dur": 2.48,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Albania.": {
+   "file": "find-the-flag-of-albania-ed3068.mp3",
+   "dur": 2.26,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Algeria.": {
+   "file": "find-the-flag-of-algeria-452849.mp3",
+   "dur": 2.26,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Angola.": {
+   "file": "find-the-flag-of-angola-a56fda.mp3",
+   "dur": 2.13,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Antarctica.": {
+   "file": "find-the-flag-of-antarctica-03aed1.mp3",
+   "dur": 2.46,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Argentina.": {
+   "file": "find-the-flag-of-argentina-34c25f.mp3",
+   "dur": 2.39,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Australia.": {
+   "file": "find-the-flag-of-australia-8a9c87.mp3",
+   "dur": 2.3,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Austria.": {
+   "file": "find-the-flag-of-austria-d8b35d.mp3",
+   "dur": 2.11,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Bangladesh.": {
+   "file": "find-the-flag-of-bangladesh-99792a.mp3",
+   "dur": 2.41,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Belarus.": {
+   "file": "find-the-flag-of-belarus-3e654c.mp3",
+   "dur": 2.29,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Belgium.": {
+   "file": "find-the-flag-of-belgium-780679.mp3",
+   "dur": 2.14,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Bolivia.": {
+   "file": "find-the-flag-of-bolivia-6b1003.mp3",
+   "dur": 2.26,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Brazil.": {
+   "file": "find-the-flag-of-brazil-0d3bcf.mp3",
+   "dur": 2.16,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Bulgaria.": {
+   "file": "find-the-flag-of-bulgaria-0def8d.mp3",
+   "dur": 2.25,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Cameroon.": {
+   "file": "find-the-flag-of-cameroon-040a0f.mp3",
+   "dur": 2.24,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Canada.": {
+   "file": "find-the-flag-of-canada-68a771.mp3",
+   "dur": 2.12,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Chad.": {
+   "file": "find-the-flag-of-chad-82c659.mp3",
+   "dur": 1.99,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Chile.": {
+   "file": "find-the-flag-of-chile-b0a351.mp3",
+   "dur": 2.04,
+   "made": "2026-10-27"
+  },
+  "Find the flag of China.": {
+   "file": "find-the-flag-of-china-aff136.mp3",
+   "dur": 2.11,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Colombia.": {
+   "file": "find-the-flag-of-colombia-54ed8b.mp3",
+   "dur": 2.22,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Croatia.": {
+   "file": "find-the-flag-of-croatia-9bc1e1.mp3",
+   "dur": 2.25,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Cuba.": {
+   "file": "find-the-flag-of-cuba-0a8a30.mp3",
+   "dur": 2.09,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Cyprus.": {
+   "file": "find-the-flag-of-cyprus-8fb273.mp3",
+   "dur": 2.21,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Czechia.": {
+   "file": "find-the-flag-of-czechia-e04b8b.mp3",
+   "dur": 2.16,
+   "made": "2026-10-27"
+  },
+  "Find the flag of DR Congo.": {
+   "file": "find-the-flag-of-dr-congo-ea5d9c.mp3",
+   "dur": 2.63,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Denmark.": {
+   "file": "find-the-flag-of-denmark-03e98a.mp3",
+   "dur": 2.25,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Ecuador.": {
+   "file": "find-the-flag-of-ecuador-d83a55.mp3",
+   "dur": 2.22,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Egypt.": {
+   "file": "find-the-flag-of-egypt-235b3b.mp3",
+   "dur": 2.18,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Estonia.": {
+   "file": "find-the-flag-of-estonia-90abb3.mp3",
+   "dur": 2.19,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Ethiopia.": {
+   "file": "find-the-flag-of-ethiopia-b3c3f9.mp3",
+   "dur": 2.42,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Finland.": {
+   "file": "find-the-flag-of-finland-3d5784.mp3",
+   "dur": 2.15,
+   "made": "2026-10-27"
+  },
+  "Find the flag of France.": {
+   "file": "find-the-flag-of-france-111af3.mp3",
+   "dur": 2.11,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Germany.": {
+   "file": "find-the-flag-of-germany-3306f5.mp3",
+   "dur": 2.15,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Ghana.": {
+   "file": "find-the-flag-of-ghana-7398cd.mp3",
+   "dur": 2.11,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Greece.": {
+   "file": "find-the-flag-of-greece-18d439.mp3",
+   "dur": 2.12,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Greenland.": {
+   "file": "find-the-flag-of-greenland-4cb9f6.mp3",
+   "dur": 2.2,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Hungary.": {
+   "file": "find-the-flag-of-hungary-220c05.mp3",
+   "dur": 2.09,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Iceland.": {
+   "file": "find-the-flag-of-iceland-e7e7b4.mp3",
+   "dur": 2.14,
+   "made": "2026-10-27"
+  },
+  "Find the flag of India.": {
+   "file": "find-the-flag-of-india-2d950a.mp3",
+   "dur": 2.09,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Indonesia.": {
+   "file": "find-the-flag-of-indonesia-897b9f.mp3",
+   "dur": 2.31,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Iran.": {
+   "file": "find-the-flag-of-iran-ce10f2.mp3",
+   "dur": 2.06,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Iraq.": {
+   "file": "find-the-flag-of-iraq-b74238.mp3",
+   "dur": 2.07,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Ireland.": {
+   "file": "find-the-flag-of-ireland-a66126.mp3",
+   "dur": 2.17,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Italy.": {
+   "file": "find-the-flag-of-italy-78ab34.mp3",
+   "dur": 2.06,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Jamaica.": {
+   "file": "find-the-flag-of-jamaica-3dafd5.mp3",
+   "dur": 2.32,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Japan.": {
+   "file": "find-the-flag-of-japan-4acfee.mp3",
+   "dur": 2.15,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Kazakhstan.": {
+   "file": "find-the-flag-of-kazakhstan-1a689c.mp3",
+   "dur": 2.45,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Kenya.": {
+   "file": "find-the-flag-of-kenya-6c0eb4.mp3",
+   "dur": 2.04,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Latvia.": {
+   "file": "find-the-flag-of-latvia-23869d.mp3",
+   "dur": 2.15,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Libya.": {
+   "file": "find-the-flag-of-libya-1ec344.mp3",
+   "dur": 2.04,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Lithuania.": {
+   "file": "find-the-flag-of-lithuania-840795.mp3",
+   "dur": 2.5,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Madagascar.": {
+   "file": "find-the-flag-of-madagascar-42fb07.mp3",
+   "dur": 2.5,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Malaysia.": {
+   "file": "find-the-flag-of-malaysia-a047f4.mp3",
+   "dur": 2.15,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Mexico.": {
+   "file": "find-the-flag-of-mexico-8e7e8a.mp3",
+   "dur": 2.31,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Mongolia.": {
+   "file": "find-the-flag-of-mongolia-cb2cb0.mp3",
+   "dur": 2.31,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Morocco.": {
+   "file": "find-the-flag-of-morocco-34ccc1.mp3",
+   "dur": 2.24,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Namibia.": {
+   "file": "find-the-flag-of-namibia-59a449.mp3",
+   "dur": 2.21,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Nepal.": {
+   "file": "find-the-flag-of-nepal-10f866.mp3",
+   "dur": 2.2,
+   "made": "2026-10-27"
+  },
+  "Find the flag of New Zealand.": {
+   "file": "find-the-flag-of-new-zealand-4b027e.mp3",
+   "dur": 2.31,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Nigeria.": {
+   "file": "find-the-flag-of-nigeria-9c5943.mp3",
+   "dur": 2.28,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Norway.": {
+   "file": "find-the-flag-of-norway-9af5be.mp3",
+   "dur": 2.17,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Pakistan.": {
+   "file": "find-the-flag-of-pakistan-42e59f.mp3",
+   "dur": 2.34,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Paraguay.": {
+   "file": "find-the-flag-of-paraguay-048621.mp3",
+   "dur": 2.25,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Peru.": {
+   "file": "find-the-flag-of-peru-26709b.mp3",
+   "dur": 2.13,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Poland.": {
+   "file": "find-the-flag-of-poland-36ab70.mp3",
+   "dur": 2.15,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Portugal.": {
+   "file": "find-the-flag-of-portugal-c2b8b3.mp3",
+   "dur": 2.26,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Romania.": {
+   "file": "find-the-flag-of-romania-87e630.mp3",
+   "dur": 2.31,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Russia.": {
+   "file": "find-the-flag-of-russia-b173c9.mp3",
+   "dur": 2.09,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Saudi Arabia.": {
+   "file": "find-the-flag-of-saudi-arabia-fdb2e0.mp3",
+   "dur": 2.61,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Senegal.": {
+   "file": "find-the-flag-of-senegal-554c2a.mp3",
+   "dur": 2.13,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Serbia.": {
+   "file": "find-the-flag-of-serbia-834c8c.mp3",
+   "dur": 2.11,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Slovakia.": {
+   "file": "find-the-flag-of-slovakia-6636fb.mp3",
+   "dur": 2.36,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Slovenia.": {
+   "file": "find-the-flag-of-slovenia-c9e41b.mp3",
+   "dur": 2.28,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Somalia.": {
+   "file": "find-the-flag-of-somalia-b6cff1.mp3",
+   "dur": 2.18,
+   "made": "2026-10-27"
+  },
+  "Find the flag of South Africa.": {
+   "file": "find-the-flag-of-south-africa-356b58.mp3",
+   "dur": 2.5,
+   "made": "2026-10-27"
+  },
+  "Find the flag of South Korea.": {
+   "file": "find-the-flag-of-south-korea-d34ab9.mp3",
+   "dur": 2.35,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Spain.": {
+   "file": "find-the-flag-of-spain-f40757.mp3",
+   "dur": 2.03,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Sri Lanka.": {
+   "file": "find-the-flag-of-sri-lanka-5d3ddf.mp3",
+   "dur": 2.27,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Sudan.": {
+   "file": "find-the-flag-of-sudan-786a62.mp3",
+   "dur": 2.12,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Sweden.": {
+   "file": "find-the-flag-of-sweden-3a38fb.mp3",
+   "dur": 2.08,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Switzerland.": {
+   "file": "find-the-flag-of-switzerland-13260d.mp3",
+   "dur": 2.21,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Tanzania.": {
+   "file": "find-the-flag-of-tanzania-aefa1c.mp3",
+   "dur": 2.27,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Thailand.": {
+   "file": "find-the-flag-of-thailand-a6f619.mp3",
+   "dur": 2.15,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Turkey.": {
+   "file": "find-the-flag-of-turkey-1d1025.mp3",
+   "dur": 2.12,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Ukraine.": {
+   "file": "find-the-flag-of-ukraine-0484c7.mp3",
+   "dur": 2.16,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Uruguay.": {
+   "file": "find-the-flag-of-uruguay-a71074.mp3",
+   "dur": 2.41,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Venezuela.": {
+   "file": "find-the-flag-of-venezuela-118da8.mp3",
+   "dur": 2.34,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Vietnam.": {
+   "file": "find-the-flag-of-vietnam-72bdf8.mp3",
+   "dur": 2.28,
+   "made": "2026-10-27"
+  },
+  "Find the flag of Zimbabwe.": {
+   "file": "find-the-flag-of-zimbabwe-2e5e4d.mp3",
+   "dur": 2.33,
+   "made": "2026-10-27"
+  },
+  "Find the flag of the Netherlands.": {
+   "file": "find-the-flag-of-the-netherlands-e6d460.mp3",
+   "dur": 2.37,
+   "made": "2026-10-27"
+  },
+  "Find the flag of the Philippines.": {
+   "file": "find-the-flag-of-the-philippines-4b4822.mp3",
+   "dur": 2.52,
+   "made": "2026-10-27"
+  },
+  "Find the flag of the United Kingdom.": {
+   "file": "find-the-flag-of-the-united-kingdom-ef42f9.mp3",
+   "dur": 2.84,
+   "made": "2026-10-27"
+  },
+  "Find the flag of the United States.": {
+   "file": "find-the-flag-of-the-united-states-b71210.mp3",
+   "dur": 2.75,
+   "made": "2026-10-27"
+  },
+  "Half a year later, our half leans away from the Sun.": {
+   "file": "half-a-year-later-our-half-leans-away-fr-bfb7a7.mp3",
+   "dur": 3.55,
+   "made": "2026-10-27"
+  },
+  "In between come spring and fall.": {
+   "file": "in-between-come-spring-and-fall-6eaab0.mp3",
+   "dur": 2.45,
+   "made": "2026-10-27"
+  },
+  "In summer, the Sun is high up. Its light lands on a small spot, so the ground gets warm.": {
+   "file": "in-summer-the-sun-is-high-up-its-light-l-d4558a.mp3",
+   "dur": 6.63,
+   "made": "2026-10-27"
+  },
+  "In winter, the Sun stays low. The same light spreads out over a bigger place, so the ground stays cold.": {
+   "file": "in-winter-the-sun-stays-low-the-same-lig-2e1ed1.mp3",
+   "dur": 7.38,
+   "made": "2026-10-27"
+  },
+  "It's summer!": {
+   "file": "it-s-summer-8db3a8.mp3",
+   "dur": 1.35,
+   "made": "2026-10-27"
+  },
+  "Let's fly home!": {
+   "file": "let-s-fly-home-f569aa.mp3",
+   "dur": 1.77,
+   "made": "2026-10-27"
+  },
+  "Let's fly to Africa!": {
+   "file": "let-s-fly-to-africa-86eee4.mp3",
+   "dur": 2.11,
+   "made": "2026-10-27"
+  },
+  "Let's fly to Antarctica!": {
+   "file": "let-s-fly-to-antarctica-5a56d7.mp3",
+   "dur": 2.3,
+   "made": "2026-10-27"
+  },
+  "Let's fly to Asia!": {
+   "file": "let-s-fly-to-asia-11f0c3.mp3",
+   "dur": 1.97,
+   "made": "2026-10-27"
+  },
+  "Let's fly to Australia!": {
+   "file": "let-s-fly-to-australia-4456f5.mp3",
+   "dur": 2.15,
+   "made": "2026-10-27"
+  },
+  "Let's fly to Europe!": {
+   "file": "let-s-fly-to-europe-657cc3.mp3",
+   "dur": 2.0,
+   "made": "2026-10-27"
+  },
+  "Let's fly to North America!": {
+   "file": "let-s-fly-to-north-america-205aef.mp3",
+   "dur": 2.33,
+   "made": "2026-10-27"
+  },
+  "Let's fly to South America!": {
+   "file": "let-s-fly-to-south-america-bc7cf9.mp3",
+   "dur": 2.35,
+   "made": "2026-10-27"
+  },
+  "Let's go exploring!": {
+   "file": "let-s-go-exploring-ec99ec.mp3",
+   "dur": 1.92,
+   "made": "2026-10-27"
+  },
+  "Let's look at the whole world!": {
+   "file": "let-s-look-at-the-whole-world-62fd4f.mp3",
+   "dur": 2.15,
+   "made": "2026-10-27"
+  },
+  "Look here!": {
+   "file": "look-here-aa4535.mp3",
+   "dur": 1.29,
+   "made": "2026-10-27"
+  },
+  "Look! The Earth is a little bit tipped over, like this.": {
+   "file": "look-the-earth-is-a-little-bit-tipped-ov-c8d12a.mp3",
+   "dur": 3.77,
+   "made": "2026-10-27"
+  },
+  "Now you move the Sun, up and down!": {
+   "file": "now-you-move-the-sun-up-and-down-263c99.mp3",
+   "dur": 2.81,
+   "made": "2026-10-27"
+  },
+  "Now you try! Push the Earth around the Sun.": {
+   "file": "now-you-try-push-the-earth-around-the-su-9625db.mp3",
+   "dur": 3.41,
+   "made": "2026-10-27"
+  },
+  "Push the Earth along the circle.": {
+   "file": "push-the-earth-along-the-circle-108995.mp3",
+   "dur": 2.32,
+   "made": "2026-10-27"
+  },
+  "Spring!": {
+   "file": "spring-125a10.mp3",
+   "dur": 1.25,
+   "made": "2026-10-27"
+  },
+  "Summer!": {
+   "file": "summer-4be0f2.mp3",
+   "dur": 1.19,
+   "made": "2026-10-27"
+  },
+  "Super!": {
+   "file": "super-1c93de.mp3",
+   "dur": 1.27,
+   "made": "2026-10-27"
+  },
+  "That's the sea.": {
+   "file": "that-s-the-sea-026784.mp3",
+   "dur": 1.55,
+   "made": "2026-10-27"
+  },
+  "The Earth goes round and round, and the seasons come again and again.": {
+   "file": "the-earth-goes-round-and-round-and-the-s-0d41e3.mp3",
+   "dur": 4.79,
+   "made": "2026-10-27"
+  },
+  "The Earth spins round and round.": {
+   "file": "the-earth-spins-round-and-round-7c71bb.mp3",
+   "dur": 2.53,
+   "made": "2026-10-27"
+  },
+  "The sunshine is weak, and the days are short.": {
+   "file": "the-sunshine-is-weak-and-the-days-are-sh-8bc4e5.mp3",
+   "dur": 3.32,
+   "made": "2026-10-27"
+  },
+  "This is Afghanistan.": {
+   "file": "this-is-afghanistan-e98ffd.mp3",
+   "dur": 2.06,
+   "made": "2026-10-27"
+  },
+  "This is Africa.": {
+   "file": "this-is-africa-208405.mp3",
+   "dur": 1.74,
+   "made": "2026-10-27"
+  },
+  "This is Albania.": {
+   "file": "this-is-albania-6a551a.mp3",
+   "dur": 1.75,
+   "made": "2026-10-27"
+  },
+  "This is Algeria.": {
+   "file": "this-is-algeria-802d75.mp3",
+   "dur": 1.77,
+   "made": "2026-10-27"
+  },
+  "This is American Samoa.": {
+   "file": "this-is-american-samoa-721b51.mp3",
+   "dur": 2.2,
+   "made": "2026-10-27"
+  },
+  "This is Andorra.": {
+   "file": "this-is-andorra-4d0d28.mp3",
+   "dur": 1.7,
+   "made": "2026-10-27"
+  },
+  "This is Angola.": {
+   "file": "this-is-angola-6dbf2f.mp3",
+   "dur": 1.68,
+   "made": "2026-10-27"
+  },
+  "This is Anguilla.": {
+   "file": "this-is-anguilla-4bb19c.mp3",
+   "dur": 1.69,
+   "made": "2026-10-27"
+  },
+  "This is Antarctica.": {
+   "file": "this-is-antarctica-44187b.mp3",
+   "dur": 2.13,
+   "made": "2026-10-27"
+  },
+  "This is Antigua and Barbuda.": {
+   "file": "this-is-antigua-and-barbuda-c8e0b5.mp3",
+   "dur": 2.75,
+   "made": "2026-10-27"
+  },
+  "This is Argentina.": {
+   "file": "this-is-argentina-04a6fe.mp3",
+   "dur": 2.12,
+   "made": "2026-10-27"
+  },
+  "This is Armenia.": {
+   "file": "this-is-armenia-c9d572.mp3",
+   "dur": 1.81,
+   "made": "2026-10-27"
+  },
+  "This is Aruba.": {
+   "file": "this-is-aruba-b0afb2.mp3",
+   "dur": 1.65,
+   "made": "2026-10-27"
+  },
+  "This is Asia.": {
+   "file": "this-is-asia-325514.mp3",
+   "dur": 1.56,
+   "made": "2026-10-27"
+  },
+  "This is Australia.": {
+   "file": "this-is-australia-9d1171.mp3",
+   "dur": 1.9,
+   "made": "2026-10-27"
+  },
+  "This is Austria.": {
+   "file": "this-is-austria-bc761c.mp3",
+   "dur": 1.65,
+   "made": "2026-10-27"
+  },
+  "This is Azerbaijan.": {
+   "file": "this-is-azerbaijan-d68a81.mp3",
+   "dur": 2.09,
+   "made": "2026-10-27"
+  },
+  "This is Bahrain.": {
+   "file": "this-is-bahrain-a0e8e2.mp3",
+   "dur": 1.67,
+   "made": "2026-10-27"
+  },
+  "This is Bangladesh.": {
+   "file": "this-is-bangladesh-365c14.mp3",
+   "dur": 1.88,
+   "made": "2026-10-27"
+  },
+  "This is Barbados.": {
+   "file": "this-is-barbados-de9423.mp3",
+   "dur": 1.92,
+   "made": "2026-10-27"
+  },
+  "This is Belarus.": {
+   "file": "this-is-belarus-f83a14.mp3",
+   "dur": 1.83,
+   "made": "2026-10-27"
+  },
+  "This is Belgium.": {
+   "file": "this-is-belgium-56afbf.mp3",
+   "dur": 1.64,
+   "made": "2026-10-27"
+  },
+  "This is Belize.": {
+   "file": "this-is-belize-10df23.mp3",
+   "dur": 1.71,
+   "made": "2026-10-27"
+  },
+  "This is Benin.": {
+   "file": "this-is-benin-613d22.mp3",
+   "dur": 1.55,
+   "made": "2026-10-27"
+  },
+  "This is Bermuda.": {
+   "file": "this-is-bermuda-44f42c.mp3",
+   "dur": 1.79,
+   "made": "2026-10-27"
+  },
+  "This is Bhutan.": {
+   "file": "this-is-bhutan-b476cc.mp3",
+   "dur": 1.73,
+   "made": "2026-10-27"
+  },
+  "This is Bolivia.": {
+   "file": "this-is-bolivia-5d77fa.mp3",
+   "dur": 1.72,
+   "made": "2026-10-27"
+  },
+  "This is Bosnia and Herzegovina.": {
+   "file": "this-is-bosnia-and-herzegovina-b7ffa9.mp3",
+   "dur": 2.89,
+   "made": "2026-10-27"
+  },
+  "This is Botswana.": {
+   "file": "this-is-botswana-640270.mp3",
+   "dur": 1.79,
+   "made": "2026-10-27"
+  },
+  "This is Brazil.": {
+   "file": "this-is-brazil-dea590.mp3",
+   "dur": 1.73,
+   "made": "2026-10-27"
+  },
+  "This is Brunei.": {
+   "file": "this-is-brunei-eca471.mp3",
+   "dur": 1.65,
+   "made": "2026-10-27"
+  },
+  "This is Bulgaria.": {
+   "file": "this-is-bulgaria-1f46bd.mp3",
+   "dur": 1.77,
+   "made": "2026-10-27"
+  },
+  "This is Burkina Faso.": {
+   "file": "this-is-burkina-faso-dac4e3.mp3",
+   "dur": 2.14,
+   "made": "2026-10-27"
+  },
+  "This is Burundi.": {
+   "file": "this-is-burundi-9fb69a.mp3",
+   "dur": 1.63,
+   "made": "2026-10-27"
+  },
+  "This is Cambodia.": {
+   "file": "this-is-cambodia-bf1a76.mp3",
+   "dur": 1.8,
+   "made": "2026-10-27"
+  },
+  "This is Cameroon.": {
+   "file": "this-is-cameroon-5811d3.mp3",
+   "dur": 1.71,
+   "made": "2026-10-27"
+  },
+  "This is Canada.": {
+   "file": "this-is-canada-b273ef.mp3",
+   "dur": 1.66,
+   "made": "2026-10-27"
+  },
+  "This is Cape Verde.": {
+   "file": "this-is-cape-verde-61aa23.mp3",
+   "dur": 1.77,
+   "made": "2026-10-27"
+  },
+  "This is Chad.": {
+   "file": "this-is-chad-4ee7da.mp3",
+   "dur": 1.46,
+   "made": "2026-10-27"
+  },
+  "This is Chile.": {
+   "file": "this-is-chile-afa1f9.mp3",
+   "dur": 1.53,
+   "made": "2026-10-27"
+  },
+  "This is China.": {
+   "file": "this-is-china-020be7.mp3",
+   "dur": 1.6,
+   "made": "2026-10-27"
+  },
+  "This is Christmas Island.": {
+   "file": "this-is-christmas-island-935e7c.mp3",
+   "dur": 2.01,
+   "made": "2026-10-27"
+  },
+  "This is Colombia.": {
+   "file": "this-is-colombia-465de4.mp3",
+   "dur": 1.73,
+   "made": "2026-10-27"
+  },
+  "This is Congo.": {
+   "file": "this-is-congo-cd76ae.mp3",
+   "dur": 1.7,
+   "made": "2026-10-27"
+  },
+  "This is Costa Rica.": {
+   "file": "this-is-costa-rica-284e5e.mp3",
+   "dur": 1.97,
+   "made": "2026-10-27"
+  },
+  "This is Crete.": {
+   "file": "this-is-crete-aefdc4.mp3",
+   "dur": 1.58,
+   "made": "2026-10-27"
+  },
+  "This is Croatia.": {
+   "file": "this-is-croatia-63544c.mp3",
+   "dur": 1.78,
+   "made": "2026-10-27"
+  },
+  "This is Cuba.": {
+   "file": "this-is-cuba-fb642a.mp3",
+   "dur": 1.64,
+   "made": "2026-10-27"
+  },
+  "This is Curacao.": {
+   "file": "this-is-curacao-9e941b.mp3",
+   "dur": 1.8,
+   "made": "2026-10-27"
+  },
+  "This is Cyprus.": {
+   "file": "this-is-cyprus-11e1f4.mp3",
+   "dur": 1.69,
+   "made": "2026-10-27"
+  },
+  "This is Czechia.": {
+   "file": "this-is-czechia-22a2fd.mp3",
+   "dur": 1.64,
+   "made": "2026-10-27"
+  },
+  "This is DR Congo.": {
+   "file": "this-is-dr-congo-e63d96.mp3",
+   "dur": 2.11,
+   "made": "2026-10-27"
+  },
+  "This is Denmark.": {
+   "file": "this-is-denmark-7c243d.mp3",
+   "dur": 1.72,
+   "made": "2026-10-27"
+  },
+  "This is Djibouti.": {
+   "file": "this-is-djibouti-f770d3.mp3",
+   "dur": 1.81,
+   "made": "2026-10-27"
+  },
+  "This is Dominica.": {
+   "file": "this-is-dominica-4262b0.mp3",
+   "dur": 1.88,
+   "made": "2026-10-27"
+  },
+  "This is East Timor.": {
+   "file": "this-is-east-timor-58b75d.mp3",
+   "dur": 1.89,
+   "made": "2026-10-27"
+  },
+  "This is Ecuador.": {
+   "file": "this-is-ecuador-a7d6f3.mp3",
+   "dur": 1.84,
+   "made": "2026-10-27"
+  },
+  "This is Egypt.": {
+   "file": "this-is-egypt-783600.mp3",
+   "dur": 1.8,
+   "made": "2026-10-27"
+  },
+  "This is El Salvador.": {
+   "file": "this-is-el-salvador-e1e260.mp3",
+   "dur": 2.03,
+   "made": "2026-10-27"
+  },
+  "This is Equatorial Guinea.": {
+   "file": "this-is-equatorial-guinea-d11b38.mp3",
+   "dur": 2.25,
+   "made": "2026-10-27"
+  },
+  "This is Eritrea.": {
+   "file": "this-is-eritrea-a8b4d9.mp3",
+   "dur": 1.79,
+   "made": "2026-10-27"
+  },
+  "This is Estonia.": {
+   "file": "this-is-estonia-34b0ab.mp3",
+   "dur": 1.81,
+   "made": "2026-10-27"
+  },
+  "This is Eswatini.": {
+   "file": "this-is-eswatini-61c087.mp3",
+   "dur": 2.07,
+   "made": "2026-10-27"
+  },
+  "This is Ethiopia.": {
+   "file": "this-is-ethiopia-ab8c9b.mp3",
+   "dur": 2.08,
+   "made": "2026-10-27"
+  },
+  "This is Europe.": {
+   "file": "this-is-europe-a65c10.mp3",
+   "dur": 1.64,
+   "made": "2026-10-27"
+  },
+  "This is Fiji.": {
+   "file": "this-is-fiji-247ce2.mp3",
+   "dur": 1.63,
+   "made": "2026-10-27"
+  },
+  "This is Finland.": {
+   "file": "this-is-finland-9bcd6b.mp3",
+   "dur": 1.61,
+   "made": "2026-10-27"
+  },
+  "This is France.": {
+   "file": "this-is-france-9a9b9e.mp3",
+   "dur": 1.58,
+   "made": "2026-10-27"
+  },
+  "This is French Polynesia.": {
+   "file": "this-is-french-polynesia-9a763b.mp3",
+   "dur": 2.14,
+   "made": "2026-10-27"
+  },
+  "This is Gabon.": {
+   "file": "this-is-gabon-9c3154.mp3",
+   "dur": 1.67,
+   "made": "2026-10-27"
+  },
+  "This is Georgia.": {
+   "file": "this-is-georgia-81a7fa.mp3",
+   "dur": 1.78,
+   "made": "2026-10-27"
+  },
+  "This is Germany.": {
+   "file": "this-is-germany-17c624.mp3",
+   "dur": 1.79,
+   "made": "2026-10-27"
+  },
+  "This is Ghana.": {
+   "file": "this-is-ghana-643d08.mp3",
+   "dur": 1.59,
+   "made": "2026-10-27"
+  },
+  "This is Great Britain.": {
+   "file": "this-is-great-britain-de5bc4.mp3",
+   "dur": 1.99,
+   "made": "2026-10-27"
+  },
+  "This is Greece.": {
+   "file": "this-is-greece-431a06.mp3",
+   "dur": 1.59,
+   "made": "2026-10-27"
+  },
+  "This is Greenland.": {
+   "file": "this-is-greenland-95893e.mp3",
+   "dur": 1.76,
+   "made": "2026-10-27"
+  },
+  "This is Grenada.": {
+   "file": "this-is-grenada-09bef3.mp3",
+   "dur": 1.82,
+   "made": "2026-10-27"
+  },
+  "This is Guam.": {
+   "file": "this-is-guam-4cfa3a.mp3",
+   "dur": 1.49,
+   "made": "2026-10-27"
+  },
+  "This is Guatemala.": {
+   "file": "this-is-guatemala-ccb277.mp3",
+   "dur": 1.99,
+   "made": "2026-10-27"
+  },
+  "This is Guernsey.": {
+   "file": "this-is-guernsey-cf1e2f.mp3",
+   "dur": 1.68,
+   "made": "2026-10-27"
+  },
+  "This is Guinea-Bissau.": {
+   "file": "this-is-guinea-bissau-c62048.mp3",
+   "dur": 2.05,
+   "made": "2026-10-27"
+  },
+  "This is Guinea.": {
+   "file": "this-is-guinea-bbb150.mp3",
+   "dur": 1.51,
+   "made": "2026-10-27"
+  },
+  "This is Guyana.": {
+   "file": "this-is-guyana-9646ae.mp3",
+   "dur": 1.71,
+   "made": "2026-10-27"
+  },
+  "This is Haiti.": {
+   "file": "this-is-haiti-e44452.mp3",
+   "dur": 1.57,
+   "made": "2026-10-27"
+  },
+  "This is Hawaii.": {
+   "file": "this-is-hawaii-6ab7ae.mp3",
+   "dur": 1.69,
+   "made": "2026-10-27"
+  },
+  "This is Honduras.": {
+   "file": "this-is-honduras-f02a8c.mp3",
+   "dur": 1.91,
+   "made": "2026-10-27"
+  },
+  "This is Hong Kong.": {
+   "file": "this-is-hong-kong-2f5289.mp3",
+   "dur": 1.8,
+   "made": "2026-10-27"
+  },
+  "This is Hungary.": {
+   "file": "this-is-hungary-bb75a0.mp3",
+   "dur": 1.59,
+   "made": "2026-10-27"
+  },
+  "This is Iceland.": {
+   "file": "this-is-iceland-bf9879.mp3",
+   "dur": 1.71,
+   "made": "2026-10-27"
+  },
+  "This is India.": {
+   "file": "this-is-india-a9d42b.mp3",
+   "dur": 1.63,
+   "made": "2026-10-27"
+  },
+  "This is Indonesia.": {
+   "file": "this-is-indonesia-35a071.mp3",
+   "dur": 1.91,
+   "made": "2026-10-27"
+  },
+  "This is Iran.": {
+   "file": "this-is-iran-f3103f.mp3",
+   "dur": 1.57,
+   "made": "2026-10-27"
+  },
+  "This is Iraq.": {
+   "file": "this-is-iraq-225eca.mp3",
+   "dur": 1.57,
+   "made": "2026-10-27"
+  },
+  "This is Ireland.": {
+   "file": "this-is-ireland-662c44.mp3",
+   "dur": 1.66,
+   "made": "2026-10-27"
+  },
+  "This is Israel.": {
+   "file": "this-is-israel-365179.mp3",
+   "dur": 1.75,
+   "made": "2026-10-27"
+  },
+  "This is Italy.": {
+   "file": "this-is-italy-d7482a.mp3",
+   "dur": 1.62,
+   "made": "2026-10-27"
+  },
+  "This is Ivory Coast.": {
+   "file": "this-is-ivory-coast-495936.mp3",
+   "dur": 2.05,
+   "made": "2026-10-27"
+  },
+  "This is Jamaica.": {
+   "file": "this-is-jamaica-47348d.mp3",
+   "dur": 1.86,
+   "made": "2026-10-27"
+  },
+  "This is Japan.": {
+   "file": "this-is-japan-8fb129.mp3",
+   "dur": 1.67,
+   "made": "2026-10-27"
+  },
+  "This is Jersey.": {
+   "file": "this-is-jersey-28ca2e.mp3",
+   "dur": 1.7,
+   "made": "2026-10-27"
+  },
+  "This is Jordan.": {
+   "file": "this-is-jordan-34daa7.mp3",
+   "dur": 1.72,
+   "made": "2026-10-27"
+  },
+  "This is Kazakhstan.": {
+   "file": "this-is-kazakhstan-152902.mp3",
+   "dur": 2.02,
+   "made": "2026-10-27"
+  },
+  "This is Kenya.": {
+   "file": "this-is-kenya-26036e.mp3",
+   "dur": 1.56,
+   "made": "2026-10-27"
+  },
+  "This is Kiribati.": {
+   "file": "this-is-kiribati-c5049e.mp3",
+   "dur": 1.75,
+   "made": "2026-10-27"
+  },
+  "This is Kosovo.": {
+   "file": "this-is-kosovo-9301d1.mp3",
+   "dur": 1.84,
+   "made": "2026-10-27"
+  },
+  "This is Kuwait.": {
+   "file": "this-is-kuwait-912c91.mp3",
+   "dur": 1.61,
+   "made": "2026-10-27"
+  },
+  "This is Kyrgyzstan.": {
+   "file": "this-is-kyrgyzstan-520fc2.mp3",
+   "dur": 1.95,
+   "made": "2026-10-27"
+  },
+  "This is Laos.": {
+   "file": "this-is-laos-b8b15b.mp3",
+   "dur": 1.57,
+   "made": "2026-10-27"
+  },
+  "This is Latvia.": {
+   "file": "this-is-latvia-ea98de.mp3",
+   "dur": 1.68,
+   "made": "2026-10-27"
+  },
+  "This is Lebanon.": {
+   "file": "this-is-lebanon-fefeb3.mp3",
+   "dur": 1.75,
+   "made": "2026-10-27"
+  },
+  "This is Lesotho.": {
+   "file": "this-is-lesotho-3325e6.mp3",
+   "dur": 1.76,
+   "made": "2026-10-27"
+  },
+  "This is Liberia.": {
+   "file": "this-is-liberia-5a259c.mp3",
+   "dur": 1.86,
+   "made": "2026-10-27"
+  },
+  "This is Libya.": {
+   "file": "this-is-libya-eeea57.mp3",
+   "dur": 1.57,
+   "made": "2026-10-27"
+  },
+  "This is Liechtenstein.": {
+   "file": "this-is-liechtenstein-ef85b9.mp3",
+   "dur": 1.99,
+   "made": "2026-10-27"
+  },
+  "This is Lithuania.": {
+   "file": "this-is-lithuania-f592bd.mp3",
+   "dur": 2.04,
+   "made": "2026-10-27"
+  },
+  "This is Luxembourg.": {
+   "file": "this-is-luxembourg-295af6.mp3",
+   "dur": 1.94,
+   "made": "2026-10-27"
+  },
+  "This is Macau.": {
+   "file": "this-is-macau-843ade.mp3",
+   "dur": 1.61,
+   "made": "2026-10-27"
+  },
+  "This is Madagascar.": {
+   "file": "this-is-madagascar-73f675.mp3",
+   "dur": 1.97,
+   "made": "2026-10-27"
+  },
+  "This is Malawi.": {
+   "file": "this-is-malawi-d44a90.mp3",
+   "dur": 1.67,
+   "made": "2026-10-27"
+  },
+  "This is Malaysia.": {
+   "file": "this-is-malaysia-072944.mp3",
+   "dur": 1.74,
+   "made": "2026-10-27"
+  },
+  "This is Mali.": {
+   "file": "this-is-mali-1720c7.mp3",
+   "dur": 1.58,
+   "made": "2026-10-27"
+  },
+  "This is Malta.": {
+   "file": "this-is-malta-4ba711.mp3",
+   "dur": 1.61,
+   "made": "2026-10-27"
+  },
+  "This is Mauritania.": {
+   "file": "this-is-mauritania-88d597.mp3",
+   "dur": 2.07,
+   "made": "2026-10-27"
+  },
+  "This is Mauritius.": {
+   "file": "this-is-mauritius-6e64d3.mp3",
+   "dur": 1.77,
+   "made": "2026-10-27"
+  },
+  "This is Mexico.": {
+   "file": "this-is-mexico-81542b.mp3",
+   "dur": 1.84,
+   "made": "2026-10-27"
+  },
+  "This is Micronesia.": {
+   "file": "this-is-micronesia-7f1092.mp3",
+   "dur": 2.09,
+   "made": "2026-10-27"
+  },
+  "This is Moldova.": {
+   "file": "this-is-moldova-8ebd64.mp3",
+   "dur": 1.86,
+   "made": "2026-10-27"
+  },
+  "This is Monaco.": {
+   "file": "this-is-monaco-2ef109.mp3",
+   "dur": 1.74,
+   "made": "2026-10-27"
+  },
+  "This is Mongolia.": {
+   "file": "this-is-mongolia-1b8506.mp3",
+   "dur": 1.79,
+   "made": "2026-10-27"
+  },
+  "This is Montenegro.": {
+   "file": "this-is-montenegro-4d9854.mp3",
+   "dur": 2.1,
+   "made": "2026-10-27"
+  },
+  "This is Montserrat.": {
+   "file": "this-is-montserrat-804a28.mp3",
+   "dur": 1.85,
+   "made": "2026-10-27"
+  },
+  "This is Morocco.": {
+   "file": "this-is-morocco-868fdb.mp3",
+   "dur": 1.8,
+   "made": "2026-10-27"
+  },
+  "This is Mozambique.": {
+   "file": "this-is-mozambique-2bb06e.mp3",
+   "dur": 1.89,
+   "made": "2026-10-27"
+  },
+  "This is Myanmar.": {
+   "file": "this-is-myanmar-5ad10f.mp3",
+   "dur": 1.77,
+   "made": "2026-10-27"
+  },
+  "This is Namibia.": {
+   "file": "this-is-namibia-683450.mp3",
+   "dur": 1.81,
+   "made": "2026-10-27"
+  },
+  "This is Nauru.": {
+   "file": "this-is-nauru-c850af.mp3",
+   "dur": 1.64,
+   "made": "2026-10-27"
+  },
+  "This is Nepal.": {
+   "file": "this-is-nepal-a474bc.mp3",
+   "dur": 1.68,
+   "made": "2026-10-27"
+  },
+  "This is New Caledonia.": {
+   "file": "this-is-new-caledonia-2621a7.mp3",
+   "dur": 2.18,
+   "made": "2026-10-27"
+  },
+  "This is New Zealand.": {
+   "file": "this-is-new-zealand-f15c38.mp3",
+   "dur": 1.96,
+   "made": "2026-10-27"
+  },
+  "This is Nicaragua.": {
+   "file": "this-is-nicaragua-ee3dbf.mp3",
+   "dur": 1.96,
+   "made": "2026-10-27"
+  },
+  "This is Niger.": {
+   "file": "this-is-niger-80f392.mp3",
+   "dur": 1.68,
+   "made": "2026-10-27"
+  },
+  "This is Nigeria.": {
+   "file": "this-is-nigeria-225cb8.mp3",
+   "dur": 1.95,
+   "made": "2026-10-27"
+  },
+  "This is Niue.": {
+   "file": "this-is-niue-02e689.mp3",
+   "dur": 1.63,
+   "made": "2026-10-27"
+  },
+  "This is Norfolk Island.": {
+   "file": "this-is-norfolk-island-a91557.mp3",
+   "dur": 2.12,
+   "made": "2026-10-27"
+  },
+  "This is North America.": {
+   "file": "this-is-north-america-db2de3.mp3",
+   "dur": 2.18,
+   "made": "2026-10-27"
+  },
+  "This is North Korea.": {
+   "file": "this-is-north-korea-a8fe33.mp3",
+   "dur": 1.89,
+   "made": "2026-10-27"
+  },
+  "This is North Macedonia.": {
+   "file": "this-is-north-macedonia-c2e5fa.mp3",
+   "dur": 2.37,
+   "made": "2026-10-27"
+  },
+  "This is Norway.": {
+   "file": "this-is-norway-a8134f.mp3",
+   "dur": 1.64,
+   "made": "2026-10-27"
+  },
+  "This is Oman.": {
+   "file": "this-is-oman-8e1983.mp3",
+   "dur": 1.6,
+   "made": "2026-10-27"
+  },
+  "This is Pakistan.": {
+   "file": "this-is-pakistan-e55820.mp3",
+   "dur": 1.78,
+   "made": "2026-10-27"
+  },
+  "This is Palau.": {
+   "file": "this-is-palau-d7f683.mp3",
+   "dur": 1.55,
+   "made": "2026-10-27"
+  },
+  "This is Palestine.": {
+   "file": "this-is-palestine-fa8ca3.mp3",
+   "dur": 1.82,
+   "made": "2026-10-27"
+  },
+  "This is Panama.": {
+   "file": "this-is-panama-591860.mp3",
+   "dur": 1.68,
+   "made": "2026-10-27"
+  },
+  "This is Papua New Guinea.": {
+   "file": "this-is-papua-new-guinea-d172f6.mp3",
+   "dur": 2.14,
+   "made": "2026-10-27"
+  },
+  "This is Paraguay.": {
+   "file": "this-is-paraguay-9e1bf0.mp3",
+   "dur": 1.73,
+   "made": "2026-10-27"
+  },
+  "This is Peru.": {
+   "file": "this-is-peru-87d1d4.mp3",
+   "dur": 1.57,
+   "made": "2026-10-27"
+  },
+  "This is Poland.": {
+   "file": "this-is-poland-2c47f8.mp3",
+   "dur": 1.57,
+   "made": "2026-10-27"
+  },
+  "This is Portugal.": {
+   "file": "this-is-portugal-c857f6.mp3",
+   "dur": 1.72,
+   "made": "2026-10-27"
+  },
+  "This is Puerto Rico.": {
+   "file": "this-is-puerto-rico-3f17f0.mp3",
+   "dur": 2.07,
+   "made": "2026-10-27"
+  },
+  "This is Qatar.": {
+   "file": "this-is-qatar-48ed0f.mp3",
+   "dur": 1.73,
+   "made": "2026-10-27"
+  },
+  "This is Romania.": {
+   "file": "this-is-romania-252307.mp3",
+   "dur": 1.85,
+   "made": "2026-10-27"
+  },
+  "This is Russia.": {
+   "file": "this-is-russia-56c41e.mp3",
+   "dur": 1.54,
+   "made": "2026-10-27"
+  },
+  "This is Rwanda.": {
+   "file": "this-is-rwanda-f20019.mp3",
+   "dur": 1.61,
+   "made": "2026-10-27"
+  },
+  "This is Saint Barthelemy.": {
+   "file": "this-is-saint-barthelemy-e7a026.mp3",
+   "dur": 2.15,
+   "made": "2026-10-27"
+  },
+  "This is Saint Helena.": {
+   "file": "this-is-saint-helena-95b473.mp3",
+   "dur": 1.97,
+   "made": "2026-10-27"
+  },
+  "This is Saint Kitts and Nevis.": {
+   "file": "this-is-saint-kitts-and-nevis-4e3b19.mp3",
+   "dur": 2.26,
+   "made": "2026-10-27"
+  },
+  "This is Saint Lucia.": {
+   "file": "this-is-saint-lucia-a40723.mp3",
+   "dur": 1.85,
+   "made": "2026-10-27"
+  },
+  "This is Saint Martin.": {
+   "file": "this-is-saint-martin-18c3bd.mp3",
+   "dur": 1.99,
+   "made": "2026-10-27"
+  },
+  "This is Saint Pierre and Miquelon.": {
+   "file": "this-is-saint-pierre-and-miquelon-fbd6a9.mp3",
+   "dur": 2.29,
+   "made": "2026-10-27"
+  },
+  "This is Saint Vincent and the Grenadines.": {
+   "file": "this-is-saint-vincent-and-the-grenadines-2e5650.mp3",
+   "dur": 2.98,
+   "made": "2026-10-27"
+  },
+  "This is Samoa.": {
+   "file": "this-is-samoa-67eff3.mp3",
+   "dur": 1.66,
+   "made": "2026-10-27"
+  },
+  "This is San Marino.": {
+   "file": "this-is-san-marino-6c5583.mp3",
+   "dur": 1.98,
+   "made": "2026-10-27"
+  },
+  "This is Sao Tome and Principe.": {
+   "file": "this-is-sao-tome-and-principe-63fe1c.mp3",
+   "dur": 2.34,
+   "made": "2026-10-27"
+  },
+  "This is Saudi Arabia.": {
+   "file": "this-is-saudi-arabia-2fad41.mp3",
+   "dur": 2.05,
+   "made": "2026-10-27"
+  },
+  "This is Senegal.": {
+   "file": "this-is-senegal-89a534.mp3",
+   "dur": 1.64,
+   "made": "2026-10-27"
+  },
+  "This is Serbia.": {
+   "file": "this-is-serbia-c898b7.mp3",
+   "dur": 1.63,
+   "made": "2026-10-27"
+  },
+  "This is Sicily.": {
+   "file": "this-is-sicily-9eda79.mp3",
+   "dur": 1.67,
+   "made": "2026-10-27"
+  },
+  "This is Sierra Leone.": {
+   "file": "this-is-sierra-leone-122c1a.mp3",
+   "dur": 1.97,
+   "made": "2026-10-27"
+  },
+  "This is Singapore.": {
+   "file": "this-is-singapore-d27dd4.mp3",
+   "dur": 1.88,
+   "made": "2026-10-27"
+  },
+  "This is Sint Maarten.": {
+   "file": "this-is-sint-maarten-0cfe1e.mp3",
+   "dur": 1.9,
+   "made": "2026-10-27"
+  },
+  "This is Slovakia.": {
+   "file": "this-is-slovakia-e2afed.mp3",
+   "dur": 1.86,
+   "made": "2026-10-27"
+  },
+  "This is Slovenia.": {
+   "file": "this-is-slovenia-9fcb1d.mp3",
+   "dur": 1.83,
+   "made": "2026-10-27"
+  },
+  "This is Somalia.": {
+   "file": "this-is-somalia-7bf1b1.mp3",
+   "dur": 1.73,
+   "made": "2026-10-27"
+  },
+  "This is South Africa.": {
+   "file": "this-is-south-africa-a97330.mp3",
+   "dur": 1.95,
+   "made": "2026-10-27"
+  },
+  "This is South America.": {
+   "file": "this-is-south-america-77a53f.mp3",
+   "dur": 1.99,
+   "made": "2026-10-27"
+  },
+  "This is South Georgia.": {
+   "file": "this-is-south-georgia-5c0bc6.mp3",
+   "dur": 1.98,
+   "made": "2026-10-27"
+  },
+  "This is South Korea.": {
+   "file": "this-is-south-korea-de8379.mp3",
+   "dur": 1.84,
+   "made": "2026-10-27"
+  },
+  "This is South Sudan.": {
+   "file": "this-is-south-sudan-1bd43d.mp3",
+   "dur": 1.86,
+   "made": "2026-10-27"
+  },
+  "This is Spain.": {
+   "file": "this-is-spain-9ee8c0.mp3",
+   "dur": 1.58,
+   "made": "2026-10-27"
+  },
+  "This is Sri Lanka.": {
+   "file": "this-is-sri-lanka-fdf600.mp3",
+   "dur": 1.77,
+   "made": "2026-10-27"
+  },
+  "This is Sudan.": {
+   "file": "this-is-sudan-134a47.mp3",
+   "dur": 1.65,
+   "made": "2026-10-27"
+  },
+  "This is Suriname.": {
+   "file": "this-is-suriname-4d50d7.mp3",
+   "dur": 1.74,
+   "made": "2026-10-27"
+  },
+  "This is Sweden.": {
+   "file": "this-is-sweden-bd90ce.mp3",
+   "dur": 1.59,
+   "made": "2026-10-27"
+  },
+  "This is Switzerland.": {
+   "file": "this-is-switzerland-af1fe8.mp3",
+   "dur": 1.76,
+   "made": "2026-10-27"
+  },
+  "This is Syria.": {
+   "file": "this-is-syria-781dfd.mp3",
+   "dur": 1.54,
+   "made": "2026-10-27"
+  },
+  "This is Taiwan.": {
+   "file": "this-is-taiwan-d5068b.mp3",
+   "dur": 1.73,
+   "made": "2026-10-27"
+  },
+  "This is Tajikistan.": {
+   "file": "this-is-tajikistan-ee5a1e.mp3",
+   "dur": 2.06,
+   "made": "2026-10-27"
+  },
+  "This is Tanzania.": {
+   "file": "this-is-tanzania-4ef4c4.mp3",
+   "dur": 1.83,
+   "made": "2026-10-27"
+  },
+  "This is Tasmania.": {
+   "file": "this-is-tasmania-917005.mp3",
+   "dur": 1.86,
+   "made": "2026-10-27"
+  },
+  "This is Thailand.": {
+   "file": "this-is-thailand-d904fb.mp3",
+   "dur": 1.63,
+   "made": "2026-10-27"
+  },
+  "This is Togo.": {
+   "file": "this-is-togo-27fd58.mp3",
+   "dur": 1.65,
+   "made": "2026-10-27"
+  },
+  "This is Tonga.": {
+   "file": "this-is-tonga-a3b27e.mp3",
+   "dur": 1.63,
+   "made": "2026-10-27"
+  },
+  "This is Trinidad and Tobago.": {
+   "file": "this-is-trinidad-and-tobago-b352d4.mp3",
+   "dur": 2.55,
+   "made": "2026-10-27"
+  },
+  "This is Tunisia.": {
+   "file": "this-is-tunisia-4bc854.mp3",
+   "dur": 1.79,
+   "made": "2026-10-27"
+  },
+  "This is Turkey.": {
+   "file": "this-is-turkey-221c1d.mp3",
+   "dur": 1.61,
+   "made": "2026-10-27"
+  },
+  "This is Turkmenistan.": {
+   "file": "this-is-turkmenistan-42a433.mp3",
+   "dur": 2.12,
+   "made": "2026-10-27"
+  },
+  "This is Uganda.": {
+   "file": "this-is-uganda-d9c471.mp3",
+   "dur": 1.73,
+   "made": "2026-10-27"
+  },
+  "This is Ukraine.": {
+   "file": "this-is-ukraine-b22350.mp3",
+   "dur": 1.76,
+   "made": "2026-10-27"
+  },
+  "This is Uruguay.": {
+   "file": "this-is-uruguay-0bc8cf.mp3",
+   "dur": 1.98,
+   "made": "2026-10-27"
+  },
+  "This is Uzbekistan.": {
+   "file": "this-is-uzbekistan-d1a4a7.mp3",
+   "dur": 1.97,
+   "made": "2026-10-27"
+  },
+  "This is Vanuatu.": {
+   "file": "this-is-vanuatu-d4e404.mp3",
+   "dur": 1.94,
+   "made": "2026-10-27"
+  },
+  "This is Venezuela.": {
+   "file": "this-is-venezuela-24afd4.mp3",
+   "dur": 1.93,
+   "made": "2026-10-27"
+  },
+  "This is Vietnam.": {
+   "file": "this-is-vietnam-31d9c7.mp3",
+   "dur": 1.81,
+   "made": "2026-10-27"
+  },
+  "This is Wallis and Futuna.": {
+   "file": "this-is-wallis-and-futuna-4cd4e2.mp3",
+   "dur": 2.29,
+   "made": "2026-10-27"
+  },
+  "This is Western Sahara.": {
+   "file": "this-is-western-sahara-322b2b.mp3",
+   "dur": 2.14,
+   "made": "2026-10-27"
+  },
+  "This is Yemen.": {
+   "file": "this-is-yemen-76e72a.mp3",
+   "dur": 1.55,
+   "made": "2026-10-27"
+  },
+  "This is Zambia.": {
+   "file": "this-is-zambia-dc34fc.mp3",
+   "dur": 1.67,
+   "made": "2026-10-27"
+  },
+  "This is Zimbabwe.": {
+   "file": "this-is-zimbabwe-7772fe.mp3",
+   "dur": 1.9,
+   "made": "2026-10-27"
+  },
+  "This is the Bahamas.": {
+   "file": "this-is-the-bahamas-1b6c23.mp3",
+   "dur": 2.12,
+   "made": "2026-10-27"
+  },
+  "This is the British Indian Ocean Territory.": {
+   "file": "this-is-the-british-indian-ocean-territo-7efb33.mp3",
+   "dur": 3.45,
+   "made": "2026-10-27"
+  },
+  "This is the British Virgin Islands.": {
+   "file": "this-is-the-british-virgin-islands-851491.mp3",
+   "dur": 2.77,
+   "made": "2026-10-27"
+  },
+  "This is the Cayman Islands.": {
+   "file": "this-is-the-cayman-islands-238ed3.mp3",
+   "dur": 2.28,
+   "made": "2026-10-27"
+  },
+  "This is the Central African Republic.": {
+   "file": "this-is-the-central-african-republic-6b2f95.mp3",
+   "dur": 3.03,
+   "made": "2026-10-27"
+  },
+  "This is the Comoros.": {
+   "file": "this-is-the-comoros-6f4e56.mp3",
+   "dur": 2.06,
+   "made": "2026-10-27"
+  },
+  "This is the Cook Islands.": {
+   "file": "this-is-the-cook-islands-55b6c5.mp3",
+   "dur": 2.03,
+   "made": "2026-10-27"
+  },
+  "This is the Dominican Republic.": {
+   "file": "this-is-the-dominican-republic-588901.mp3",
+   "dur": 2.69,
+   "made": "2026-10-27"
+  },
+  "This is the Falkland Islands.": {
+   "file": "this-is-the-falkland-islands-43b389.mp3",
+   "dur": 2.45,
+   "made": "2026-10-27"
+  },
+  "This is the Faroe Islands.": {
+   "file": "this-is-the-faroe-islands-f7889f.mp3",
+   "dur": 2.21,
+   "made": "2026-10-27"
+  },
+  "This is the French Southern Lands.": {
+   "file": "this-is-the-french-southern-lands-b47d92.mp3",
+   "dur": 2.44,
+   "made": "2026-10-27"
+  },
+  "This is the Gambia.": {
+   "file": "this-is-the-gambia-2a94d3.mp3",
+   "dur": 1.89,
+   "made": "2026-10-27"
+  },
+  "This is the Heard and McDonald Islands.": {
+   "file": "this-is-the-heard-and-mcdonald-islands-a0fb72.mp3",
+   "dur": 3.15,
+   "made": "2026-10-27"
+  },
+  "This is the Isle of Man.": {
+   "file": "this-is-the-isle-of-man-ebe0a2.mp3",
+   "dur": 2.12,
+   "made": "2026-10-27"
+  },
+  "This is the Maldives.": {
+   "file": "this-is-the-maldives-88b0f5.mp3",
+   "dur": 2.02,
+   "made": "2026-10-27"
+  },
+  "This is the Marshall Islands.": {
+   "file": "this-is-the-marshall-islands-d83468.mp3",
+   "dur": 2.42,
+   "made": "2026-10-27"
+  },
+  "This is the Netherlands.": {
+   "file": "this-is-the-netherlands-9624c2.mp3",
+   "dur": 2.13,
+   "made": "2026-10-27"
+  },
+  "This is the Northern Mariana Islands.": {
+   "file": "this-is-the-northern-mariana-islands-3ed6b3.mp3",
+   "dur": 2.95,
+   "made": "2026-10-27"
+  },
+  "This is the Philippines.": {
+   "file": "this-is-the-philippines-b5ee1c.mp3",
+   "dur": 2.16,
+   "made": "2026-10-27"
+  },
+  "This is the Pitcairn Islands.": {
+   "file": "this-is-the-pitcairn-islands-d8914b.mp3",
+   "dur": 2.3,
+   "made": "2026-10-27"
+  },
+  "This is the Seychelles.": {
+   "file": "this-is-the-seychelles-e30c1c.mp3",
+   "dur": 1.92,
+   "made": "2026-10-27"
+  },
+  "This is the Siachen Glacier.": {
+   "file": "this-is-the-siachen-glacier-7bb55a.mp3",
+   "dur": 2.32,
+   "made": "2026-10-27"
+  },
+  "This is the Solomon Islands.": {
+   "file": "this-is-the-solomon-islands-7b1a26.mp3",
+   "dur": 2.5,
+   "made": "2026-10-27"
+  },
+  "This is the Sun. It keeps us warm, and it gives us light.": {
+   "file": "this-is-the-sun-it-keeps-us-warm-and-it-d20f0f.mp3",
+   "dur": 4.41,
+   "made": "2026-10-27"
+  },
+  "This is the Turks and Caicos Islands.": {
+   "file": "this-is-the-turks-and-caicos-islands-7c68c0.mp3",
+   "dur": 2.91,
+   "made": "2026-10-27"
+  },
+  "This is the U.S. Virgin Islands.": {
+   "file": "this-is-the-u-s-virgin-islands-0759cc.mp3",
+   "dur": 2.77,
+   "made": "2026-10-27"
+  },
+  "This is the United Arab Emirates.": {
+   "file": "this-is-the-united-arab-emirates-9fbe15.mp3",
+   "dur": 2.89,
+   "made": "2026-10-27"
+  },
+  "This is the United Kingdom.": {
+   "file": "this-is-the-united-kingdom-234fe0.mp3",
+   "dur": 2.48,
+   "made": "2026-10-27"
+  },
+  "This is the United States.": {
+   "file": "this-is-the-united-states-06be55.mp3",
+   "dur": 2.43,
+   "made": "2026-10-27"
+  },
+  "This is Åland.": {
+   "file": "this-is-land-cd2c0d.mp3",
+   "dur": 1.61,
+   "made": "2026-10-27"
+  },
+  "Time to fly home.": {
+   "file": "time-to-fly-home-65edd5.mp3",
+   "dur": 1.92,
+   "made": "2026-10-27"
+  },
+  "Try again!": {
+   "file": "try-again-ccd9d7.mp3",
+   "dur": 1.46,
+   "made": "2026-10-27"
+  },
+  "Well done!": {
+   "file": "well-done-ac7cad.mp3",
+   "dur": 1.34,
+   "made": "2026-10-27"
+  },
+  "Well done, world explorer!": {
+   "file": "well-done-world-explorer-ab1133.mp3",
+   "dur": 2.38,
+   "made": "2026-10-27"
+  },
+  "What a trip!": {
+   "file": "what-a-trip-53d4f8.mp3",
+   "dur": 1.48,
+   "made": "2026-10-27"
+  },
+  "When it turns away, it's night.": {
+   "file": "when-it-turns-away-it-s-night-861e9c.mp3",
+   "dur": 2.46,
+   "made": "2026-10-27"
+  },
+  "When our half of the Earth leans toward the Sun, the sunshine is strong, and the days are long.": {
+   "file": "when-our-half-of-the-earth-leans-toward-1f6bc7.mp3",
+   "dur": 6.22,
+   "made": "2026-10-27"
+  },
+  "When our home faces the Sun, it's day.": {
+   "file": "when-our-home-faces-the-sun-it-s-day-21cf2b.mp3",
+   "dur": 3.03,
+   "made": "2026-10-27"
+  },
+  "Where is Afghanistan?": {
+   "file": "where-is-afghanistan-0833a2.mp3",
+   "dur": 2.04,
+   "made": "2026-10-27"
+  },
+  "Where is Africa?": {
+   "file": "where-is-africa-8ef43d.mp3",
+   "dur": 1.67,
+   "made": "2026-10-27"
+  },
+  "Where is Albania?": {
+   "file": "where-is-albania-28dcea.mp3",
+   "dur": 1.79,
+   "made": "2026-10-27"
+  },
+  "Where is Algeria?": {
+   "file": "where-is-algeria-42bf00.mp3",
+   "dur": 1.79,
+   "made": "2026-10-27"
+  },
+  "Where is Angola?": {
+   "file": "where-is-angola-cb7b1b.mp3",
+   "dur": 1.67,
+   "made": "2026-10-27"
+  },
+  "Where is Antarctica?": {
+   "file": "where-is-antarctica-2ffdff.mp3",
+   "dur": 1.98,
+   "made": "2026-10-27"
+  },
+  "Where is Argentina?": {
+   "file": "where-is-argentina-168e6e.mp3",
+   "dur": 1.97,
+   "made": "2026-10-27"
+  },
+  "Where is Asia?": {
+   "file": "where-is-asia-c0f370.mp3",
+   "dur": 1.58,
+   "made": "2026-10-27"
+  },
+  "Where is Australia?": {
+   "file": "where-is-australia-e26334.mp3",
+   "dur": 1.84,
+   "made": "2026-10-27"
+  },
+  "Where is Austria?": {
+   "file": "where-is-austria-9c4f30.mp3",
+   "dur": 1.67,
+   "made": "2026-10-27"
+  },
+  "Where is Bangladesh?": {
+   "file": "where-is-bangladesh-836e90.mp3",
+   "dur": 1.87,
+   "made": "2026-10-27"
+  },
+  "Where is Belarus?": {
+   "file": "where-is-belarus-9fc4ee.mp3",
+   "dur": 1.82,
+   "made": "2026-10-27"
+  },
+  "Where is Belgium?": {
+   "file": "where-is-belgium-817e4a.mp3",
+   "dur": 1.7,
+   "made": "2026-10-27"
+  },
+  "Where is Bolivia?": {
+   "file": "where-is-bolivia-a733a7.mp3",
+   "dur": 1.72,
+   "made": "2026-10-27"
+  },
+  "Where is Brazil?": {
+   "file": "where-is-brazil-972ff0.mp3",
+   "dur": 1.68,
+   "made": "2026-10-27"
+  },
+  "Where is Bulgaria?": {
+   "file": "where-is-bulgaria-eba846.mp3",
+   "dur": 1.78,
+   "made": "2026-10-27"
+  },
+  "Where is Cameroon?": {
+   "file": "where-is-cameroon-2cbd80.mp3",
+   "dur": 1.7,
+   "made": "2026-10-27"
+  },
+  "Where is Canada?": {
+   "file": "where-is-canada-1769f6.mp3",
+   "dur": 1.65,
+   "made": "2026-10-27"
+  },
+  "Where is Chad?": {
+   "file": "where-is-chad-d83149.mp3",
+   "dur": 1.5,
+   "made": "2026-10-27"
+  },
+  "Where is Chile?": {
+   "file": "where-is-chile-87ba84.mp3",
+   "dur": 1.58,
+   "made": "2026-10-27"
+  },
+  "Where is China?": {
+   "file": "where-is-china-c96900.mp3",
+   "dur": 1.59,
+   "made": "2026-10-27"
+  },
+  "Where is Colombia?": {
+   "file": "where-is-colombia-ffaa3d.mp3",
+   "dur": 1.75,
+   "made": "2026-10-27"
+  },
+  "Where is Crete?": {
+   "file": "where-is-crete-060fbf.mp3",
+   "dur": 1.6,
+   "made": "2026-10-27"
+  },
+  "Where is Croatia?": {
+   "file": "where-is-croatia-0d72bc.mp3",
+   "dur": 1.77,
+   "made": "2026-10-27"
+  },
+  "Where is Cuba?": {
+   "file": "where-is-cuba-7d5ad3.mp3",
+   "dur": 1.61,
+   "made": "2026-10-27"
+  },
+  "Where is Cyprus?": {
+   "file": "where-is-cyprus-0c918c.mp3",
+   "dur": 1.75,
+   "made": "2026-10-27"
+  },
+  "Where is Czechia?": {
+   "file": "where-is-czechia-6cc66d.mp3",
+   "dur": 1.67,
+   "made": "2026-10-27"
+  },
+  "Where is DR Congo?": {
+   "file": "where-is-dr-congo-352d4e.mp3",
+   "dur": 2.03,
+   "made": "2026-10-27"
+  },
+  "Where is Denmark?": {
+   "file": "where-is-denmark-e0f86a.mp3",
+   "dur": 1.71,
+   "made": "2026-10-27"
+  },
+  "Where is Ecuador?": {
+   "file": "where-is-ecuador-d57071.mp3",
+   "dur": 1.7,
+   "made": "2026-10-27"
+  },
+  "Where is Egypt?": {
+   "file": "where-is-egypt-e8002f.mp3",
+   "dur": 1.76,
+   "made": "2026-10-27"
+  },
+  "Where is Estonia?": {
+   "file": "where-is-estonia-75689b.mp3",
+   "dur": 1.81,
+   "made": "2026-10-27"
+  },
+  "Where is Ethiopia?": {
+   "file": "where-is-ethiopia-659c89.mp3",
+   "dur": 1.97,
+   "made": "2026-10-27"
+  },
+  "Where is Europe?": {
+   "file": "where-is-europe-ffd7be.mp3",
+   "dur": 1.61,
+   "made": "2026-10-27"
+  },
+  "Where is Finland?": {
+   "file": "where-is-finland-e750f1.mp3",
+   "dur": 1.66,
+   "made": "2026-10-27"
+  },
+  "Where is France?": {
+   "file": "where-is-france-b67844.mp3",
+   "dur": 1.61,
+   "made": "2026-10-27"
+  },
+  "Where is Germany?": {
+   "file": "where-is-germany-b42a69.mp3",
+   "dur": 1.74,
+   "made": "2026-10-27"
+  },
+  "Where is Ghana?": {
+   "file": "where-is-ghana-03654e.mp3",
+   "dur": 1.58,
+   "made": "2026-10-27"
+  },
+  "Where is Great Britain?": {
+   "file": "where-is-great-britain-a87182.mp3",
+   "dur": 1.97,
+   "made": "2026-10-27"
+  },
+  "Where is Greece?": {
+   "file": "where-is-greece-edcccd.mp3",
+   "dur": 1.63,
+   "made": "2026-10-27"
+  },
+  "Where is Greenland?": {
+   "file": "where-is-greenland-40f6dc.mp3",
+   "dur": 1.71,
+   "made": "2026-10-27"
+  },
+  "Where is Hawaii?": {
+   "file": "where-is-hawaii-cbea2d.mp3",
+   "dur": 1.68,
+   "made": "2026-10-27"
+  },
+  "Where is Hungary?": {
+   "file": "where-is-hungary-3ccfb2.mp3",
+   "dur": 1.66,
+   "made": "2026-10-27"
+  },
+  "Where is Iceland?": {
+   "file": "where-is-iceland-e473a8.mp3",
+   "dur": 1.68,
+   "made": "2026-10-27"
+  },
+  "Where is India?": {
+   "file": "where-is-india-55b152.mp3",
+   "dur": 1.61,
+   "made": "2026-10-27"
+  },
+  "Where is Indonesia?": {
+   "file": "where-is-indonesia-3ccb52.mp3",
+   "dur": 1.86,
+   "made": "2026-10-27"
+  },
+  "Where is Iran?": {
+   "file": "where-is-iran-8f72f4.mp3",
+   "dur": 1.56,
+   "made": "2026-10-27"
+  },
+  "Where is Iraq?": {
+   "file": "where-is-iraq-a1f303.mp3",
+   "dur": 1.58,
+   "made": "2026-10-27"
+  },
+  "Where is Ireland?": {
+   "file": "where-is-ireland-44f28c.mp3",
+   "dur": 1.68,
+   "made": "2026-10-27"
+  },
+  "Where is Italy?": {
+   "file": "where-is-italy-315349.mp3",
+   "dur": 1.59,
+   "made": "2026-10-27"
+  },
+  "Where is Jamaica?": {
+   "file": "where-is-jamaica-050da1.mp3",
+   "dur": 1.82,
+   "made": "2026-10-27"
+  },
+  "Where is Japan?": {
+   "file": "where-is-japan-cfa090.mp3",
+   "dur": 1.66,
+   "made": "2026-10-27"
+  },
+  "Where is Kazakhstan?": {
+   "file": "where-is-kazakhstan-61f758.mp3",
+   "dur": 2.0,
+   "made": "2026-10-27"
+  },
+  "Where is Kenya?": {
+   "file": "where-is-kenya-bc9512.mp3",
+   "dur": 1.57,
+   "made": "2026-10-27"
+  },
+  "Where is Latvia?": {
+   "file": "where-is-latvia-e641bc.mp3",
+   "dur": 1.66,
+   "made": "2026-10-27"
+  },
+  "Where is Libya?": {
+   "file": "where-is-libya-12aad5.mp3",
+   "dur": 1.56,
+   "made": "2026-10-27"
+  },
+  "Where is Lithuania?": {
+   "file": "where-is-lithuania-834745.mp3",
+   "dur": 1.98,
+   "made": "2026-10-27"
+  },
+  "Where is Madagascar?": {
+   "file": "where-is-madagascar-cf64d3.mp3",
+   "dur": 1.97,
+   "made": "2026-10-27"
+  },
+  "Where is Malaysia?": {
+   "file": "where-is-malaysia-c4e3ce.mp3",
+   "dur": 1.73,
+   "made": "2026-10-27"
+  },
+  "Where is Mexico?": {
+   "file": "where-is-mexico-a620c0.mp3",
+   "dur": 1.81,
+   "made": "2026-10-27"
+  },
+  "Where is Mongolia?": {
+   "file": "where-is-mongolia-10aabc.mp3",
+   "dur": 1.83,
+   "made": "2026-10-27"
+  },
+  "Where is Morocco?": {
+   "file": "where-is-morocco-9bf4aa.mp3",
+   "dur": 1.77,
+   "made": "2026-10-27"
+  },
+  "Where is Namibia?": {
+   "file": "where-is-namibia-366ce7.mp3",
+   "dur": 1.77,
+   "made": "2026-10-27"
+  },
+  "Where is Nepal?": {
+   "file": "where-is-nepal-2c4100.mp3",
+   "dur": 1.66,
+   "made": "2026-10-27"
+  },
+  "Where is New Zealand?": {
+   "file": "where-is-new-zealand-853515.mp3",
+   "dur": 1.78,
+   "made": "2026-10-27"
+  },
+  "Where is Nigeria?": {
+   "file": "where-is-nigeria-06dbc5.mp3",
+   "dur": 1.88,
+   "made": "2026-10-27"
+  },
+  "Where is North America?": {
+   "file": "where-is-north-america-01ed51.mp3",
+   "dur": 2.03,
+   "made": "2026-10-27"
+  },
+  "Where is Norway?": {
+   "file": "where-is-norway-2c63c8.mp3",
+   "dur": 1.64,
+   "made": "2026-10-27"
+  },
+  "Where is Pakistan?": {
+   "file": "where-is-pakistan-ebb148.mp3",
+   "dur": 1.83,
+   "made": "2026-10-27"
+  },
+  "Where is Paraguay?": {
+   "file": "where-is-paraguay-2ae744.mp3",
+   "dur": 1.67,
+   "made": "2026-10-27"
+  },
+  "Where is Peru?": {
+   "file": "where-is-peru-95dc92.mp3",
+   "dur": 1.61,
+   "made": "2026-10-27"
+  },
+  "Where is Poland?": {
+   "file": "where-is-poland-4d69e6.mp3",
+   "dur": 1.63,
+   "made": "2026-10-27"
+  },
+  "Where is Portugal?": {
+   "file": "where-is-portugal-ecd74a.mp3",
+   "dur": 1.73,
+   "made": "2026-10-27"
+  },
+  "Where is Romania?": {
+   "file": "where-is-romania-ae7aa9.mp3",
+   "dur": 1.8,
+   "made": "2026-10-27"
+  },
+  "Where is Russia?": {
+   "file": "where-is-russia-c69683.mp3",
+   "dur": 1.58,
+   "made": "2026-10-27"
+  },
+  "Where is Saudi Arabia?": {
+   "file": "where-is-saudi-arabia-2fe39b.mp3",
+   "dur": 2.03,
+   "made": "2026-10-27"
+  },
+  "Where is Senegal?": {
+   "file": "where-is-senegal-15873c.mp3",
+   "dur": 1.72,
+   "made": "2026-10-27"
+  },
+  "Where is Serbia?": {
+   "file": "where-is-serbia-582504.mp3",
+   "dur": 1.63,
+   "made": "2026-10-27"
+  },
+  "Where is Sicily?": {
+   "file": "where-is-sicily-7fb4c1.mp3",
+   "dur": 1.65,
+   "made": "2026-10-27"
+  },
+  "Where is Slovakia?": {
+   "file": "where-is-slovakia-263b01.mp3",
+   "dur": 1.82,
+   "made": "2026-10-27"
+  },
+  "Where is Slovenia?": {
+   "file": "where-is-slovenia-3ae71f.mp3",
+   "dur": 1.8,
+   "made": "2026-10-27"
+  },
+  "Where is Somalia?": {
+   "file": "where-is-somalia-c2ae78.mp3",
+   "dur": 1.74,
+   "made": "2026-10-27"
+  },
+  "Where is South Africa?": {
+   "file": "where-is-south-africa-19bec2.mp3",
+   "dur": 1.97,
+   "made": "2026-10-27"
+  },
+  "Where is South America?": {
+   "file": "where-is-south-america-f25ec4.mp3",
+   "dur": 2.01,
+   "made": "2026-10-27"
+  },
+  "Where is South Korea?": {
+   "file": "where-is-south-korea-95a85a.mp3",
+   "dur": 1.88,
+   "made": "2026-10-27"
+  },
+  "Where is Spain?": {
+   "file": "where-is-spain-53d6e3.mp3",
+   "dur": 1.57,
+   "made": "2026-10-27"
+  },
+  "Where is Sri Lanka?": {
+   "file": "where-is-sri-lanka-e50af6.mp3",
+   "dur": 1.76,
+   "made": "2026-10-27"
+  },
+  "Where is Sudan?": {
+   "file": "where-is-sudan-168e89.mp3",
+   "dur": 1.63,
+   "made": "2026-10-27"
+  },
+  "Where is Sweden?": {
+   "file": "where-is-sweden-b325ca.mp3",
+   "dur": 1.64,
+   "made": "2026-10-27"
+  },
+  "Where is Switzerland?": {
+   "file": "where-is-switzerland-589403.mp3",
+   "dur": 1.79,
+   "made": "2026-10-27"
+  },
+  "Where is Tanzania?": {
+   "file": "where-is-tanzania-b6ab8c.mp3",
+   "dur": 1.8,
+   "made": "2026-10-27"
+  },
+  "Where is Tasmania?": {
+   "file": "where-is-tasmania-fc8e0d.mp3",
+   "dur": 1.84,
+   "made": "2026-10-27"
+  },
+  "Where is Thailand?": {
+   "file": "where-is-thailand-99eff4.mp3",
+   "dur": 1.66,
+   "made": "2026-10-27"
+  },
+  "Where is Turkey?": {
+   "file": "where-is-turkey-14bd31.mp3",
+   "dur": 1.63,
+   "made": "2026-10-27"
+  },
+  "Where is Ukraine?": {
+   "file": "where-is-ukraine-ca727a.mp3",
+   "dur": 1.77,
+   "made": "2026-10-27"
+  },
+  "Where is Uruguay?": {
+   "file": "where-is-uruguay-eff2e5.mp3",
+   "dur": 1.82,
+   "made": "2026-10-27"
+  },
+  "Where is Venezuela?": {
+   "file": "where-is-venezuela-aeac70.mp3",
+   "dur": 1.88,
+   "made": "2026-10-27"
+  },
+  "Where is Vietnam?": {
+   "file": "where-is-vietnam-d39be1.mp3",
+   "dur": 1.81,
+   "made": "2026-10-27"
+  },
+  "Where is Zimbabwe?": {
+   "file": "where-is-zimbabwe-23ea5b.mp3",
+   "dur": 1.86,
+   "made": "2026-10-27"
+  },
+  "Where is the Netherlands?": {
+   "file": "where-is-the-netherlands-3ba723.mp3",
+   "dur": 1.99,
+   "made": "2026-10-27"
+  },
+  "Where is the Philippines?": {
+   "file": "where-is-the-philippines-2bf101.mp3",
+   "dur": 2.04,
+   "made": "2026-10-27"
+  },
+  "Where is the United Kingdom?": {
+   "file": "where-is-the-united-kingdom-d2450d.mp3",
+   "dur": 2.23,
+   "made": "2026-10-27"
+  },
+  "Where is the United States?": {
+   "file": "where-is-the-united-states-e001a9.mp3",
+   "dur": 2.16,
+   "made": "2026-10-27"
+  },
+  "Why is summer warm, and winter cold? Let's look at the sunshine.": {
+   "file": "why-is-summer-warm-and-winter-cold-let-s-adbfcd.mp3",
+   "dur": 4.7,
+   "made": "2026-10-27"
+  },
+  "Winter!": {
+   "file": "winter-b23340.mp3",
+   "dur": 1.29,
+   "made": "2026-10-27"
+  },
+  "Yes! Abuja is the capital city of Nigeria.": {
+   "file": "yes-abuja-is-the-capital-city-of-nigeria-514cc9.mp3",
+   "dur": 4.08,
+   "made": "2026-10-27"
+  },
+  "Yes! Addis Ababa is the capital city of Ethiopia.": {
+   "file": "yes-addis-ababa-is-the-capital-city-of-e-4d5339.mp3",
+   "dur": 4.43,
+   "made": "2026-10-27"
+  },
+  "Yes! Amsterdam is the capital city of the Netherlands.": {
+   "file": "yes-amsterdam-is-the-capital-city-of-the-e809fa.mp3",
+   "dur": 4.3,
+   "made": "2026-10-27"
+  },
+  "Yes! Ankara is the capital city of Turkey.": {
+   "file": "yes-ankara-is-the-capital-city-of-turkey-a095f3.mp3",
+   "dur": 3.81,
+   "made": "2026-10-27"
+  },
+  "Yes! Athens is the capital city of Greece.": {
+   "file": "yes-athens-is-the-capital-city-of-greece-d4e01e.mp3",
+   "dur": 3.69,
+   "made": "2026-10-27"
+  },
+  "Yes! Bangkok is the capital city of Thailand.": {
+   "file": "yes-bangkok-is-the-capital-city-of-thail-a872f4.mp3",
+   "dur": 3.88,
+   "made": "2026-10-27"
+  },
+  "Yes! Beijing is the capital city of China.": {
+   "file": "yes-beijing-is-the-capital-city-of-china-9297e5.mp3",
+   "dur": 3.77,
+   "made": "2026-10-27"
+  },
+  "Yes! Berlin is the capital city of Germany.": {
+   "file": "yes-berlin-is-the-capital-city-of-german-59afef.mp3",
+   "dur": 3.78,
+   "made": "2026-10-27"
+  },
+  "Yes! Bern is the capital city of Switzerland.": {
+   "file": "yes-bern-is-the-capital-city-of-switzerl-625515.mp3",
+   "dur": 3.75,
+   "made": "2026-10-27"
+  },
+  "Yes! Bogota is the capital city of Colombia.": {
+   "file": "yes-bogota-is-the-capital-city-of-colomb-405760.mp3",
+   "dur": 4.05,
+   "made": "2026-10-27"
+  },
+  "Yes! Brasilia is the capital city of Brazil.": {
+   "file": "yes-brasilia-is-the-capital-city-of-braz-5affea.mp3",
+   "dur": 3.97,
+   "made": "2026-10-27"
+  },
+  "Yes! Bratislava is the capital city of Slovakia.": {
+   "file": "yes-bratislava-is-the-capital-city-of-sl-0ad8f7.mp3",
+   "dur": 4.45,
+   "made": "2026-10-27"
+  },
+  "Yes! Brussels is the capital city of Belgium.": {
+   "file": "yes-brussels-is-the-capital-city-of-belg-fcf0c3.mp3",
+   "dur": 3.93,
+   "made": "2026-10-27"
+  },
+  "Yes! Bucharest is the capital city of Romania.": {
+   "file": "yes-bucharest-is-the-capital-city-of-rom-590255.mp3",
+   "dur": 4.25,
+   "made": "2026-10-27"
+  },
+  "Yes! Budapest is the capital city of Hungary.": {
+   "file": "yes-budapest-is-the-capital-city-of-hung-73ea9c.mp3",
+   "dur": 4.01,
+   "made": "2026-10-27"
+  },
+  "Yes! Buenos Aires is the capital city of Argentina.": {
+   "file": "yes-buenos-aires-is-the-capital-city-of-27a431.mp3",
+   "dur": 5.06,
+   "made": "2026-10-27"
+  },
+  "Yes! Cairo is the capital city of Egypt.": {
+   "file": "yes-cairo-is-the-capital-city-of-egypt-390823.mp3",
+   "dur": 3.79,
+   "made": "2026-10-27"
+  },
+  "Yes! Canberra is the capital city of Australia.": {
+   "file": "yes-canberra-is-the-capital-city-of-aust-f35c5a.mp3",
+   "dur": 4.03,
+   "made": "2026-10-27"
+  },
+  "Yes! Copenhagen is the capital city of Denmark.": {
+   "file": "yes-copenhagen-is-the-capital-city-of-de-0b8d4e.mp3",
+   "dur": 4.19,
+   "made": "2026-10-27"
+  },
+  "Yes! Dublin is the capital city of Ireland.": {
+   "file": "yes-dublin-is-the-capital-city-of-irelan-485104.mp3",
+   "dur": 3.68,
+   "made": "2026-10-27"
+  },
+  "Yes! Havana is the capital city of Cuba.": {
+   "file": "yes-havana-is-the-capital-city-of-cuba-8aa0b3.mp3",
+   "dur": 3.64,
+   "made": "2026-10-27"
+  },
+  "Yes! Helsinki is the capital city of Finland.": {
+   "file": "yes-helsinki-is-the-capital-city-of-finl-cc6091.mp3",
+   "dur": 3.87,
+   "made": "2026-10-27"
+  },
+  "Yes! Jakarta is the capital city of Indonesia.": {
+   "file": "yes-jakarta-is-the-capital-city-of-indon-7dda2d.mp3",
+   "dur": 4.26,
+   "made": "2026-10-27"
+  },
+  "Yes! Kyiv is the capital city of Ukraine.": {
+   "file": "yes-kyiv-is-the-capital-city-of-ukraine-cd1767.mp3",
+   "dur": 3.64,
+   "made": "2026-10-27"
+  },
+  "Yes! Lima is the capital city of Peru.": {
+   "file": "yes-lima-is-the-capital-city-of-peru-744aec.mp3",
+   "dur": 3.6,
+   "made": "2026-10-27"
+  },
+  "Yes! Lisbon is the capital city of Portugal.": {
+   "file": "yes-lisbon-is-the-capital-city-of-portug-35a131.mp3",
+   "dur": 3.92,
+   "made": "2026-10-27"
+  },
+  "Yes! London is the capital city of the United Kingdom.": {
+   "file": "yes-london-is-the-capital-city-of-the-un-4a51d1.mp3",
+   "dur": 4.47,
+   "made": "2026-10-27"
+  },
+  "Yes! Madrid is the capital city of Spain.": {
+   "file": "yes-madrid-is-the-capital-city-of-spain-9156ef.mp3",
+   "dur": 3.6,
+   "made": "2026-10-27"
+  },
+  "Yes! Manila is the capital city of the Philippines.": {
+   "file": "yes-manila-is-the-capital-city-of-the-ph-79ee73.mp3",
+   "dur": 4.21,
+   "made": "2026-10-27"
+  },
+  "Yes! Mexico City is the capital city of Mexico.": {
+   "file": "yes-mexico-city-is-the-capital-city-of-m-d42304.mp3",
+   "dur": 4.67,
+   "made": "2026-10-27"
+  },
+  "Yes! Minsk is the capital city of Belarus.": {
+   "file": "yes-minsk-is-the-capital-city-of-belarus-a422f9.mp3",
+   "dur": 3.91,
+   "made": "2026-10-27"
+  },
+  "Yes! Moscow is the capital city of Russia.": {
+   "file": "yes-moscow-is-the-capital-city-of-russia-3ce084.mp3",
+   "dur": 3.85,
+   "made": "2026-10-27"
+  },
+  "Yes! Nairobi is the capital city of Kenya.": {
+   "file": "yes-nairobi-is-the-capital-city-of-kenya-d3b54c.mp3",
+   "dur": 3.72,
+   "made": "2026-10-27"
+  },
+  "Yes! New Delhi is the capital city of India.": {
+   "file": "yes-new-delhi-is-the-capital-city-of-ind-bfc1e3.mp3",
+   "dur": 3.71,
+   "made": "2026-10-27"
+  },
+  "Yes! Oslo is the capital city of Norway.": {
+   "file": "yes-oslo-is-the-capital-city-of-norway-8aa754.mp3",
+   "dur": 3.75,
+   "made": "2026-10-27"
+  },
+  "Yes! Ottawa is the capital city of Canada.": {
+   "file": "yes-ottawa-is-the-capital-city-of-canada-50642e.mp3",
+   "dur": 3.75,
+   "made": "2026-10-27"
+  },
+  "Yes! Paris is the capital city of France.": {
+   "file": "yes-paris-is-the-capital-city-of-france-39fc01.mp3",
+   "dur": 3.6,
+   "made": "2026-10-27"
+  },
+  "Yes! Prague is the capital city of Czechia.": {
+   "file": "yes-prague-is-the-capital-city-of-czechi-cf973d.mp3",
+   "dur": 3.61,
+   "made": "2026-10-27"
+  },
+  "Yes! Pretoria is the capital city of South Africa.": {
+   "file": "yes-pretoria-is-the-capital-city-of-sout-fa0508.mp3",
+   "dur": 4.3,
+   "made": "2026-10-27"
+  },
+  "Yes! Rabat is the capital city of Morocco.": {
+   "file": "yes-rabat-is-the-capital-city-of-morocco-400d3c.mp3",
+   "dur": 3.94,
+   "made": "2026-10-27"
+  },
+  "Yes! Reykjavik is the capital city of Iceland.": {
+   "file": "yes-reykjavik-is-the-capital-city-of-ice-38d6b9.mp3",
+   "dur": 4.09,
+   "made": "2026-10-27"
+  },
+  "Yes! Riyadh is the capital city of Saudi Arabia.": {
+   "file": "yes-riyadh-is-the-capital-city-of-saudi-3cb8e3.mp3",
+   "dur": 4.24,
+   "made": "2026-10-27"
+  },
+  "Yes! Rome is the capital city of Italy.": {
+   "file": "yes-rome-is-the-capital-city-of-italy-144ed6.mp3",
+   "dur": 3.52,
+   "made": "2026-10-27"
+  },
+  "Yes! Santiago is the capital city of Chile.": {
+   "file": "yes-santiago-is-the-capital-city-of-chil-bd5318.mp3",
+   "dur": 3.97,
+   "made": "2026-10-27"
+  },
+  "Yes! Seoul is the capital city of South Korea.": {
+   "file": "yes-seoul-is-the-capital-city-of-south-k-69d8a2.mp3",
+   "dur": 3.92,
+   "made": "2026-10-27"
+  },
+  "Yes! Stockholm is the capital city of Sweden.": {
+   "file": "yes-stockholm-is-the-capital-city-of-swe-390991.mp3",
+   "dur": 3.99,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Afghanistan.": {
+   "file": "yes-this-is-afghanistan-ae6afc.mp3",
+   "dur": 2.81,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Africa.": {
+   "file": "yes-this-is-africa-b71ca6.mp3",
+   "dur": 2.58,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Albania.": {
+   "file": "yes-this-is-albania-199f8e.mp3",
+   "dur": 2.61,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Algeria.": {
+   "file": "yes-this-is-algeria-020529.mp3",
+   "dur": 2.58,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Angola.": {
+   "file": "yes-this-is-angola-5c7d0f.mp3",
+   "dur": 2.54,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Antarctica.": {
+   "file": "yes-this-is-antarctica-8e58e1.mp3",
+   "dur": 2.78,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Argentina.": {
+   "file": "yes-this-is-argentina-1b89e1.mp3",
+   "dur": 2.78,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Asia.": {
+   "file": "yes-this-is-asia-7bb67e.mp3",
+   "dur": 2.45,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Australia.": {
+   "file": "yes-this-is-australia-1bc7ac.mp3",
+   "dur": 2.67,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Austria.": {
+   "file": "yes-this-is-austria-9886ac.mp3",
+   "dur": 2.52,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Bangladesh.": {
+   "file": "yes-this-is-bangladesh-ff3cb7.mp3",
+   "dur": 2.68,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Belarus.": {
+   "file": "yes-this-is-belarus-5c6ec7.mp3",
+   "dur": 2.61,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Belgium.": {
+   "file": "yes-this-is-belgium-52aebc.mp3",
+   "dur": 2.56,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Bolivia.": {
+   "file": "yes-this-is-bolivia-1af153.mp3",
+   "dur": 2.56,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Brazil.": {
+   "file": "yes-this-is-brazil-1451cf.mp3",
+   "dur": 2.53,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Bulgaria.": {
+   "file": "yes-this-is-bulgaria-904a7e.mp3",
+   "dur": 2.65,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Cameroon.": {
+   "file": "yes-this-is-cameroon-78371e.mp3",
+   "dur": 2.55,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Canada.": {
+   "file": "yes-this-is-canada-ae7a3b.mp3",
+   "dur": 2.5,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Chad.": {
+   "file": "yes-this-is-chad-cd6f88.mp3",
+   "dur": 2.34,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Chile.": {
+   "file": "yes-this-is-chile-8183ca.mp3",
+   "dur": 2.44,
+   "made": "2026-10-27"
+  },
+  "Yes! This is China.": {
+   "file": "yes-this-is-china-2ef8c0.mp3",
+   "dur": 2.48,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Colombia.": {
+   "file": "yes-this-is-colombia-557960.mp3",
+   "dur": 2.57,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Crete.": {
+   "file": "yes-this-is-crete-c89ef3.mp3",
+   "dur": 1.92,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Croatia.": {
+   "file": "yes-this-is-croatia-457c06.mp3",
+   "dur": 2.64,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Cuba.": {
+   "file": "yes-this-is-cuba-3d01ac.mp3",
+   "dur": 2.43,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Cyprus.": {
+   "file": "yes-this-is-cyprus-a391ad.mp3",
+   "dur": 2.6,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Czechia.": {
+   "file": "yes-this-is-czechia-179405.mp3",
+   "dur": 2.54,
+   "made": "2026-10-27"
+  },
+  "Yes! This is DR Congo.": {
+   "file": "yes-this-is-dr-congo-5a1871.mp3",
+   "dur": 2.86,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Denmark.": {
+   "file": "yes-this-is-denmark-2b7ede.mp3",
+   "dur": 2.57,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Ecuador.": {
+   "file": "yes-this-is-ecuador-a1a594.mp3",
+   "dur": 2.55,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Egypt.": {
+   "file": "yes-this-is-egypt-639c2c.mp3",
+   "dur": 2.63,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Estonia.": {
+   "file": "yes-this-is-estonia-db83ae.mp3",
+   "dur": 2.59,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Ethiopia.": {
+   "file": "yes-this-is-ethiopia-2c8227.mp3",
+   "dur": 2.71,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Europe.": {
+   "file": "yes-this-is-europe-ee90c9.mp3",
+   "dur": 2.43,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Finland.": {
+   "file": "yes-this-is-finland-5f2fcd.mp3",
+   "dur": 2.49,
+   "made": "2026-10-27"
+  },
+  "Yes! This is France.": {
+   "file": "yes-this-is-france-128a18.mp3",
+   "dur": 2.45,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Germany.": {
+   "file": "yes-this-is-germany-941891.mp3",
+   "dur": 2.53,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Ghana.": {
+   "file": "yes-this-is-ghana-50f5f0.mp3",
+   "dur": 2.46,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Great Britain.": {
+   "file": "yes-this-is-great-britain-7613fc.mp3",
+   "dur": 2.76,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Greece.": {
+   "file": "yes-this-is-greece-1b60d1.mp3",
+   "dur": 2.42,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Greenland.": {
+   "file": "yes-this-is-greenland-364886.mp3",
+   "dur": 2.55,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Hawaii.": {
+   "file": "yes-this-is-hawaii-0c3da8.mp3",
+   "dur": 2.52,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Hungary.": {
+   "file": "yes-this-is-hungary-d96987.mp3",
+   "dur": 2.52,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Iceland.": {
+   "file": "yes-this-is-iceland-2f3f5c.mp3",
+   "dur": 2.55,
+   "made": "2026-10-27"
+  },
+  "Yes! This is India.": {
+   "file": "yes-this-is-india-e76d12.mp3",
+   "dur": 2.46,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Indonesia.": {
+   "file": "yes-this-is-indonesia-7d550c.mp3",
+   "dur": 2.68,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Iran.": {
+   "file": "yes-this-is-iran-50139e.mp3",
+   "dur": 2.44,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Iraq.": {
+   "file": "yes-this-is-iraq-73b1da.mp3",
+   "dur": 2.44,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Ireland.": {
+   "file": "yes-this-is-ireland-0f5312.mp3",
+   "dur": 2.57,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Italy.": {
+   "file": "yes-this-is-italy-93fc6a.mp3",
+   "dur": 2.41,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Jamaica.": {
+   "file": "yes-this-is-jamaica-d98d59.mp3",
+   "dur": 2.7,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Japan.": {
+   "file": "yes-this-is-japan-3f57bb.mp3",
+   "dur": 2.52,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Kazakhstan.": {
+   "file": "yes-this-is-kazakhstan-064186.mp3",
+   "dur": 2.82,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Kenya.": {
+   "file": "yes-this-is-kenya-bda428.mp3",
+   "dur": 2.45,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Latvia.": {
+   "file": "yes-this-is-latvia-768382.mp3",
+   "dur": 2.52,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Libya.": {
+   "file": "yes-this-is-libya-1299d0.mp3",
+   "dur": 2.42,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Lithuania.": {
+   "file": "yes-this-is-lithuania-ca0491.mp3",
+   "dur": 2.75,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Madagascar.": {
+   "file": "yes-this-is-madagascar-4a4455.mp3",
+   "dur": 2.76,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Malaysia.": {
+   "file": "yes-this-is-malaysia-3d34ad.mp3",
+   "dur": 2.55,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Mexico.": {
+   "file": "yes-this-is-mexico-570006.mp3",
+   "dur": 2.67,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Mongolia.": {
+   "file": "yes-this-is-mongolia-2d88cc.mp3",
+   "dur": 2.62,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Morocco.": {
+   "file": "yes-this-is-morocco-b1ff24.mp3",
+   "dur": 2.61,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Namibia.": {
+   "file": "yes-this-is-namibia-ed288f.mp3",
+   "dur": 2.56,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Nepal.": {
+   "file": "yes-this-is-nepal-8f6005.mp3",
+   "dur": 2.57,
+   "made": "2026-10-27"
+  },
+  "Yes! This is New Zealand.": {
+   "file": "yes-this-is-new-zealand-53f1f0.mp3",
+   "dur": 2.59,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Nigeria.": {
+   "file": "yes-this-is-nigeria-4024d9.mp3",
+   "dur": 2.66,
+   "made": "2026-10-27"
+  },
+  "Yes! This is North America.": {
+   "file": "yes-this-is-north-america-6f7340.mp3",
+   "dur": 2.83,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Norway.": {
+   "file": "yes-this-is-norway-6d5445.mp3",
+   "dur": 2.51,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Pakistan.": {
+   "file": "yes-this-is-pakistan-fb693b.mp3",
+   "dur": 2.7,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Paraguay.": {
+   "file": "yes-this-is-paraguay-307c19.mp3",
+   "dur": 2.57,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Peru.": {
+   "file": "yes-this-is-peru-0d02da.mp3",
+   "dur": 2.39,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Poland.": {
+   "file": "yes-this-is-poland-176fb1.mp3",
+   "dur": 2.49,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Portugal.": {
+   "file": "yes-this-is-portugal-aa9d45.mp3",
+   "dur": 2.6,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Romania.": {
+   "file": "yes-this-is-romania-d19fb5.mp3",
+   "dur": 2.63,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Russia.": {
+   "file": "yes-this-is-russia-2fec6d.mp3",
+   "dur": 2.43,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Saudi Arabia.": {
+   "file": "yes-this-is-saudi-arabia-de88d3.mp3",
+   "dur": 2.82,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Senegal.": {
+   "file": "yes-this-is-senegal-b6f49e.mp3",
+   "dur": 2.52,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Serbia.": {
+   "file": "yes-this-is-serbia-ca73ca.mp3",
+   "dur": 2.46,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Sicily.": {
+   "file": "yes-this-is-sicily-941e9c.mp3",
+   "dur": 2.5,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Slovakia.": {
+   "file": "yes-this-is-slovakia-bdd26b.mp3",
+   "dur": 2.68,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Slovenia.": {
+   "file": "yes-this-is-slovenia-1526aa.mp3",
+   "dur": 2.64,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Somalia.": {
+   "file": "yes-this-is-somalia-86bf55.mp3",
+   "dur": 2.56,
+   "made": "2026-10-27"
+  },
+  "Yes! This is South Africa.": {
+   "file": "yes-this-is-south-africa-4eaff2.mp3",
+   "dur": 2.82,
+   "made": "2026-10-27"
+  },
+  "Yes! This is South America.": {
+   "file": "yes-this-is-south-america-b99fa8.mp3",
+   "dur": 2.83,
+   "made": "2026-10-27"
+  },
+  "Yes! This is South Korea.": {
+   "file": "yes-this-is-south-korea-9fab50.mp3",
+   "dur": 2.74,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Spain.": {
+   "file": "yes-this-is-spain-e16600.mp3",
+   "dur": 2.45,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Sri Lanka.": {
+   "file": "yes-this-is-sri-lanka-38932e.mp3",
+   "dur": 2.57,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Sudan.": {
+   "file": "yes-this-is-sudan-f95bb1.mp3",
+   "dur": 2.49,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Sweden.": {
+   "file": "yes-this-is-sweden-45455b.mp3",
+   "dur": 2.43,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Switzerland.": {
+   "file": "yes-this-is-switzerland-d9cb24.mp3",
+   "dur": 2.58,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Tanzania.": {
+   "file": "yes-this-is-tanzania-9c5935.mp3",
+   "dur": 2.67,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Tasmania.": {
+   "file": "yes-this-is-tasmania-7d4697.mp3",
+   "dur": 2.72,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Thailand.": {
+   "file": "yes-this-is-thailand-83462c.mp3",
+   "dur": 2.51,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Turkey.": {
+   "file": "yes-this-is-turkey-1907b6.mp3",
+   "dur": 2.5,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Ukraine.": {
+   "file": "yes-this-is-ukraine-3af2c6.mp3",
+   "dur": 2.56,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Uruguay.": {
+   "file": "yes-this-is-uruguay-fab45d.mp3",
+   "dur": 2.63,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Venezuela.": {
+   "file": "yes-this-is-venezuela-ce8083.mp3",
+   "dur": 2.67,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Vietnam.": {
+   "file": "yes-this-is-vietnam-b259d2.mp3",
+   "dur": 2.59,
+   "made": "2026-10-27"
+  },
+  "Yes! This is Zimbabwe.": {
+   "file": "yes-this-is-zimbabwe-8629a4.mp3",
+   "dur": 2.63,
+   "made": "2026-10-27"
+  },
+  "Yes! This is the Netherlands.": {
+   "file": "yes-this-is-the-netherlands-813822.mp3",
+   "dur": 2.74,
+   "made": "2026-10-27"
+  },
+  "Yes! This is the Philippines.": {
+   "file": "yes-this-is-the-philippines-cc3d17.mp3",
+   "dur": 2.82,
+   "made": "2026-10-27"
+  },
+  "Yes! This is the United Kingdom.": {
+   "file": "yes-this-is-the-united-kingdom-f4f213.mp3",
+   "dur": 3.07,
+   "made": "2026-10-27"
+  },
+  "Yes! This is the United States.": {
+   "file": "yes-this-is-the-united-states-e81d81.mp3",
+   "dur": 3.05,
+   "made": "2026-10-27"
+  },
+  "Yes! Tokyo is the capital city of Japan.": {
+   "file": "yes-tokyo-is-the-capital-city-of-japan-f3394a.mp3",
+   "dur": 3.85,
+   "made": "2026-10-27"
+  },
+  "Yes! Vienna is the capital city of Austria.": {
+   "file": "yes-vienna-is-the-capital-city-of-austri-565b43.mp3",
+   "dur": 3.71,
+   "made": "2026-10-27"
+  },
+  "Yes! Vilnius is the capital city of Lithuania.": {
+   "file": "yes-vilnius-is-the-capital-city-of-lithu-16d5d7.mp3",
+   "dur": 4.27,
+   "made": "2026-10-27"
+  },
+  "Yes! Warsaw is the capital city of Poland.": {
+   "file": "yes-warsaw-is-the-capital-city-of-poland-d79fb1.mp3",
+   "dur": 3.82,
+   "made": "2026-10-27"
+  },
+  "Yes! Washington is the capital city of the United States.": {
+   "file": "yes-washington-is-the-capital-city-of-th-6c1b54.mp3",
+   "dur": 4.7,
+   "made": "2026-10-27"
+  },
+  "Yes! Wellington is the capital city of New Zealand.": {
+   "file": "yes-wellington-is-the-capital-city-of-ne-66e618.mp3",
+   "dur": 4.14,
+   "made": "2026-10-27"
+  },
+  "Yes! Zagreb is the capital city of Croatia.": {
+   "file": "yes-zagreb-is-the-capital-city-of-croati-cadd58.mp3",
+   "dur": 3.98,
+   "made": "2026-10-27"
+  },
+  "You flew all around the world! Now let's fly up into space.": {
+   "file": "you-flew-all-around-the-world-now-let-s-2d792a.mp3",
+   "dur": 4.33,
+   "made": "2026-10-27"
+  }
+ }
+}
