@@ -110,7 +110,9 @@ const centre = new THREE.Object3D();
 scene.add(centre);
 sun.target = centre;
 
-const ocean = new THREE.Mesh(new THREE.SphereGeometry(0.9995, 160, 80), new THREE.MeshLambertMaterial({ color: OCEAN }));
+// the ocean is drawn a little behind the land (polygon offset), so they never flicker into each other from far away
+const ocean = new THREE.Mesh(new THREE.SphereGeometry(0.9995, 160, 80),
+  new THREE.MeshLambertMaterial({ color: OCEAN, polygonOffset: true, polygonOffsetFactor: 2, polygonOffsetUnits: 4 }));
 globe.add(ocean);
 
 const glow = new THREE.Mesh(new THREE.SphereGeometry(1.12, 64, 32), new THREE.ShaderMaterial({
@@ -1158,7 +1160,7 @@ async function startFinale(beat = 0) {
   idle = false;
   flight = null;
   if (!finale) {
-    const m = await import('./finale.js?v=12');
+    const m = await import('./finale.js?v=13');
     finale = m.createFinale({
       THREE, scene, camera, globe, headlight: sun, ambient, ambientIntensity: AMBIENT, dirOf, byName, HOME,
       lines, say, sleep, stopVoice, sfx,

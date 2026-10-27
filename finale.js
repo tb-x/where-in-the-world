@@ -680,6 +680,14 @@ export function createFinale(api) {
     }
     camera.up.set(0, 1, 0);
     camera.lookAt(camLook);
+    // the near plane sits just in front of the nearest thing in view, so depth stays fine enough to keep the
+    // land on top of the ocean (a fixed near of 0.02 with the stars 600 away made the land speckle)
+    let nearest = camera.position.distanceTo(E) - 1.8 * st.size;
+    for (const g of ghosts) if (g.visible) nearest = Math.min(nearest, camera.position.distanceTo(g.position) - 1.8 * GHOST);
+    nearest = Math.min(nearest, camera.position.length() - SUN_R * 1.3);
+    camera.near = clamp(nearest * 0.5, 0.02, 40);
+    camera.far = 600;
+    camera.updateProjectionMatrix();
 
     if (sunPanel.classList.contains('on')) drawPanel(st.elev);
 
