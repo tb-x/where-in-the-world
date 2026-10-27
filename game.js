@@ -1151,6 +1151,7 @@ async function endLevel(token) {
 }
 
 /* ======== the seasons finale (finale.js, loaded when it's needed) ======== */
+const FINALE = './finale.js?v=13';   // bump ?v= after changing finale.js
 let finale = null;
 
 async function startFinale(beat = 0) {
@@ -1160,7 +1161,7 @@ async function startFinale(beat = 0) {
   idle = false;
   flight = null;
   if (!finale) {
-    const m = await import('./finale.js?v=13');
+    const m = await import(FINALE);
     finale = m.createFinale({
       THREE, scene, camera, globe, headlight: sun, ambient, ambientIntensity: AMBIENT, dirOf, byName, HOME,
       lines, say, sleep, stopVoice, sfx,
@@ -1249,6 +1250,13 @@ async function start() {
   console.info(`world: ${countries.length} countries, ${tris} triangles, built in ${Math.round(performance.now() - t0)} ms`);
   showScreens('start');
   requestAnimationFrame(frame);
+  // everything a game can still ask for, for sw.js to fetch ahead so it all works offline (see index.html)
+  const url = path => new URL(path, import.meta.url).href;
+  window.wmFiles = [
+    ...new Set(Object.values(clips).map(c => url(`assets/voice/${c.file}`))),
+    ...new Set(countries.filter(c => c.flag).map(c => url(`assets/flags/${c.flag}.svg`))),
+    url(FINALE),
+  ];
 }
 
 /* ======== test hook ======== */

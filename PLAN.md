@@ -230,8 +230,15 @@ Already in: `FOV`, `MIN_ALT`, `MAX_ALT`, `FIT_PAD`, `COUNTRY_FIT`, `ISLAND_VIEW`
 6. **Done 2026-10-27.** The seasons finale, `finale.js` (loaded only when needed), section 8. Played through
    silently beat by beat; the child's turn was tested by pushing the Earth from the test hook
    (`__wm.finale(beat)`, `__wm.push(theta)`), not yet with a finger on a real phone.
-7. Offline (`sw.js`, manifest, icons), README with audio credits, play-test on a phone and a tablet both
-   ways round, then publish and add it to `CLAUDE.md` and the landing page.
+7. **Done 2026-10-27** (published to Pages the same day, with the README and audio credits). Offline / Home
+   Screen: `sw.js` copied from Blast Off (prefix `world-map-`), `manifest.webmanifest`, and the icon drawn by
+   `dev/icon.py` (the game's globe over Europe and Africa with a pin on Poland, rendered to PNG in headless Chrome).
+   Since a child meets questions the page hasn't loaded yet, game.js lists every voice clip, flag and `finale.js`
+   in `window.wmFiles` and the page sends that list to `sw.js` from 20 s after loading, 40 files every 2 s so the
+   clips a question needs right then aren't stuck behind it (about 12 MB, fetched once).
+   Tested by loading once on the local server, stopping it and reloading: all 696 clips, the flags and the finale
+   came from the cache and a capitals question was spoken. Still to do: play-test on a phone and a tablet both
+   ways round, then add it to the landing page (parked on the root repo's `landing-world-map` branch).
 
 ## 8. Finale: why we have summer and winter (planned and built 2026-10-27)
 

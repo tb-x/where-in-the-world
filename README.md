@@ -37,6 +37,9 @@ with every decision and what's still to do, is in [PLAN.md](PLAN.md).
 
 Progress, the passport and the medal are kept on the device (`localStorage`).
 
+It can be added to the Home Screen and then plays without internet: on the first visit it saves the whole game,
+including every voice clip and flag (about 12 MB, fetched once in the background).
+
 ## Running it
 
 Any static file server, from this folder:
@@ -54,6 +57,7 @@ For grown-ups changing it, the tools in `dev/` (plain Python; the voice needs Ko
 - `python dev/flags.py`: copies the flags into `assets/flags/`.
 - `../_tools/kokoro/venv/Scripts/python dev/voices.py`: records any new or changed line; `--phonemes` shows
   how every name will be said, `--audition` compares voices and speeds.
+- `python dev/icon.py`: draws `icon.svg` from the map and renders `icon-180.png` and `icon-512.png` in headless Chrome.
 - `python dev/check.py`: checks every level (names, islands, flags, clips, capitals inside their country,
   enough wrong flags) and lists the places that get a camera view of their own. It should say 0 errors.
 
