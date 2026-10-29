@@ -124,6 +124,12 @@ def main():
             if n not in by:
                 err(f'look-alike group {g}: no country {n!r}')
             alike.setdefault(n, set()).update(x for x in g if x != n)
+    twins = {}   # flags too alike for a card: never on the same set of five
+    for g in levels.get('same', []):
+        for n in g:
+            if n not in by:
+                err(f'same-flag group {g}: no country {n!r}')
+            twins.setdefault(n, set()).update(x for x in g if x != n)
 
     def need(text, what):
         if text not in clips:
@@ -166,11 +172,11 @@ def main():
                 err(f'level {i}: no capital city for {name}')
             if L.get('flags') and p['flag']:
                 need(lines['country']['flag'].replace('{say}', p['say']), f'level {i} flag question')
-                pool = [n for n in known if n != name]
+                pool = [n for n in known if n != name and n not in twins.get(name, ())]
                 far = [n for n in pool if by[n]['cont'] != p['cont'] and n not in alike.get(name, ())]
                 near = [n for n in pool if by[n]['cont'] == p['cont'] and n not in alike.get(name, ())]
                 mode = L.get('cards', 'far')
-                have = len(far) + len(near) + len(alike.get(name, ())) if mode == 'alike' else len(far) + len(near) if mode == 'near' else len(far)
+                have = len(far) + len(near) + len(alike.get(name, set()) - twins.get(name, set())) if mode == 'alike' else len(far) + len(near) if mode == 'near' else len(far)
                 if have < CARDS - 1:
                     err(f'level {i}: only {have} wrong flags for {name} ({mode})')
             if name not in levels['stickers']:

@@ -17,7 +17,7 @@ const LABEL_SECONDS = 3.5;
 const CLIP_VOL = 1;                 // 0 to 1, loudness of the recorded voice
 const SFX_VOL = 0.5;
 const QUESTIONS_PER_LEVEL = 12;
-const HINT_AFTER = [2, 3];          // wrong taps before the ring shows, and before the camera flies there
+const HINT_AFTER = [2, 4, 6];       // wrong taps before each hint: a wide ring round the area, a smaller one, then the camera flies there
 const REMIND_SECONDS = 9;           // no tap for this long: the question is asked again, then the ring shows
 const LIFT = 0.004;                 // how far a found country rises off the globe (globe radii, at most)
 const CARDS = 5;                    // flags to choose from in a flag question
@@ -577,21 +577,26 @@ function addSticker(emoji, at, cls = '') {
 }
 function clearStickers() { stickers.length = 0; stickersEl.textContent = ''; }
 
-function showRing(at) { ringAt = at; ringEl.classList.add('on'); }
-// the first hint: a ring round the answer; on a 'world' trip the globe first turns so it faces the answer
-async function hintRing(t) {
-  if (quiz?.L.camera === 'world' && t.kind !== 'continent') {
-    quiz.moved = true;
-    await flyTo({ lon: t.at[0], lat: clamp(t.at[1], -45, 50), alt: Math.min(view.alt, globeAlt()) });
-  }
-  if (quiz?.target === t && !quiz.solved) showRing(t.at);
-}
+// the hint ring: round a point, `deg` degrees across on the ground each way (or a fixed small ring)
+let ringDeg = 0, ringPx = 0;
+function showRing(at, deg = 0) { ringAt = at; ringDeg = deg; ringEl.classList.add('on'); }
 function hideRing() { ringAt = null; ringEl.classList.remove('on'); }
 
 function placeLabels() {
   if (shown) place(labelEl, shown.at);
   for (const s of stickers) place(s.el, s.at);
-  if (ringAt) place(ringEl, ringAt);
+  if (ringAt) {
+    place(ringEl, ringAt);
+    let px = 60;
+    if (ringDeg) {
+      const c = screenOf(...ringAt), e = screenOf(ringAt[0], clamp(ringAt[1] + ringDeg, -89, 89));
+      px = Math.max(30, Math.hypot(e.x - c.x, e.y - c.y));
+    }
+    if (Math.abs(px - ringPx) > 0.5) {
+      ringPx = px;
+      Object.assign(ringEl.style, { width: `${2 * px}px`, height: `${2 * px}px`, margin: `${-px}px 0 0 ${-px}px` });
+    }
+  }
 }
 
 /* ======== voice: Kokoro clips, the device's voice when a clip is missing ======== */
@@ -922,6 +927,7 @@ function ask(t, first, token) {
   return new Promise(async done => {
     quiz.target = t;
     quiz.wrong = 0;
+    quiz.hint = 0;
     quiz.done = done;
     quiz.busy = true;
     quiz.solved = false;
@@ -956,8 +962,7 @@ async function remind(t, token) {
     await sleep(REMIND_SECONDS);
     if (token !== quizToken || quiz?.target !== t || quiz.solved || quiz.lastTap > since) continue;
     if (n++ === 0) say(line(askKind(t), t));
-    else if (t.q === 'flag') { thinCards(2); say(line('flag', t)); }
-    else { hintRing(t); say(lines.shared.look); }
+    else hint(t, quiz.hint + 1, true);
   }
 }
 
@@ -1000,8 +1005,28 @@ async function answer(hit) {
     showName(hit.c, name, cont ? [hit.lon, hit.lat] : hit.c.label, 2.5);
     say(line('this', cont ? { say: name } : hit.c));
   }
-  if (quiz.wrong === HINT_AFTER[0]) hintRing(t);
-  if (quiz.wrong === HINT_AFTER[1]) {
+  hint(t, hintsDue());
+}
+
+// how many hints the wrong taps so far have earned
+const hintsDue = () => HINT_AFTER.filter(n => quiz.wrong >= n).length;
+
+// Hints come in three steps, from wrong taps (HINT_AFTER) or from waiting (each REMIND_SECONDS after the
+// question was asked again), never all at once (changed 2026-10-29: a ring straight on the answer gave it away).
+// On the map: a wide ring round the area, with the answer somewhere inside but not in the middle (the globe
+// turns to it on a 'world' trip, or when it's out of sight); a smaller ring, still off-centre; then the camera
+// flies there and the place glows. With flags: one wrong flag goes, then all but two, then all but the right one.
+async function hint(t, stage, spoken = false) {
+  if (!quiz || quiz.target !== t || quiz.solved || stage <= quiz.hint || stage > 3) return;
+  quiz.hint = stage;
+  const token = quizToken;
+  if (t.q === 'flag') {
+    thinCards([4, 2, 1][stage - 1]);
+    if (stage === 3) cardsEl.querySelector(`[data-name="${CSS.escape(t.c.name)}"]`)?.classList.add('glow');
+    if (spoken) say(line('flag', t));
+    return;
+  }
+  if (stage === 3) {
     quiz.busy = true;
     quiz.moved = true;
     await (t.kind === 'continent' ? flyTo({ lon: t.at[0], lat: clamp(t.at[1], -45, 50), alt: globeAlt() }) : goBox(t.box));
@@ -1010,7 +1035,19 @@ async function answer(hit) {
     showRing(t.at);
     for (const c of t.members || [t.c]) c.glow = 1;
     say(lines.shared.look);
+    return;
   }
+  const size = t.box ? halfSize(t) : 20;
+  const deg = stage === 1 ? clamp(size * 1.5 + 8, 8, 20) : clamp(size * 1.2 + 4, 4, 12);   // the ring's radius on the ground
+  const a = Math.random() * Math.PI * 2, d = deg * (0.3 + Math.random() * 0.3);   // the answer 30-60% out from the middle
+  const at = [wrapLon(t.at[0] + Math.cos(a) * d / Math.max(Math.cos(t.at[1] * D2R), 0.3)), clamp(t.at[1] + Math.sin(a) * d, -80, 80)];
+  if (quiz.L.camera === 'world' || !screenOf(...at).on) {
+    quiz.moved = true;
+    await flyTo({ lon: at[0], lat: clamp(at[1], -45, 50), alt: Math.max(Math.min(view.alt, globeAlt()), altFor(deg * 1.3)) });
+    if (token !== quizToken || quiz?.target !== t || quiz.solved) return;
+  }
+  showRing(at, deg);
+  if (spoken) say(lines.shared.look);
 }
 
 function found(t) {
@@ -1047,7 +1084,11 @@ function cardsFor(t) {
   const near = shuffle(known.filter(c => c.cont === t.c.cont && !alike.has(c)));
   const pool = quiz.L.cards === 'alike' ? [...shuffle([...alike]), ...near, ...far]
     : quiz.L.cards === 'near' ? [...near, ...far] : far;
-  return shuffle([t.c, ...pool.slice(0, CARDS - 1)]);
+  // never two flags that can't be told apart (Indonesia and Monaco): the first of them in the pool wins
+  const twin = (a, b) => levels.same.some(g => g.includes(a.name) && g.includes(b.name));
+  const cards = [t.c];
+  for (const c of pool) if (cards.length < CARDS && !cards.some(o => twin(o, c))) cards.push(c);
+  return shuffle(cards);
 }
 
 function openCards(t) {
@@ -1095,8 +1136,7 @@ async function pickCard(c, b) {
   b.classList.add('shake');
   say(line('this', c));
   window.tbxEvent?.('mixup', { asked: t.name, tapped: c.name, flag: true });
-  if (quiz.wrong === HINT_AFTER[0]) thinCards(2);
-  if (quiz.wrong >= HINT_AFTER[1]) { thinCards(1); cardsEl.querySelector(`[data-name="${CSS.escape(t.c.name)}"]`)?.classList.add('glow'); }
+  hint(t, hintsDue());
 }
 
 // a copy of the flag flies from its card onto the country

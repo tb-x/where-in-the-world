@@ -93,7 +93,7 @@ button svg{width:55%;height:55%;display:block;margin:auto}
 #ring{position:fixed;left:0;top:0;z-index:26;width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;pointer-events:none;
   border:5px solid #fff;box-shadow:0 0 0 4px var(--gold), 0 0 24px var(--gold);opacity:0;transition:opacity .3s}
 #ring.on{opacity:1;animation:ring 1.2s ease-in-out infinite}
-@keyframes ring{50%{transform:scale(.7)}}
+@keyframes ring{50%{transform:scale(.9);opacity:.55}}
 
 /* ---------- end card ---------- */
 #end{position:fixed;inset:0;z-index:45;display:grid;place-items:center;padding:calc(60px + var(--safe-t)) 14px calc(14px + var(--safe-b));

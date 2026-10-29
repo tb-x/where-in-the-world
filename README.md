@@ -21,13 +21,17 @@ with every decision and what's still to do, is in [PLAN.md](PLAN.md).
   it only zooms out to the whole globe, still facing wherever the child left it, so finding the right part
   of the world is part of the question. The voice asks (🔊 says it again; it is asked again by itself after
   9 seconds). Drag to turn the globe, pinch to zoom in on small countries.
-- **A wrong tap** names what was tapped (*"This is Spain."*). After two, a ring pulses near the answer (on
-  the later trips the globe first turns to face it); after three, the camera flies there and it glows. A tap in the sea doesn't count. Nothing ever ends a trip.
+- **A wrong tap** names what was tapped (*"This is Spain."*). Hints come slowly, so they don't give the
+  answer away: after two wrong taps a wide ring pulses round the area, with the answer somewhere inside but
+  not in the middle (on the later trips the globe first turns to it); after four a smaller ring; after six the
+  camera flies there and it glows. Waiting brings the same steps, one every 9 seconds after the question is
+  asked again. A tap in the sea doesn't count. Nothing ever ends a trip.
 - **A right tap**: the country lifts, its flag spreads over it, and *"Yes!
   This is Italy."* A gold dot means first try.
 - **Flag questions** are about a country the trip hasn't shown yet: it lights up with its name (painted flags
-  are hidden meanwhile) and five flags appear at the bottom: *"Find the flag of Italy."* The wrong ones get
-  fewer after two misses. The right flag flies onto the country and spreads over it.
+  are hidden meanwhile) and five flags appear at the bottom: *"Find the flag of Italy."* One wrong flag goes after
+  two misses, all but two after four, all but the right one after six. Flags too alike to tell apart
+  (Indonesia and Monaco, Romania and Chad, Andorra and Moldova) never come up together. The right flag flies onto the country and spreads over it.
 - **Capital cities**: *"Find the country with the capital city Paris."* Then *"Yes! Paris is the capital
   city of France."* and a ⭐ on Paris.
 - **End card**: one to three stars from first tries and a stamp for each place found.
@@ -69,7 +73,7 @@ For grown-ups changing it, the tools in `dev/` (plain Python; the voice needs Ko
 
 ## Tuning knobs
 
-At the top of `game.js`: `QUESTIONS_PER_LEVEL` (12, when a trip doesn't set its own), `HINT_AFTER` ([2, 3] wrong taps), `REMIND_SECONDS` (9),
+At the top of `game.js`: `QUESTIONS_PER_LEVEL` (12, when a trip doesn't set its own), `HINT_AFTER` ([2, 4, 6] wrong taps), `REMIND_SECONDS` (9),
 `CARDS` (5 flags), `FLAG_SPREAD` (how fast a flag spreads over its country), `TAP_SLOP_PX` (how near a miss still counts), `COUNTRY_FIT` (how much of the screen a
 country flown to fills), `FLY_SPEED`, `MIN_ALT` (how close the camera can get), `IDLE_SPIN`, `CLIP_VOL`,
 `SFX_VOL`, `LIFT`, `COLOURS`.

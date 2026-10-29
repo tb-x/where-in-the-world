@@ -26,14 +26,18 @@ tapping a country, drag and pinch) is built.
     the picture stickers that popped up too were removed 2026-10-29), *"Yes! This is Italy."*,
     a stamp sound.
   - Wrong: the tapped country wiggles and says its own name (*"This is Spain."*), so a wrong tap still
-    teaches something. After the 2nd wrong tap a soft ring pulses around the right area; after the 3rd the
-    plane flies to the country and it glows until tapped. Nothing ends, nothing is lost.
+    teaches something. Hints in three slow steps (changed 2026-10-29: a ring right on the answer after 2 taps
+    was too suggestive): after the 2nd wrong tap a wide ring pulses round the area, the answer inside but
+    off-centre; after the 4th a smaller ring; after the 6th the camera flies to the country and it glows until
+    tapped. Waiting gives the same steps, one per reminder. Nothing ends, nothing is lost.
 - **Flag question**, two kinds:
   - *"Which flag is Italy's?"* with five flag cards (the user's idea).
   - Later levels: a country found earlier in the level lights up on the map, *"This is Italy. Which flag
     is Italy's?"* — ties the shape to the flag.
   - Right card: it flies onto the country on the map. Wrong card: it says its country's name and wiggles;
-    after two wrong cards the wrong ones fade until two are left.
+    one wrong card fades after two wrong, all but two after four, all but the right one after six. Flags too
+    alike to tell apart on a card (`same` in `levels.json`: Indonesia/Monaco, Romania/Chad, Andorra/Moldova)
+    are never on one set of cards (added 2026-10-29).
   - Five cards: one row on a tablet or a phone held sideways, 3 + 2 on a phone held upright; each card at
     least 88 px wide, the flag at 4:3 with a thin border (white flags must show on a white card).
 - **Order inside a level**: a country is asked on the map first and later as a flag, so each flag
@@ -202,7 +206,7 @@ Polish, so the game is in English.
 
 Already in: `FOV`, `MIN_ALT`, `MAX_ALT`, `FIT_PAD`, `COUNTRY_FIT`, `ISLAND_VIEW`, `MAX_TRI_EDGE`,
 `TAP_MOVE_PX`, `TAP_SLOP_PX`, `IDLE_SPIN`, `FLY_RHO`, `FLY_SPEED`, `LABEL_SECONDS`, `CLIP_VOL`, `SFX_VOL`,
-`QUESTIONS_PER_LEVEL` 12, `HINT_AFTER` [2, 3], `REMIND_SECONDS` 9, `LIFT`, `COLOURS`, `CONT_COLOURS`,
+`QUESTIONS_PER_LEVEL` 12, `HINT_AFTER` [2, 4, 6], `REMIND_SECONDS` 9, `LIFT`, `COLOURS`, `CONT_COLOURS`,
 `PALE`, `REGIONS`, `CARDS` 5, `CARD_FLY`, `FLAG_SPREAD` 0.8. Per level in `assets/levels.json`: `camera`, `view`, `questions`,
 `pale`, `flags` (how many flag questions), `cards` ('far', 'near', 'alike'); plus the
 `lookalikes` groups and the `stickers` (since 2026-10-29 only the continents' are shown: the user found
