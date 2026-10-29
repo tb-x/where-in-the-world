@@ -789,7 +789,7 @@ function targetOf(name) {
   const cont = Object.entries(levels.continents).find(([, n]) => n === name)?.[0];
   if (cont && levels.levels[levelIdx].camera === 'globe') {   // "Australia" is a country everywhere else
     const r = levels.regions[cont];
-    return { kind: 'continent', name, say: name, cont, at: [r.lon, r.lat], sticker: levels.stickers[name],
+    return { kind: 'continent', name, say: name, cont, at: [r.lon, r.lat],
              members: countries.filter(c => c.cont === cont || c.name === 'Russia' && (cont === 'EU' || cont === 'AS')) };
   }
   const isl = levels.islands[name];
@@ -802,10 +802,10 @@ function targetOf(name) {
       return mx >= w && mx <= e && my >= s && my <= n;
     });
     const box = boxOf(parts.map(k => c.polys[k]));
-    return { kind: 'island', name, say: name, c, parts, box, at: [wrapLon((box[0] + box[2]) / 2), (box[1] + box[3]) / 2], sticker: levels.stickers[name] };
+    return { kind: 'island', name, say: name, c, parts, box, at: [wrapLon((box[0] + box[2]) / 2), (box[1] + box[3]) / 2] };
   }
   const c = byName[name];
-  return { kind: 'country', name, say: c.say, c, parts: c.polys.map((p, k) => k), box: c.box, at: c.label, sticker: levels.stickers[name] };
+  return { kind: 'country', name, say: c.say, c, parts: c.polys.map((p, k) => k), box: c.box, at: c.label };
 }
 
 function isRight(t, hit) {
@@ -1015,7 +1015,6 @@ async function answer(hit) {
 
 function found(t) {
   for (const c of countries) c.glow = 0;
-  const again = t.repeat || t.kind === 'country' && t.c.found;   // asked again, or a flag question about a country found earlier
   if (t.kind === 'continent') {
     for (const c of t.members) { c.bump = 1; c.liftGoal = 0.4; c.found = true; }
     showName(null, t.name, t.at, 2.5);
@@ -1024,7 +1023,7 @@ function found(t) {
     paintFlag(t.c, t.parts, t.box, t.at);   // spreading from where its name (and a flying flag card) sits
     showName(t.kind === 'country' ? t.c : null, t.name, t.at, 2.5);
   }
-  if (!again) addSticker(t.sticker, t.at);
+  // (no emoji sticker on the found place: the user found them confusing, 2026-10-29; the capital's star stays)
   if (t.q === 'capital') {   // a star on the capital city, with its name
     const at = [t.capital[1], t.capital[2]];
     addSticker('⭐', at, 'capital');
@@ -1110,6 +1109,7 @@ function flyCard(b, at) {
   img.animate([{ transform: 'translate(0, 0) scale(1)', opacity: 1 },
                { transform: `translate(${s.x - r.left - r.width / 2}px, ${s.y - r.top - r.height / 2}px) scale(.3)`, opacity: 0.2 }],
               { duration: CARD_FLY * 1000, easing: 'cubic-bezier(.5,0,.6,1)' }).finished.then(() => img.remove(), () => img.remove());
+  setTimeout(() => img.remove(), CARD_FLY * 1000 + 500);   // (a hidden page never finishes the animation)
   b.classList.add('picked');
 }
 
@@ -1141,9 +1141,7 @@ function goPassport() {
   const pages = $('pages');
   pages.innerHTML = `<h2>🛂 ${passport.length}${load('medal', false) ? ' 🏅' : ''}</h2>` + (groups.length ? '' : '<p class="empty">🌍 ▶</p>') + groups.map(g =>
     `<div class="group"><span class="cont">${levels.stickers[levels.continents[g.code]] || ''}</span>` + g.names.map(n => {
-      const c = byName[n], code = !levels.islands[n] && c?.flag;
-      return `<button class="stamp" data-name="${n}">${code ? `<img src="assets/flags/${code}.svg" alt="">` : ''}` +
-        `<b>${levels.stickers[n] || '⭐'}</b><small>${n}</small></button>`;
+      return `<button class="stamp" data-name="${n}">${stampFace(n, byName[levels.islands[n]?.country ?? n])}<small>${n}</small></button>`;
     }).join('') + '</div>').join('');
   showScreens('passport', 'back');
 }
@@ -1151,6 +1149,11 @@ $('pages').addEventListener('click', e => {
   const b = e.target.closest('.stamp');
   if (b) say(lines.country.this.replace('{say}', sayOf(b.dataset.name)));
 });
+
+// a stamp shows the place's flag (an island its country's), a continent its animal
+function stampFace(name, c) {
+  return c?.flag ? `<img src="assets/flags/${c.flag}.svg" alt="">` : `<b>${levels.stickers[name] || '⭐'}</b>`;
+}
 
 async function endLevel(token) {
   mode = 'end';
@@ -1164,9 +1167,7 @@ async function endLevel(token) {
   if (token !== quizToken) return;
   const stamps = $('stamps');
   stamps.innerHTML = q.results.map(({ t, first }) => {
-    const code = t.c?.flag;
-    return `<span class="stamp${first ? ' first' : ''}">${code ? `<img src="assets/flags/${code}.svg" alt="">` : ''}` +
-      `<b>${t.sticker || '⭐'}</b><small>${t.name}</small></span>`;
+    return `<span class="stamp${first ? ' first' : ''}">${stampFace(t.name, t.c)}<small>${t.name}</small></span>`;
   }).join('');
   $('endstars').textContent = '★'.repeat(starsOf(q.firstTry, total)) + '☆'.repeat(3 - starsOf(q.firstTry, total));
   $('next').hidden = levelIdx + 1 >= levels.levels.length;

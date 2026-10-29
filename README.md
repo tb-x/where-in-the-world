@@ -1,8 +1,8 @@
 # Where in the World?
 
 A talking 3D globe for kids around 5. A friendly voice asks *"Where is Italy?"*, the camera flies to the
-right part of the world and the child taps the country; found countries get their flag painted on and a
-sticker, and every place found goes into a passport. Other questions show five flags, or name a capital city.
+right part of the world and the child taps the country; found countries get their flag painted on, and
+every place found goes into a passport. Other questions show five flags, or name a capital city.
 After the last trip, a short talking scene in space shows why we have summer and winter.
 
 Everything is spoken (American English), so a child who can't read yet can play. Working title; the plan,
@@ -23,7 +23,7 @@ with every decision and what's still to do, is in [PLAN.md](PLAN.md).
   9 seconds). Drag to turn the globe, pinch to zoom in on small countries.
 - **A wrong tap** names what was tapped (*"This is Spain."*). After two, a ring pulses near the answer (on
   the later trips the globe first turns to face it); after three, the camera flies there and it glows. A tap in the sea doesn't count. Nothing ever ends a trip.
-- **A right tap**: the country lifts, its flag is painted on, a sticker pops up (🍕, 🦘, 🐼…), and *"Yes!
+- **A right tap**: the country lifts, its flag spreads over it, and *"Yes!
   This is Italy."* A gold dot means first try.
 - **Flag questions** are about a country the trip hasn't shown yet: it lights up with its name (painted flags
   are hidden meanwhile) and five flags appear at the bottom: *"Find the flag of Italy."* The wrong ones get
@@ -34,7 +34,7 @@ with every decision and what's still to do, is in [PLAN.md](PLAN.md).
 - **🔍 Look around**: turn and zoom the globe freely; tap any country to hear its name. The animal buttons
   fly to each continent (🏰 Europe, 🦁 Africa, 🐼 Asia, 🦅 North America, 🦜 South America, 🦘 Australia,
   🐧 Antarctica) and 🏠 home.
-- **🛂 Passport**: every place ever found, with its flag and sticker, grouped by continent; tap a stamp to
+- **🛂 Passport**: every place ever found, with its flag (a continent with its animal), grouped by continent; tap a stamp to
   hear its name. The 🏅 medal from the seasons scene shows here too.
 - **🌞 The seasons**: after the last trip (and from the 🌞 tile afterwards): fly up into space, meet the
   Sun, see day and night, the Earth's tilt pointing at the North Star, a year around the Sun, summer and
@@ -79,7 +79,7 @@ for ones in every trip), the camera (`camera`, `view`; `world` for the
 later trips), pale other countries (`pale`), how many flag questions (`flags`) and how alike the wrong flags are
 (`cards`: far, near, alike), capital questions (`capitals`). Also the continent views (`regions`), when a
 place gets a view of its own (`closer`), the look-alike flag groups, the islands, the capital cities and
-the stickers. Every spoken line is in `assets/lines.json`.
+the stickers (only the continents' animals are shown now). Every spoken line is in `assets/lines.json`.
 
 At the top of `finale.js`: `TILT`, `ORBIT`, `SUN_R`, `EARTH_BIG`, `GHOST`, `OBLIQUE`, `YEAR_SECONDS`, `SPIN`.
 

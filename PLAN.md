@@ -22,8 +22,8 @@ tapping a country, drag and pinch) is built.
   (8 until 2026-10-29, when the user asked for longer trips; a place can come back once near the end),
   then the plane flies home and the end card shows the countries stamped.
 - **Map question** (*"Where is Italy?"*): the line is spoken and repeats from a 🔊 button. The child taps.
-  - Right: the country pops up a little, fills with its flag (painted onto the country's shape), a
-    picture sticker appears on it (🍕 Italy, 🦘 Australia, 🐼 China…), *"Yes! This is Italy."*,
+  - Right: the country pops up a little, fills with its flag (painted onto the country's shape;
+    the picture stickers that popped up too were removed 2026-10-29), *"Yes! This is Italy."*,
     a stamp sound.
   - Wrong: the tapped country wiggles and says its own name (*"This is Spain."*), so a wrong tap still
     teaches something. After the 2nd wrong tap a soft ring pulses around the right area; after the 3rd the
@@ -205,7 +205,8 @@ Already in: `FOV`, `MIN_ALT`, `MAX_ALT`, `FIT_PAD`, `COUNTRY_FIT`, `ISLAND_VIEW`
 `QUESTIONS_PER_LEVEL` 12, `HINT_AFTER` [2, 3], `REMIND_SECONDS` 9, `LIFT`, `COLOURS`, `CONT_COLOURS`,
 `PALE`, `REGIONS`, `CARDS` 5, `CARD_FLY`, `FLAG_SPREAD` 0.8. Per level in `assets/levels.json`: `camera`, `view`, `questions`,
 `pale`, `flags` (how many flag questions), `cards` ('far', 'near', 'alike'); plus the
-`lookalikes` groups and the `stickers`.
+`lookalikes` groups and the `stickers` (since 2026-10-29 only the continents' are shown: the user found
+emoji stickers on the map confusing, so found places get only their flag, on the map and on their stamps).
 
 ## 7. Build order
 
