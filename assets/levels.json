@@ -1,5 +1,5 @@
 {
- "note": "Levels (PLAN.md section 2). ask = names as in world.json, continents, or islands below. questions = how long the trip is (flag questions included; places are picked at random when ask is longer, and when it's shorter a few come back at the end). camera: 'globe' (whole globe turned to the answer), 'continent' (each question flies to the answer's continent), 'level' (one view for the whole level: region key or {lon, lat, ext}), 'island' (a wide view of the ocean with the island off-centre), 'world' (the later trips: the whole globe, still facing wherever the child left it, never turned towards the answer; the first hint turns it to face the answer). pale: countries not asked (and not home) are drawn pale. flags: how many questions show five flags. Without lightup, each is about a country already found in the trip (the painted flags are hidden meanwhile, so it's remembering, not matching); with lightup the country lights up unfound. cards: how the four wrong flags are chosen: far (other continents), near (same continent), alike (look-alike flags first). dev/voices.py renders the question lines for every name asked here. regions: the camera's view of each continent (centre and half-width in degrees). closer: a place smaller than minPx on the shorter side of a phone (360 px), outside the planned view, or on an island level, gets a view of its own: view[0] times its size, at least view[1] and at most view[2] degrees each way, wide on purpose so it isn't the obvious answer, the place pushed off-centre by up to offset of the view (children can pinch to zoom in). tour: the endless World tour after level 13; most questions come from the passport, `new` of them from the places not stamped yet (its ask list adds countries no level asks). capitals: each country's capital city, with where it is (for the star); a level with capitals: true asks every question as \"Find the country with the capital city …\", and a number asks that many of a trip's questions that way (only for countries listed here).",
+ "note": "Levels (PLAN.md section 2). ask = names as in world.json, continents, or islands below. places = how many of the ask list one trip uses, picked afresh each time (always = places in every trip), the rest of the questions ask some again; questions = how long the trip is (flag questions included; places are picked at random when ask is longer, and when it's shorter a few come back at the end). camera: 'globe' (whole globe turned to the answer), 'continent' (each question flies to the answer's continent), 'level' (one view for the whole level: region key or {lon, lat, ext}), 'island' (a wide view of the ocean with the island off-centre), 'world' (the later trips: the whole globe, still facing wherever the child left it, never turned towards the answer; the first hint turns it to face the answer). pale: countries not asked (and not home) are drawn pale. flags: how many questions show five flags; each is about a country the trip hasn't shown yet, which lights up with its name (the painted flags are hidden meanwhile). cards: how the four wrong flags are chosen: far (other continents), near (same continent), alike (look-alike flags first). dev/voices.py renders the question lines for every name asked here. regions: the camera's view of each continent (centre and half-width in degrees). closer: a place smaller than minPx on the shorter side of a phone (360 px), outside the planned view, or on an island level, gets a view of its own: view[0] times its size, at least view[1] and at most view[2] degrees each way, wide on purpose so it isn't the obvious answer, the place pushed off-centre by up to offset of the view (children can pinch to zoom in). tour: the endless World tour after level 13; most questions come from the passport, `new` of them from the places not stamped yet (its ask list adds countries no level asks). capitals: each country's capital city, with where it is (for the star); a level with capitals: true asks every question as \"Find the country with the capital city …\", and a number asks that many of a trip's questions that way (only for countries listed here).",
  "regions": {
   "EU": {
    "lon": 15,
@@ -450,6 +450,10 @@
   {
    "trip": "Home and giants",
    "questions": 10,
+   "places": 9,
+   "always": [
+    "Poland"
+   ],
    "flags": 2,
    "cards": "far",
    "icon": "🏠",
@@ -463,12 +467,19 @@
     "Canada",
     "Brazil",
     "Australia",
-    "India"
+    "India",
+    "Argentina",
+    "Kazakhstan",
+    "Algeria",
+    "Mexico",
+    "Indonesia",
+    "Saudi Arabia"
    ]
   },
   {
    "trip": "Poland's neighbors",
    "questions": 10,
+   "places": 8,
    "flags": 3,
    "cards": "far",
    "icon": "🤝",
@@ -485,12 +496,18 @@
     "Slovakia",
     "Ukraine",
     "Belarus",
-    "Lithuania"
+    "Lithuania",
+    "Latvia",
+    "Austria",
+    "Hungary",
+    "Denmark",
+    "Romania"
    ]
   },
   {
    "trip": "Big Europe",
    "questions": 12,
+   "places": 10,
    "flags": 3,
    "cards": "far",
    "icon": "🏰",
@@ -504,12 +521,17 @@
     "Norway",
     "Sweden",
     "Greece",
-    "Portugal"
+    "Portugal",
+    "Ireland",
+    "Iceland",
+    "Finland",
+    "Germany"
    ]
   },
   {
    "trip": "The Americas",
    "questions": 12,
+   "places": 11,
    "flags": 3,
    "cards": "far",
    "icon": "🦅",
@@ -523,12 +545,18 @@
     "Argentina",
     "Chile",
     "Peru",
-    "Colombia"
+    "Colombia",
+    "Venezuela",
+    "Bolivia",
+    "Ecuador",
+    "Uruguay",
+    "Jamaica"
    ]
   },
   {
    "trip": "Africa",
    "questions": 12,
+   "places": 11,
    "flags": 3,
    "cards": "far",
    "icon": "🦁",
@@ -542,12 +570,21 @@
     "Kenya",
     "Ethiopia",
     "South Africa",
-    "Madagascar"
+    "Madagascar",
+    "Libya",
+    "Sudan",
+    "Tanzania",
+    "DR Congo",
+    "Ghana",
+    "Somalia",
+    "Namibia",
+    "Angola"
    ]
   },
   {
    "trip": "Asia",
    "questions": 13,
+   "places": 12,
    "flags": 4,
    "cards": "near",
    "icon": "🐼",
@@ -562,7 +599,15 @@
     "Turkey",
     "Thailand",
     "South Korea",
-    "Indonesia"
+    "Indonesia",
+    "Vietnam",
+    "Pakistan",
+    "Iran",
+    "Kazakhstan",
+    "Philippines",
+    "Nepal",
+    "Iraq",
+    "Afghanistan"
    ]
   },
   {
@@ -594,11 +639,11 @@
   {
    "trip": "Flag party",
    "questions": 12,
+   "places": 12,
    "icon": "🎉",
    "camera": "level",
    "view": "EU",
    "flags": 6,
-   "lightup": true,
    "cards": "near",
    "ask": [
     "Germany",
@@ -611,12 +656,18 @@
     "Italy",
     "United Kingdom",
     "Sweden",
-    "Greece"
+    "Greece",
+    "Norway",
+    "Portugal",
+    "Belarus",
+    "Ireland",
+    "Netherlands"
    ]
   },
   {
    "trip": "Little Europe",
    "questions": 12,
+   "places": 11,
    "flags": 4,
    "cards": "near",
    "icon": "🧀",
@@ -635,7 +686,12 @@
     "Denmark",
     "Finland",
     "Romania",
-    "Croatia"
+    "Croatia",
+    "Slovenia",
+    "Serbia",
+    "Bulgaria",
+    "Albania",
+    "Estonia"
    ]
   },
   {
@@ -644,7 +700,6 @@
    "icon": "👯",
    "camera": "world",
    "flags": 6,
-   "lightup": true,
    "cards": "alike",
    "ask": [
     "Poland",
@@ -718,37 +773,12 @@
    "flags": 2,
    "cards": "near",
    "ask": [
-    "Vietnam",
-    "Pakistan",
-    "Iran",
-    "Iraq",
-    "Afghanistan",
-    "Kazakhstan",
-    "Nepal",
     "Bangladesh",
     "Malaysia",
-    "Venezuela",
-    "Bolivia",
-    "Ecuador",
-    "Uruguay",
     "Paraguay",
-    "Libya",
-    "Sudan",
-    "Tanzania",
-    "DR Congo",
-    "Angola",
-    "Namibia",
-    "Ghana",
-    "Somalia",
     "Senegal",
     "Cameroon",
-    "Zimbabwe",
-    "Serbia",
-    "Bulgaria",
-    "Estonia",
-    "Latvia",
-    "Albania",
-    "Slovenia"
+    "Zimbabwe"
    ],
    "capitals": 2
   }

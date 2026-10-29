@@ -22,6 +22,7 @@ const REMIND_SECONDS = 9;           // no tap for this long: the question is ask
 const LIFT = 0.004;                 // how far a found country rises off the globe (globe radii, at most)
 const CARDS = 5;                    // flags to choose from in a flag question
 const CARD_FLY = 0.7;               // seconds the right flag takes to fly onto its country
+const FLAG_SPREAD = 0.8;            // seconds a found country's flag takes to spread over it
 const HOME = 'Poland';
 const COLOURS = ['#ffd45c', '#8fd16a', '#ff9eb8', '#c3a3f2', '#ffad6b'];
 const CONT_COLOURS = { EU: '#ff9eb8', AS: '#ffd45c', AF: '#ffad6b', NA: '#8fd16a', SA: '#c3a3f2', OC: '#6fd3c4', AN: '#f4f7ff' };
@@ -257,28 +258,48 @@ function flagTexture(code) {
   return flagTextures.get(code);
 }
 
-// Fit the 4:3 flag over a box so it covers it, measured on the ground (longitude shrinks with latitude)
+// Fit the 4:3 flag over a box so it covers it, measured on the ground (longitude shrinks with latitude);
+// returns the flag's position (uv) of a point
 function setUV(c, parts, box) {
   const [w, s, e, n] = box;
   const cx = (w + e) / 2, cy = (s + n) / 2, k = Math.cos(cy * D2R);
   let fw = (e - w) * k, fh = n - s;
   if (fw / fh > 4 / 3) fh = fw * 3 / 4; else fw = fh * 4 / 3;
+  const uvOf = (lon, lat) => [0.5 + wrapLon(lon - cx) * k / fw, 0.5 + (lat - cy) / fh];
   const uv = c.mesh.geometry.attributes.uv;
   for (const i of parts) {
     const p = c.polys[i];
-    for (let v = p.v0; v < p.v0 + p.vn; v++) {
-      uv.setXY(v, 0.5 + wrapLon(c.ll[v * 2] - cx) * k / fw, 0.5 + (c.ll[v * 2 + 1] - cy) / fh);
-    }
+    for (let v = p.v0; v < p.v0 + p.vn; v++) uv.setXY(v, ...uvOf(c.ll[v * 2], c.ll[v * 2 + 1]));
   }
   uv.needsUpdate = true;
+  return uvOf;
 }
 
-async function paintFlag(c, parts, box) {
+// The flag material spreads the flag over the country's own colour in a growing circle from a point
+// (uFrom, in flag coordinates); update() grows uR
+const SPREAD_END = 1.8;   // a radius past every corner of the flag
+function flagMaterial(c, tex) {
+  const m = new THREE.MeshLambertMaterial({ map: tex });
+  m.userData.u = { uFrom: { value: new THREE.Vector2(0.5, 0.5) }, uR: { value: SPREAD_END }, uBase: { value: c.base.color } };
+  m.onBeforeCompile = sh => {
+    Object.assign(sh.uniforms, m.userData.u);
+    sh.fragmentShader = 'uniform vec2 uFrom;\nuniform float uR;\nuniform vec3 uBase;\n' + sh.fragmentShader.replace('#include <map_fragment>', `
+      vec4 sampledDiffuseColor = texture2D( map, vMapUv );
+      float spread = smoothstep( uR, uR - 0.05, length( ( vMapUv - uFrom ) * vec2( 4.0 / 3.0, 1.0 ) ) );
+      diffuseColor.rgb *= mix( uBase, sampledDiffuseColor.rgb, spread );`);
+  };
+  return m;
+}
+const spreading = new Set();
+
+async function paintFlag(c, parts, box, from) {
   if (!c.flag) return;
   const tex = await flagTexture(c.flag);
   if (!tex) return;
-  setUV(c, parts, box);
-  if (!c.mesh.material[1]) c.mesh.material[1] = new THREE.MeshLambertMaterial({ map: tex });
+  const uvOf = setUV(c, parts, box);
+  if (!c.mesh.material[1]) c.mesh.material[1] = flagMaterial(c, tex);
+  const u = c.mesh.material[1].userData.u;
+  if (from && !parts.every(i => c.painted?.has(i))) { u.uFrom.value.set(...uvOf(...from)); u.uR.value = 0; spreading.add(c); }
   c.painted = new Set([...(c.painted || []), ...parts]);
   if (!flagsHidden) for (const i of parts) c.mesh.geometry.groups[i].materialIndex = 1;
 }
@@ -866,36 +887,27 @@ function tripTargets(names, n) {
   return [...once.map(targetOf), ...again.map(name => ({ ...targetOf(name), repeat: true }))];
 }
 
-// The questions of one trip, in order. Flag questions either come back to a country found earlier in
-// the trip (its flag is already painted on the map, so it's a matching game), or, in a 'lightup' level,
-// light up a country not found yet. The last question is always on the map.
+// The questions of one trip, in order. A flag question is always about a country the trip hasn't shown yet:
+// it lights up with its name and the child picks its flag (asking for a flag the child has just seen painted
+// on the map would make no sense; changed 2026-10-29). Places asked again at the end are map questions (a
+// country met in a flag question then has its flag on), and the last question is always on the map.
 function planTrip(L) {
   const total = countOf(L), F = Math.min(L.flags || 0, total - 1);
   let names = shuffle(askOf(L).slice());
   if (L.tour) {   // mostly places from the passport, and a few not stamped yet
     const stamped = names.filter(n => passport.includes(n)), fresh = names.filter(n => !passport.includes(n));
-    const nNew = Math.max(L.new, total - F - stamped.length);
+    const nNew = Math.max(L.new, total - stamped.length);
     names = shuffle([...fresh.slice(0, nNew), ...stamped.slice(0, total - nNew)]);
   }
-  const hasFlag = t => t.kind === 'country' && t.c.flag && !t.repeat;
-  if (L.lightup) {
-    const targets = tripTargets(names, total);
-    shuffle(targets.slice(0, -1).filter(hasFlag)).slice(0, F).forEach(t => { t.q = 'flag'; t.lit = true; });
-    return withCapitals(L, targets.map(t => ({ q: 'map', ...t })));
-  }
-  const maps = tripTargets(names, total - F).map(t => ({ q: 'map', ...t }));
-  const plan = [], ready = [];
-  let left = F;
-  maps.forEach((t, i) => {   // (never straight after the country itself: there's another question in between)
-    plan.push(t);
-    const mapsLeft = maps.length - 1 - i;
-    if (left && ready.length && mapsLeft && (left >= mapsLeft || Math.random() < 0.6)) {
-      plan.push({ ...ready.splice(Math.floor(Math.random() * ready.length), 1)[0], q: 'flag', lit: false });
-      left--;
-    }
-    if (hasFlag(t)) ready.push(t);
-  });
-  return withCapitals(L, plan);
+  // a different handful each time: `places` of the list (any in `always` among them), the rest asked again
+  if (L.always) names = [...L.always, ...names.filter(n => !L.always.includes(n))];
+  names = shuffle(names.slice(0, Math.min(L.places || total, total)));
+  const targets = tripTargets(names, total);
+  const firsts = targets.filter(t => !t.repeat), last = targets.length - 1;
+  const alone = t => !targets.some(o => o !== t && !o.repeat && o.c === t.c);   // (Sicily would paint Italy's flag)
+  shuffle(firsts.filter(t => t !== targets[last] && t.kind === 'country' && t.c.flag && alone(t))).slice(0, F)
+    .forEach(t => { t.q = 'flag'; });
+  return withCapitals(L, targets.map(t => ({ q: 'map', ...t })));
 }
 
 // A capitals level asks every map question by its capital city; a number asks that many (countries with a capital listed)
@@ -955,10 +967,11 @@ async function solved(t, token) {
   quiz.solved = true;
   const first = quiz.wrong === 0;
   if (first) quiz.firstTry++;
-  if ((t.q !== 'flag' || t.lit) && !t.repeat) quiz.results.push({ t, first });   // a matching flag question or a repeat isn't a new place
+  if (!t.repeat) quiz.results.push({ t, first });   // a place asked again isn't a new one
   $('dots').children[quiz.n].classList.replace('now', first ? 'gold' : 'done');
   hideRing();
   sfx('right');
+  if (flagsHidden) hideFlags(false);   // a flag question: the flags come back as its flag spreads over the country
   found(t);
   await say(line(yesKind(t), t));
   await sleep(0.4);
@@ -1008,7 +1021,7 @@ function found(t) {
     showName(null, t.name, t.at, 2.5);
   } else {
     if (t.kind === 'country') { t.c.found = true; t.c.bump = 1; t.c.liftGoal = 0.4; }
-    paintFlag(t.c, t.parts, t.box);
+    paintFlag(t.c, t.parts, t.box, t.at);   // spreading from where its name (and a flying flag card) sits
     showName(t.kind === 'country' ? t.c : null, t.name, t.at, 2.5);
   }
   if (!again) addSticker(t.sticker, t.at);
@@ -1229,6 +1242,11 @@ function update(dt) {
     if (Math.hypot(spin.lon, spin.lat) < 0.5) spin = { lon: 0, lat: 0 };
   }
   placeCamera();
+  for (const c of spreading) {
+    const u = c.mesh.material[1].userData.u;
+    u.uR.value += dt * SPREAD_END / FLAG_SPREAD;
+    if (u.uR.value >= SPREAD_END) { u.uR.value = SPREAD_END; spreading.delete(c); }
+  }
   const lift = Math.min(LIFT, view.alt * 0.04);
   for (const c of countries) {
     if (!c.lift && !c.liftGoal && !c.bump && !c.glow) continue;
@@ -1291,9 +1309,10 @@ window.__wm = {
   said,   // the last lines said and whether a clip or the device's voice said them
   clipCount: () => Object.keys(clips).length,
   play: i => playLevel(i), goLevels, goLook, goStart,
+  paint: name => { const c = byName[name]; return paintFlag(c, c.polys.map((p, k) => k), c.box, c.label); },   // a flag spreading over a country
   quiz: () => quiz && { level: levelIdx + 1, n: quiz.n, of: quiz.targets.length, target: quiz.target?.name, kind: quiz.target?.kind,
-    q: quiz.target?.q, lit: quiz.target?.lit, parts: quiz.target?.parts?.length, wrong: quiz.wrong, busy: quiz.busy, firstTry: quiz.firstTry,
-    plan: quiz.targets.map(t => `${t.q === 'flag' ? (t.lit ? '🚩' : '🏳') : ''}${t.name}`).join(' '),
+    q: quiz.target?.q, repeat: quiz.target?.repeat, parts: quiz.target?.parts?.length, wrong: quiz.wrong, busy: quiz.busy, firstTry: quiz.firstTry,
+    plan: quiz.targets.map(t => `${t.q === 'flag' ? '🏳' : t.q === 'capital' ? '⭐' : ''}${t.name}${t.repeat ? '↺' : ''}`).join(' '),
     cards: [...cardsEl.children].map(b => b.dataset.name + (b.classList.contains('gone') ? ' (gone)' : '')) },
   // answer the current question: right, or wrong with a named country (on the map, or that country's flag card)
   answer: () => {

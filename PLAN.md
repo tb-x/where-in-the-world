@@ -84,6 +84,14 @@ After Round the world (the first time only, 2.5 s after its end card, and from a
 that): **the seasons finale**, section 8. Then **World tour**, endless random trips over countries the passport
 already has, with a few new ones mixed in.
 
+**A different trip each time** (asked 2026-10-29): each trip's `ask` list grew (Poland's neighbors 11 with the
+countries just past them, Big Europe 12, the Americas 14, Africa 16, Asia 17, Flag party 16, Little Europe 14, Home and
+giants 14 with Poland in every trip via `always`), and a trip uses `places` of them, picked afresh every time. Most of
+the new ones came from the World tour's own list, which now keeps only the 6 countries no trip asks.
+**Flag questions** (changed 2026-10-29): always about a country the trip hasn't shown yet (it lights up with its
+name), never one whose flag the map has already painted, including Italy after Sicily. The right flag flies onto
+the country and spreads over it from there (`FLAG_SPREAD`).
+
 **Trip length and the later camera** (changed 2026-10-29: the user wanted longer trips and a camera that gives less
 away on the later ones). Each trip sets `questions` (flag questions included): 10 for trips 1–3, 12 for most, 13 for
 Asia, 14 for Round the world. A trip with fewer places than map questions asks a few again at the end, picked from
@@ -195,8 +203,8 @@ Polish, so the game is in English.
 Already in: `FOV`, `MIN_ALT`, `MAX_ALT`, `FIT_PAD`, `COUNTRY_FIT`, `ISLAND_VIEW`, `MAX_TRI_EDGE`,
 `TAP_MOVE_PX`, `TAP_SLOP_PX`, `IDLE_SPIN`, `FLY_RHO`, `FLY_SPEED`, `LABEL_SECONDS`, `CLIP_VOL`, `SFX_VOL`,
 `QUESTIONS_PER_LEVEL` 12, `HINT_AFTER` [2, 3], `REMIND_SECONDS` 9, `LIFT`, `COLOURS`, `CONT_COLOURS`,
-`PALE`, `REGIONS`, `CARDS` 5, `CARD_FLY`. Per level in `assets/levels.json`: `camera`, `view`, `questions`,
-`pale`, `flags` (how many flag questions), `lightup`, `cards` ('far', 'near', 'alike'); plus the
+`PALE`, `REGIONS`, `CARDS` 5, `CARD_FLY`, `FLAG_SPREAD` 0.8. Per level in `assets/levels.json`: `camera`, `view`, `questions`,
+`pale`, `flags` (how many flag questions), `cards` ('far', 'near', 'alike'); plus the
 `lookalikes` groups and the `stickers`.
 
 ## 7. Build order
@@ -229,7 +237,11 @@ Already in: `FOV`, `MIN_ALT`, `MAX_ALT`, `FIT_PAD`, `COUNTRY_FIT`, `ISLAND_VIEW`
    `alike` (the `lookalikes` groups in `levels.json` first: Ireland gets Ivory Coast, Italy, Mexico,
    Hungary). A wrong card shakes and says its country; after 2 wrong only two cards are left, after 3
    only the right one, glowing; 9 s without a tap asks again, then also thins the cards. The right card
-   flies onto the country. Flag dots in the progress bar are square. **Passport** (🛂 on the start
+   flies onto the country, and its flag spreads over the country from there (`FLAG_SPREAD`, added 2026-10-29;
+   before, the painted flags stayed hidden until "Yes! …" had been said). **Changed 2026-10-29** (play-testing:
+   asking for the flag of a country whose flag the map has just painted makes no sense): every flag question is
+   now the `lightup` kind, about a country the trip hasn't shown yet; the matching kind and `lightup` are gone.
+   Flag dots in the progress bar are square. **Passport** (🛂 on the start
    screen): every place ever found, stamped with flag and sticker, grouped by continent, kept in
    `localStorage` (`world.passport`); tapping a stamp says its name. Levels 2 and 11 played through
    silently, on a laptop-sized screen and a phone.

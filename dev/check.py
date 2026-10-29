@@ -191,13 +191,17 @@ def main():
                 why = '' if not v else f'{size:.0f} px' if size < levels['closer']['minPx'] else 'outside the view'
                 small.append(f'{name} ({why + ", " if why else ""}{px(p["box"], ext):.0f} px at {ext:.0f}°)')
         flagged = [n for n in names if L['camera'] != 'globe' and (place(n) or {}).get('flag')]
-        if L.get('lightup') and len(flagged) < L.get('flags', 0) + 1:
-            err(f'level {i}: {L["flags"]} light-up flag questions need more countries with flags')
+        if L.get('flags') and min(len(flagged), L.get('places', 99)) < L['flags'] + 1:
+            err(f'level {i}: {L["flags"]} flag questions need more countries with flags')
         count = L.get('questions', QUESTIONS)
         if count <= L.get('flags', 0):
             err(f'level {i}: {count} questions leave none on the map after {L["flags"]} flag questions')
-        again = max(0, count - (0 if L.get('lightup') else min(L.get('flags', 0), count - 1)) - len(names))
-        print(f'{i:2}. {L["trip"]}: {count} questions from {len(names)} places{f" ({again} asked again)" if again else ""}, camera {L["camera"]}, {L.get("flags", 0)} flag questions ({L.get("cards", "-")})')
+        uses = min(L.get('places', count), count, len(names))
+        again = count - uses
+        for n in L.get('always', []):
+            if n not in names:
+                err(f'level {i}: always-asked {n!r} is not in its ask list')
+        print(f'{i:2}. {L["trip"]}: {count} questions, {uses} of {len(names)} places{f" ({again} asked again)" if again else ""}, camera {L["camera"]}, {L.get("flags", 0)} flag questions ({L.get("cards", "-")})')
         if small:
             print(f'    closer view: {", ".join(small)}')
 
