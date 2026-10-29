@@ -26,6 +26,7 @@ GAME = Path(__file__).resolve().parent.parent
 FIT_PAD = 0.82      # as in game.js
 PHONE = 360         # the shorter side of a small phone, in CSS pixels
 CARDS = 5
+QUESTIONS = 12      # QUESTIONS_PER_LEVEL in game.js
 
 
 def load(name):
@@ -174,7 +175,9 @@ def main():
                     err(f'level {i}: only {have} wrong flags for {name} ({mode})')
             if name not in levels['stickers']:
                 warnings.append(f'level {i}: no sticker for {name}')
-            # the camera, as cameraFor decides it
+            # the camera, as cameraFor decides it ('world' shows the whole globe, wherever the child left it)
+            if L['camera'] == 'world':
+                continue
             if L['camera'] == 'level':
                 v = L['view'] if isinstance(L['view'], dict) else levels['regions'][L['view']]
             elif L['camera'] == 'continent':
@@ -190,8 +193,11 @@ def main():
         flagged = [n for n in names if L['camera'] != 'globe' and (place(n) or {}).get('flag')]
         if L.get('lightup') and len(flagged) < L.get('flags', 0) + 1:
             err(f'level {i}: {L["flags"]} light-up flag questions need more countries with flags')
-        count = min(8, L.get('pick', 8), len(names))
-        print(f'{i:2}. {L["trip"]}: {count} of {len(names)}, camera {L["camera"]}, {L.get("flags", 0)} flag questions ({L.get("cards", "-")})')
+        count = L.get('questions', QUESTIONS)
+        if count <= L.get('flags', 0):
+            err(f'level {i}: {count} questions leave none on the map after {L["flags"]} flag questions')
+        again = max(0, count - (0 if L.get('lightup') else min(L.get('flags', 0), count - 1)) - len(names))
+        print(f'{i:2}. {L["trip"]}: {count} questions from {len(names)} places{f" ({again} asked again)" if again else ""}, camera {L["camera"]}, {L.get("flags", 0)} flag questions ({L.get("cards", "-")})')
         if small:
             print(f'    closer view: {", ".join(small)}')
 

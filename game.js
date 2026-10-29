@@ -16,7 +16,7 @@ const FLY_SPEED = 1.1;              // seconds per unit of flight path
 const LABEL_SECONDS = 3.5;
 const CLIP_VOL = 1;                 // 0 to 1, loudness of the recorded voice
 const SFX_VOL = 0.5;
-const QUESTIONS_PER_LEVEL = 8;
+const QUESTIONS_PER_LEVEL = 12;
 const HINT_AFTER = [2, 3];          // wrong taps before the ring shows, and before the camera flies there
 const REMIND_SECONDS = 9;           // no tap for this long: the question is asked again, then the ring shows
 const LIFT = 0.004;                 // how far a found country rises off the globe (globe radii, at most)
@@ -557,6 +557,14 @@ function addSticker(emoji, at, cls = '') {
 function clearStickers() { stickers.length = 0; stickersEl.textContent = ''; }
 
 function showRing(at) { ringAt = at; ringEl.classList.add('on'); }
+// the first hint: a ring round the answer; on a 'world' trip the globe first turns so it faces the answer
+async function hintRing(t) {
+  if (quiz?.L.camera === 'world' && t.kind !== 'continent') {
+    quiz.moved = true;
+    await flyTo({ lon: t.at[0], lat: clamp(t.at[1], -45, 50), alt: Math.min(view.alt, globeAlt()) });
+  }
+  if (quiz?.target === t && !quiz.solved) showRing(t.at);
+}
 function hideRing() { ringAt = null; ringEl.classList.remove('on'); }
 
 function placeLabels() {
@@ -732,7 +740,7 @@ function askOf(L) {
   if (L.tour) return everyPlace();
   return L.ask;
 }
-function countOf(L) { return Math.min(QUESTIONS_PER_LEVEL, L.pick || QUESTIONS_PER_LEVEL, askOf(L).length); }
+function countOf(L) { return L.questions || QUESTIONS_PER_LEVEL; }
 
 $('play').addEventListener('click', () => goLevels());
 $('look').addEventListener('click', () => goLook());
@@ -806,7 +814,9 @@ function closerView(t) {
 function regionOf(v) { return v === 'home' ? { lon: byName[HOME].label[0], lat: byName[HOME].label[1], ext: 8 } : typeof v === 'string' ? levels.regions[v] : v; }
 
 // Move the camera for a map question. Returns true when it ends up away from the level's own view.
+// 'world' (the later trips) never turns towards the answer: the child finds the right part of the world too.
 async function cameraFor(L, t, first) {
+  if (L.camera === 'world') { await goView('world'); return false; }   // the whole globe, still facing where the child left it
   if (L.camera === 'globe') { await flyTo({ lon: t.at[0] + (Math.random() - 0.5) * 50, lat: clamp(t.at[1], -45, 50), alt: globeAlt() }); return false; }
   const v = L.camera === 'level' ? regionOf(L.view) : L.camera === 'continent' ? levels.regions[t.c.cont] : null;
   if (!v || !shows(v, t)) {   // an island level, or a place far too small or outside the usual view
@@ -848,6 +858,14 @@ async function playLevel(i) {
   endLevel(token);
 }
 
+// The places of a trip: each once, then, when the trip is longer than its list, a few asked again at the
+// end, picked from the first half so other questions come in between
+function tripTargets(names, n) {
+  const once = names.slice(0, n), more = n - once.length;
+  const again = shuffle(once.slice(0, Math.max(Math.ceil(once.length / 2), more))).slice(0, more);
+  return [...once.map(targetOf), ...again.map(name => ({ ...targetOf(name), repeat: true }))];
+}
+
 // The questions of one trip, in order. Flag questions either come back to a country found earlier in
 // the trip (its flag is already painted on the map, so it's a matching game), or, in a 'lightup' level,
 // light up a country not found yet. The last question is always on the map.
@@ -859,23 +877,23 @@ function planTrip(L) {
     const nNew = Math.max(L.new, total - F - stamped.length);
     names = shuffle([...fresh.slice(0, nNew), ...stamped.slice(0, total - nNew)]);
   }
-  const hasFlag = t => t.kind === 'country' && t.c.flag;
+  const hasFlag = t => t.kind === 'country' && t.c.flag && !t.repeat;
   if (L.lightup) {
-    const targets = names.slice(0, total).map(targetOf);
+    const targets = tripTargets(names, total);
     shuffle(targets.slice(0, -1).filter(hasFlag)).slice(0, F).forEach(t => { t.q = 'flag'; t.lit = true; });
     return withCapitals(L, targets.map(t => ({ q: 'map', ...t })));
   }
-  const maps = names.slice(0, total - F).map(t => ({ q: 'map', ...targetOf(t) }));
+  const maps = tripTargets(names, total - F).map(t => ({ q: 'map', ...t }));
   const plan = [], ready = [];
   let left = F;
-  maps.forEach((t, i) => {
+  maps.forEach((t, i) => {   // (never straight after the country itself: there's another question in between)
     plan.push(t);
-    if (hasFlag(t)) ready.push(t);
     const mapsLeft = maps.length - 1 - i;
     if (left && ready.length && mapsLeft && (left >= mapsLeft || Math.random() < 0.6)) {
       plan.push({ ...ready.splice(Math.floor(Math.random() * ready.length), 1)[0], q: 'flag', lit: false });
       left--;
     }
+    if (hasFlag(t)) ready.push(t);
   });
   return withCapitals(L, plan);
 }
@@ -927,7 +945,7 @@ async function remind(t, token) {
     if (token !== quizToken || quiz?.target !== t || quiz.solved || quiz.lastTap > since) continue;
     if (n++ === 0) say(line(askKind(t), t));
     else if (t.q === 'flag') { thinCards(2); say(line('flag', t)); }
-    else { showRing(t.at); say(lines.shared.look); }
+    else { hintRing(t); say(lines.shared.look); }
   }
 }
 
@@ -937,7 +955,7 @@ async function solved(t, token) {
   quiz.solved = true;
   const first = quiz.wrong === 0;
   if (first) quiz.firstTry++;
-  if (t.q !== 'flag' || t.lit) quiz.results.push({ t, first });   // a matching flag question isn't a new place
+  if ((t.q !== 'flag' || t.lit) && !t.repeat) quiz.results.push({ t, first });   // a matching flag question or a repeat isn't a new place
   $('dots').children[quiz.n].classList.replace('now', first ? 'gold' : 'done');
   hideRing();
   sfx('right');
@@ -969,7 +987,7 @@ async function answer(hit) {
     showName(hit.c, name, cont ? [hit.lon, hit.lat] : hit.c.label, 2.5);
     say(line('this', cont ? { say: name } : hit.c));
   }
-  if (quiz.wrong === HINT_AFTER[0]) showRing(t.at);
+  if (quiz.wrong === HINT_AFTER[0]) hintRing(t);
   if (quiz.wrong === HINT_AFTER[1]) {
     quiz.busy = true;
     quiz.moved = true;
@@ -984,7 +1002,7 @@ async function answer(hit) {
 
 function found(t) {
   for (const c of countries) c.glow = 0;
-  const again = t.kind === 'country' && t.c.found;   // a flag question about a country found earlier
+  const again = t.repeat || t.kind === 'country' && t.c.found;   // asked again, or a flag question about a country found earlier
   if (t.kind === 'continent') {
     for (const c of t.members) { c.bump = 1; c.liftGoal = 0.4; c.found = true; }
     showName(null, t.name, t.at, 2.5);

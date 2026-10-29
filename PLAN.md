@@ -18,7 +18,8 @@ tapping a country, drag and pinch) is built.
 - **Start screen**: the globe turns slowly, the plane loops over it. Big buttons: ▶ Play (the level
   map), 🔍 Look around, 🛂 Passport. Home button top-left.
 - **A level** is one trip: the plane takes off from Poland (home, always marked with a little house), flies
-  to the level's part of the world, and the camera glides after it and zooms in. About **8 questions**,
+  to the level's part of the world, and the camera glides after it and zooms in. **10 to 14 questions**
+  (8 until 2026-10-29, when the user asked for longer trips; a place can come back once near the end),
   then the plane flies home and the end card shows the countries stamped.
 - **Map question** (*"Where is Italy?"*): the line is spoken and repeats from a 🔊 button. The child taps.
   - Right: the country pops up a little, fills with its flag (painted onto the country's shape), a
@@ -66,10 +67,10 @@ neighbours, then look-alikes), and **how soon hints come**.
 | 8 | Famous islands | a wide view of the ocean round each island, the island off-centre | 8 picked at random from 16: island countries (Iceland, Ireland, Cyprus, Madagascar, Sri Lanka, Japan, New Zealand, Cuba, Jamaica, Philippines), Greenland, and famous islands that belong to a country (Great Britain, Sicily, Crete, Tasmania, Hawaii) | 4 |
 | 9 | Flag party (Europe) | Europe, countries light up | mostly flag questions about levels 3–4, distractors are neighbours | 6 |
 | 10 | Little Europe | western and central Europe | Netherlands, Belgium, Switzerland, Austria, Hungary, Denmark, Finland, Romania, Croatia | 4 |
-| 11 | Look-alike flags | wherever the country is | Poland / Indonesia, Italy / Ireland / Mexico, France / Netherlands / Russia, Romania / Chad, Norway / Iceland / Denmark / Sweden / Finland | 6 |
-| 12 | Capital cities | each country's continent | *"Find the country with the capital city Paris."* 8 of 24 big or nearby countries; right: *"Yes! Paris is the capital city of France."* and a ⭐ on the capital, labelled (asked 2026-10-27) | 0 |
-| 13 | Round the world | each country's continent | a mix of every level (one question asked by its capital) | 4 |
-| 14 | World tour | each country's continent | endless: mostly places from the passport, 2 not stamped yet (32 more countries are only here: Vietnam, Kenya's neighbours, the Baltics…), 2 asked by capital | 2 |
+| 11 | Look-alike flags | the whole globe, as the child left it (`world`) | Poland / Indonesia, Italy / Ireland / Mexico, France / Netherlands / Russia, Romania / Chad, Norway / Iceland / Denmark / Sweden / Finland | 6 |
+| 12 | Capital cities | the whole globe, as the child left it (`world`) | *"Find the country with the capital city Paris."* 8 of 24 big or nearby countries; right: *"Yes! Paris is the capital city of France."* and a ⭐ on the capital, labelled (asked 2026-10-27) | 0 |
+| 13 | Round the world | the whole globe, as the child left it (`world`) | a mix of every level (one question asked by its capital) | 4 |
+| 14 | World tour | the whole globe, as the child left it (`world`) | endless: mostly places from the passport, 2 not stamped yet (32 more countries are only here: Vietnam, Kenya's neighbours, the Baltics…), 2 asked by capital | 2 |
 
 **Islands that belong to a country** (asked 2026-10-27): Hawaii, Sicily, Crete, Tasmania and Great Britain
 aren't countries, so `levels.json` defines each as a country plus a point (the part containing it) or a
@@ -81,7 +82,16 @@ way), with the island off-centre.
 
 After Round the world (the first time only, 2.5 s after its end card, and from a 🌞 tile on the level map after
 that): **the seasons finale**, section 8. Then **World tour**, endless random trips over countries the passport
-already has, with a few new ones mixed in. About 100 countries in all; 53 have a capital city in `levels.json`
+already has, with a few new ones mixed in.
+
+**Trip length and the later camera** (changed 2026-10-29: the user wanted longer trips and a camera that gives less
+away on the later ones). Each trip sets `questions` (flag questions included): 10 for trips 1–3, 12 for most, 13 for
+Asia, 14 for Round the world. A trip with fewer places than map questions asks a few again at the end, picked from
+the first half so other questions come in between (trip 1: 7 continents, 3 again); repeats add no stamp or sticker.
+A flag question never comes straight after its own country's map question. From trip 11 on, the camera is
+`world`: each question only zooms out to the whole globe, still facing wherever the child left it, so it never
+points at the answer and the child has to find the continent too; the first hint (two wrong taps, or the second
+reminder) turns the globe to face the answer and rings it, the second flies in as before. About 100 countries in all; 53 have a capital city in `levels.json`
 (`capitals`: name and where it is; `dev/check.py` checks every star falls inside its country).
 
 **How a question frames the map** (changed 2026-10-27 after play-testing: a view zoomed in on the answer gives it
@@ -184,8 +194,8 @@ Polish, so the game is in English.
 
 Already in: `FOV`, `MIN_ALT`, `MAX_ALT`, `FIT_PAD`, `COUNTRY_FIT`, `ISLAND_VIEW`, `MAX_TRI_EDGE`,
 `TAP_MOVE_PX`, `TAP_SLOP_PX`, `IDLE_SPIN`, `FLY_RHO`, `FLY_SPEED`, `LABEL_SECONDS`, `CLIP_VOL`, `SFX_VOL`,
-`QUESTIONS_PER_LEVEL` 8, `HINT_AFTER` [2, 3], `REMIND_SECONDS` 9, `LIFT`, `COLOURS`, `CONT_COLOURS`,
-`PALE`, `REGIONS`, `CARDS` 5, `CARD_FLY`. Per level in `assets/levels.json`: `camera`, `view`, `pick`,
+`QUESTIONS_PER_LEVEL` 12, `HINT_AFTER` [2, 3], `REMIND_SECONDS` 9, `LIFT`, `COLOURS`, `CONT_COLOURS`,
+`PALE`, `REGIONS`, `CARDS` 5, `CARD_FLY`. Per level in `assets/levels.json`: `camera`, `view`, `questions`,
 `pale`, `flags` (how many flag questions), `lightup`, `cards` ('far', 'near', 'alike'); plus the
 `lookalikes` groups and the `stickers`.
 

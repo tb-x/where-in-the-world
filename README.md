@@ -14,10 +14,14 @@ with every decision and what's still to do, is in [PLAN.md](PLAN.md).
   **World tour**. They go from the continents (Russia split at the Urals) and the giant countries, through
   Poland's neighbors, each continent, famous islands (Hawaii, Sicily, Tasmania…), little Europe and
   look-alike flags, to capital cities and a round-the-world mix.
-- **A question**: the camera moves to that part of the world and the voice asks (🔊 says it again; it is
-  asked again by itself after 9 seconds). Drag to turn the globe, pinch to zoom in on small countries.
-- **A wrong tap** names what was tapped (*"This is Spain."*). After two, a ring pulses near the answer;
-  after three, the camera flies there and it glows. A tap in the sea doesn't count. Nothing ever ends a trip.
+- **A trip** is 10 to 14 questions. When a trip has fewer places than that (the continents, Poland's
+  neighbors), a few come back near the end, and a flag question never comes straight after its own country.
+- **A question**: on the early trips the camera moves to that part of the world; from Look-alike flags on,
+  it only zooms out to the whole globe, still facing wherever the child left it, so finding the right part
+  of the world is part of the question. The voice asks (🔊 says it again; it is asked again by itself after
+  9 seconds). Drag to turn the globe, pinch to zoom in on small countries.
+- **A wrong tap** names what was tapped (*"This is Spain."*). After two, a ring pulses near the answer (on
+  the later trips the globe first turns to face it); after three, the camera flies there and it glows. A tap in the sea doesn't count. Nothing ever ends a trip.
 - **A right tap**: the country lifts, its flag is painted on, a sticker pops up (🍕, 🦘, 🐼…), and *"Yes!
   This is Italy."* A gold dot means first try.
 - **Flag questions**: the country lights up with its name (painted flags are hidden meanwhile) and five
@@ -63,12 +67,13 @@ For grown-ups changing it, the tools in `dev/` (plain Python; the voice needs Ko
 
 ## Tuning knobs
 
-At the top of `game.js`: `QUESTIONS_PER_LEVEL` (8), `HINT_AFTER` ([2, 3] wrong taps), `REMIND_SECONDS` (9),
+At the top of `game.js`: `QUESTIONS_PER_LEVEL` (12, when a trip doesn't set its own), `HINT_AFTER` ([2, 3] wrong taps), `REMIND_SECONDS` (9),
 `CARDS` (5 flags), `TAP_SLOP_PX` (how near a miss still counts), `COUNTRY_FIT` (how much of the screen a
 country flown to fills), `FLY_SPEED`, `MIN_ALT` (how close the camera can get), `IDLE_SPIN`, `CLIP_VOL`,
 `SFX_VOL`, `LIFT`, `COLOURS`.
 
-In `assets/levels.json`, per trip: the places asked (`ask`, `pick`), the camera (`camera`, `view`), pale
+In `assets/levels.json`, per trip: the places asked (`ask`), how many questions (`questions`), the camera (`camera`, `view`; `world` for the
+later trips), pale
 other countries (`pale`), how many flag questions (`flags`, `lightup`) and how alike the wrong flags are
 (`cards`: far, near, alike), capital questions (`capitals`). Also the continent views (`regions`), when a
 place gets a view of its own (`closer`), the look-alike flag groups, the islands, the capital cities and
