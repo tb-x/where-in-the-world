@@ -47,6 +47,13 @@ button svg{width:55%;height:55%;display:block;margin:auto}
 #levelgrid button:disabled{opacity:.45;cursor:default}
 #levelgrid .icon{font-size:clamp(26px, 7vmin, 44px);line-height:1}
 #levelgrid .num{font:bold clamp(14px, 3.5vmin, 20px)/1 var(--read)}
+/* start again: a small button that has to be held (RESET_HOLD); a ring fills while it's held */
+#reset{position:fixed;right:calc(14px + var(--safe-r));bottom:calc(14px + var(--safe-b));width:44px;height:44px;border-radius:50%;
+  padding:0;color:#fff;background:conic-gradient(var(--gold) calc(var(--p, 0) * 360deg), rgba(255,255,255,.18) 0);
+  opacity:.6;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+#reset::before{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--sky)}
+#reset svg{position:relative;width:22px;height:22px;display:block;margin:auto}
+#reset.holding{opacity:1}
 #levelgrid .stars{color:var(--gold);font-size:clamp(11px, 2.8vmin, 16px);line-height:1;min-height:1em;text-shadow:0 1px 0 #a57a00}
 @media (orientation:landscape){ #levelgrid{grid-template-columns:repeat(6, 1fr);max-width:820px} }
 

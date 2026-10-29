@@ -14,9 +14,9 @@ with every decision and what's still to do, is in [PLAN.md](PLAN.md).
   **World tour**. They go from the continents (Russia split at the Urals) and the giant countries, through
   Poland's neighbors, each continent, famous islands (Hawaii, Sicily, Tasmania…), little Europe and
   look-alike flags, to capital cities and a round-the-world mix.
-- **A trip** is 10 to 14 questions about a handful of places picked afresh from a longer list each time
-  (Poland's neighbors uses 8 of 11, Africa 11 of 16…), so no two trips are the same; Poland is always in
-  Home and giants. A place or two come back near the end.
+- **A trip** is 10 to 14 questions (the continents: 7), each about a different place picked afresh from a
+  longer list each time (Poland's neighbors 10 of 12, Africa 12 of 16…), so no two trips are the same, and
+  never two places of one country (not Sicily and Italy). Poland is always in Home and giants.
 - **A question**: on the early trips the camera moves to that part of the world; from Look-alike flags on,
   it only zooms out to the whole globe, still facing wherever the child left it, so finding the right part
   of the world is part of the question. The voice asks (🔊 says it again; it is asked again by itself after
@@ -45,7 +45,8 @@ with every decision and what's still to do, is in [PLAN.md](PLAN.md).
   winter (and why slanted sunshine is colder, on a card where the child moves the Sun), summer in
   Australia, and then the child pushes the Earth round the Sun through the seasons. ⏭ skips a part.
 
-Progress, the passport and the medal are kept on the device (`localStorage`).
+Progress, the passport and the medal are kept on the device (`localStorage`). To start again (a new child on
+the same tablet), hold the small ↺ in the bottom corner of the level map for 2 seconds; a tap alone does nothing.
 
 It can be added to the Home Screen and then plays without internet: on the first visit it saves the whole game,
 including every voice clip and flag (about 12 MB, fetched once in the background).
@@ -73,13 +74,12 @@ For grown-ups changing it, the tools in `dev/` (plain Python; the voice needs Ko
 
 ## Tuning knobs
 
-At the top of `game.js`: `QUESTIONS_PER_LEVEL` (12, when a trip doesn't set its own), `HINT_AFTER` ([2, 4, 6] wrong taps), `REMIND_SECONDS` (9),
+At the top of `game.js`: `QUESTIONS_PER_LEVEL` (12, when a trip doesn't set its own), `HINT_AFTER` ([2, 4, 6] wrong taps), `RESET_HOLD` (2 seconds to hold ↺), `REMIND_SECONDS` (9),
 `CARDS` (5 flags), `FLAG_SPREAD` (how fast a flag spreads over its country), `TAP_SLOP_PX` (how near a miss still counts), `COUNTRY_FIT` (how much of the screen a
 country flown to fills), `FLY_SPEED`, `MIN_ALT` (how close the camera can get), `IDLE_SPIN`, `CLIP_VOL`,
 `SFX_VOL`, `LIFT`, `COLOURS`.
 
-In `assets/levels.json`, per trip: the places asked (`ask`), how many questions (`questions`), how many of the places one trip uses (`places`; `always`
-for ones in every trip), the camera (`camera`, `view`; `world` for the
+In `assets/levels.json`, per trip: the places asked (`ask`), how many questions (`questions`; `always` for places in every trip), the camera (`camera`, `view`; `world` for the
 later trips), pale other countries (`pale`), how many flag questions (`flags`) and how alike the wrong flags are
 (`cards`: far, near, alike), capital questions (`capitals`). Also the continent views (`regions`), when a
 place gets a view of its own (`closer`), the look-alike flag groups, the islands, the capital cities and

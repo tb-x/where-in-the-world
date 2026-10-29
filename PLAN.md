@@ -90,17 +90,19 @@ already has, with a few new ones mixed in.
 
 **A different trip each time** (asked 2026-10-29): each trip's `ask` list grew (Poland's neighbors 11 with the
 countries just past them, Big Europe 12, the Americas 14, Africa 16, Asia 17, Flag party 16, Little Europe 14, Home and
-giants 14 with Poland in every trip via `always`), and a trip uses `places` of them, picked afresh every time. Most of
+giants 14 with Poland in every trip via `always`; then Poland's neighbors 12, Big Europe 14), and a trip uses
+`questions` of them, picked afresh every time, each place once and never two of one country (asked 2026-10-29: no
+duplicates in a quiz, so the asking-again and `places` are gone). Most of
 the new ones came from the World tour's own list, which now keeps only the 6 countries no trip asks.
+**Starting again** (asked 2026-10-29): holding the small ↺ in the level map's corner for `RESET_HOLD` (2 s) clears
+the trips, the passport and the medal; a ring fills while it's held, and a tap alone does nothing.
 **Flag questions** (changed 2026-10-29): always about a country the trip hasn't shown yet (it lights up with its
 name), never one whose flag the map has already painted, including Italy after Sicily. The right flag flies onto
 the country and spreads over it from there (`FLAG_SPREAD`).
 
 **Trip length and the later camera** (changed 2026-10-29: the user wanted longer trips and a camera that gives less
 away on the later ones). Each trip sets `questions` (flag questions included): 10 for trips 1–3, 12 for most, 13 for
-Asia, 14 for Round the world. A trip with fewer places than map questions asks a few again at the end, picked from
-the first half so other questions come in between (trip 1: 7 continents, 3 again); repeats add no stamp or sticker.
-A flag question never comes straight after its own country's map question. From trip 11 on, the camera is
+Asia, 14 for Round the world. A trip is never longer than its list (the continents: 7). From trip 11 on, the camera is
 `world`: each question only zooms out to the whole globe, still facing wherever the child left it, so it never
 points at the answer and the child has to find the continent too; the first hint (two wrong taps, or the second
 reminder) turns the globe to face the answer and rings it, the second flies in as before. About 100 countries in all; 53 have a capital city in `levels.json`

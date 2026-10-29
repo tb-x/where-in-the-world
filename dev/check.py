@@ -197,17 +197,16 @@ def main():
                 why = '' if not v else f'{size:.0f} px' if size < levels['closer']['minPx'] else 'outside the view'
                 small.append(f'{name} ({why + ", " if why else ""}{px(p["box"], ext):.0f} px at {ext:.0f}°)')
         flagged = [n for n in names if L['camera'] != 'globe' and (place(n) or {}).get('flag')]
-        if L.get('flags') and min(len(flagged), L.get('places', 99)) < L['flags'] + 1:
+        if L.get('flags') and min(len(flagged), count) < L['flags'] + 1:
             err(f'level {i}: {L["flags"]} flag questions need more countries with flags')
         count = L.get('questions', QUESTIONS)
         if count <= L.get('flags', 0):
             err(f'level {i}: {count} questions leave none on the map after {L["flags"]} flag questions')
-        uses = min(L.get('places', count), count, len(names))
-        again = count - uses
+        count = min(count, len(names))
         for n in L.get('always', []):
             if n not in names:
                 err(f'level {i}: always-asked {n!r} is not in its ask list')
-        print(f'{i:2}. {L["trip"]}: {count} questions, {uses} of {len(names)} places{f" ({again} asked again)" if again else ""}, camera {L["camera"]}, {L.get("flags", 0)} flag questions ({L.get("cards", "-")})')
+        print(f'{i:2}. {L["trip"]}: {count} of {len(names)} places, camera {L["camera"]}, {L.get("flags", 0)} flag questions ({L.get("cards", "-")})')
         if small:
             print(f'    closer view: {", ".join(small)}')
 

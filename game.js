@@ -21,6 +21,7 @@ const HINT_AFTER = [2, 4, 6];       // wrong taps before each hint: a wide ring 
 const REMIND_SECONDS = 9;           // no tap for this long: the question is asked again, then the ring shows
 const LIFT = 0.004;                 // how far a found country rises off the globe (globe radii, at most)
 const CARDS = 5;                    // flags to choose from in a flag question
+const RESET_HOLD = 2;               // seconds ↺ on the level map must be held to clear all progress
 const CARD_FLY = 0.7;               // seconds the right flag takes to fly onto its country
 const FLAG_SPREAD = 0.8;            // seconds a found country's flag takes to spread over it
 const HOME = 'Poland';
@@ -758,6 +759,36 @@ function goLevels() {
   }
   showScreens('levels', 'back');
 }
+/* ======== starting again: hold ↺ on the level map ======== */
+// For a new child on the same device: holding ↺ for RESET_HOLD seconds clears the trips, the passport and the
+// medal (a tap alone does nothing, so a child can't wipe it by accident)
+{
+  const b = $('reset');
+  let timer = 0, t0 = 0;
+  const stop = () => { clearInterval(timer); timer = 0; b.style.setProperty('--p', 0); b.classList.remove('holding'); };
+  b.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    stop();
+    t0 = performance.now();
+    b.classList.add('holding');
+    timer = setInterval(() => {
+      const p = (performance.now() - t0) / 1000 / RESET_HOLD;
+      b.style.setProperty('--p', Math.min(1, p));
+      if (p >= 1) { stop(); resetProgress(); }
+    }, 40);
+  });
+  for (const ev of ['pointerup', 'pointerleave', 'pointercancel']) b.addEventListener(ev, stop);
+  b.addEventListener('contextmenu', e => e.preventDefault());
+}
+function resetProgress() {
+  progress = {};
+  passport = [];
+  for (const key of ['progress', 'passport', 'medal', 'finaleSeen']) try { localStorage.removeItem(STORE + key); } catch {}
+  window.tbxEvent?.('reset');
+  sfx('end');
+  goLevels();
+}
+
 // 1 to 3 stars from the countries found on the first try
 function starsOf(firstTry, total) { return firstTry >= total ? 3 : firstTry >= total * 0.6 ? 2 : 1; }
 const everyPlace = () => [...new Set(levels.levels.filter(l => l.camera !== 'globe' && !l.mix).flatMap(l => l.ask))];
@@ -766,7 +797,7 @@ function askOf(L) {
   if (L.tour) return everyPlace();
   return L.ask;
 }
-function countOf(L) { return L.questions || QUESTIONS_PER_LEVEL; }
+function countOf(L) { return Math.min(L.questions || QUESTIONS_PER_LEVEL, askOf(L).length); }
 
 $('play').addEventListener('click', () => goLevels());
 $('look').addEventListener('click', () => goLook());
@@ -884,35 +915,31 @@ async function playLevel(i) {
   endLevel(token);
 }
 
-// The places of a trip: each once, then, when the trip is longer than its list, a few asked again at the
-// end, picked from the first half so other questions come in between
-function tripTargets(names, n) {
-  const once = names.slice(0, n), more = n - once.length;
-  const again = shuffle(once.slice(0, Math.max(Math.ceil(once.length / 2), more))).slice(0, more);
-  return [...once.map(targetOf), ...again.map(name => ({ ...targetOf(name), repeat: true }))];
-}
-
-// The questions of one trip, in order. A flag question is always about a country the trip hasn't shown yet:
+// The questions of one trip, in order: a different handful from the level's list each time (any in `always`
+// among them), each place once and never two of one country (Sicily and Italy; changed 2026-10-29, when places
+// were still asked again to fill a trip). A flag question is always about a country the trip hasn't shown yet:
 // it lights up with its name and the child picks its flag (asking for a flag the child has just seen painted
-// on the map would make no sense; changed 2026-10-29). Places asked again at the end are map questions (a
-// country met in a flag question then has its flag on), and the last question is always on the map.
+// on the map would make no sense). The last question is always on the map.
 function planTrip(L) {
   const total = countOf(L), F = Math.min(L.flags || 0, total - 1);
   let names = shuffle(askOf(L).slice());
   if (L.tour) {   // mostly places from the passport, and a few not stamped yet
     const stamped = names.filter(n => passport.includes(n)), fresh = names.filter(n => !passport.includes(n));
     const nNew = Math.max(L.new, total - stamped.length);
-    names = shuffle([...fresh.slice(0, nNew), ...stamped.slice(0, total - nNew)]);
+    names = [...fresh.slice(0, nNew), ...stamped, ...fresh.slice(nNew)];
   }
-  // a different handful each time: `places` of the list (any in `always` among them), the rest asked again
   if (L.always) names = [...L.always, ...names.filter(n => !L.always.includes(n))];
-  names = shuffle(names.slice(0, Math.min(L.places || total, total)));
-  const targets = tripTargets(names, total);
-  const firsts = targets.filter(t => !t.repeat), last = targets.length - 1;
-  const alone = t => !targets.some(o => o !== t && !o.repeat && o.c === t.c);   // (Sicily would paint Italy's flag)
-  shuffle(firsts.filter(t => t !== targets[last] && t.kind === 'country' && t.c.flag && alone(t))).slice(0, F)
-    .forEach(t => { t.q = 'flag'; });
-  return withCapitals(L, targets.map(t => ({ q: 'map', ...t })));
+  const targets = [], countries = new Set();
+  for (const name of names) {
+    const t = targetOf(name), key = t.c ?? t.name;
+    if (countries.has(key)) continue;
+    countries.add(key);
+    targets.push({ q: 'map', ...t });
+    if (targets.length === total) break;
+  }
+  shuffle(targets);
+  shuffle(targets.slice(0, -1).filter(t => t.kind === 'country' && t.c.flag)).slice(0, F).forEach(t => { t.q = 'flag'; });
+  return withCapitals(L, targets);
 }
 
 // A capitals level asks every map question by its capital city; a number asks that many (countries with a capital listed)
@@ -972,7 +999,7 @@ async function solved(t, token) {
   quiz.solved = true;
   const first = quiz.wrong === 0;
   if (first) quiz.firstTry++;
-  if (!t.repeat) quiz.results.push({ t, first });   // a place asked again isn't a new one
+  quiz.results.push({ t, first });
   $('dots').children[quiz.n].classList.replace('now', first ? 'gold' : 'done');
   hideRing();
   sfx('right');
@@ -1349,11 +1376,11 @@ window.__wm = {
   flying: () => !!flight,
   said,   // the last lines said and whether a clip or the device's voice said them
   clipCount: () => Object.keys(clips).length,
-  play: i => playLevel(i), goLevels, goLook, goStart,
+  play: i => playLevel(i), goLevels, goLook, goStart, reset: resetProgress,
   paint: name => { const c = byName[name]; return paintFlag(c, c.polys.map((p, k) => k), c.box, c.label); },   // a flag spreading over a country
   quiz: () => quiz && { level: levelIdx + 1, n: quiz.n, of: quiz.targets.length, target: quiz.target?.name, kind: quiz.target?.kind,
-    q: quiz.target?.q, repeat: quiz.target?.repeat, parts: quiz.target?.parts?.length, wrong: quiz.wrong, busy: quiz.busy, firstTry: quiz.firstTry,
-    plan: quiz.targets.map(t => `${t.q === 'flag' ? '🏳' : t.q === 'capital' ? '⭐' : ''}${t.name}${t.repeat ? '↺' : ''}`).join(' '),
+    q: quiz.target?.q, parts: quiz.target?.parts?.length, wrong: quiz.wrong, busy: quiz.busy, firstTry: quiz.firstTry,
+    plan: quiz.targets.map(t => `${t.q === 'flag' ? '🏳' : t.q === 'capital' ? '⭐' : ''}${t.name}`).join(' '),
     cards: [...cardsEl.children].map(b => b.dataset.name + (b.classList.contains('gone') ? ' (gone)' : '')) },
   // answer the current question: right, or wrong with a named country (on the map, or that country's flag card)
   answer: () => {
