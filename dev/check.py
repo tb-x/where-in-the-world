@@ -12,6 +12,7 @@ something a level needs is missing:
   and "This is …" for every country, since any country can be tapped);
 - a flag question with fewer than four wrong flags to choose from;
 - a capital city that isn't inside its country, or a capitals level asking for a country without one.
+- on the physical map (Look around): a place without its line or clip, or a missing relief picture.
 Places without a sticker are listed as a warning (they get ⭐).
 
 The camera rules mirror game.js (cameraFor, shows, closerView): a place is drawn at
@@ -209,6 +210,26 @@ def main():
         print(f'{i:2}. {L["trip"]}: {count} of {len(names)} places, camera {L["camera"]}, {L.get("flags", 0)} flag questions ({L.get("cards", "-")})')
         if small:
             print(f'    closer view: {", ".join(small)}')
+
+    # the physical map in Look around: every place has its line and clip, and its pictures are there
+    physical_json = load('physical.json')
+    physical = physical_json['features']
+    said = lines.get('physical', {})
+    for f in physical:
+        if f['name'] not in said:
+            err(f'physical map: no line in lines.json for {f["name"]!r}')
+        else:
+            need(said[f['name']], 'physical map')
+    for name in sorted(set(said) - {f['name'] for f in physical}):
+        warnings.append(f'physical map: a line for {name!r}, which physical.json lacks')
+    for key in ('map-physical', 'map-countries'):
+        need(lines['shared'][key], 'physical map switch')
+    pictures = (['base.jpg'] + [f't{c}-{r}.jpg' for c in range(8) for r in range(4)]
+                + [f'u{c}-{r}.jpg' for c in range(16) for r in range(8)] + [f'v{t}.jpg' for t in physical_json['sharpest']])
+    for p in pictures:
+        if not (GAME / 'assets' / 'physical' / p).exists():
+            err(f'physical map: picture assets/physical/{p} missing (python dev/build_physical.py)')
+    print(f'physical map: {len(physical)} places, {len(pictures)} pictures')
 
     for w in warnings:
         print('warning:', w)

@@ -24,10 +24,18 @@ const CARDS = 5;                    // flags to choose from in a flag question
 const RESET_HOLD = 2;               // seconds ↺ on the level map must be held to clear all progress
 const CARD_FLY = 0.7;               // seconds the right flag takes to fly onto its country
 const FLAG_SPREAD = 0.8;            // seconds a found country's flag takes to spread over it
+const PHYS_TILE_PX = 2.5;           // physical map: once a pixel of the picture shown covers more screen pixels than this,
+                                    // the next sharper pictures load where the camera looks (two steps: SHARP)
+const PHYS_TILES_KEPT = 12;         // sharp pictures of each step shown and kept at once (about 5 MB of graphics memory each)
+const RIVER_TAP_PX = 16;            // physical map: a tap this close to a river names it (less when zoomed far out)
+const RIVER_LIT_PX = 5;             // how wide a tapped river's gold ribbon is on screen
+const PLACE_LIT = 0.45;            // how strongly a tapped place lights up (in gold) on the physical map
+const TILE_FACING = 0.55;           // a sharp tile loads only for the part of the globe facing the camera at least this much
 const HOME = 'Poland';
 const COLOURS = ['#ffd45c', '#8fd16a', '#ff9eb8', '#c3a3f2', '#ffad6b'];
 const CONT_COLOURS = { EU: '#ff9eb8', AS: '#ffd45c', AF: '#ffad6b', NA: '#8fd16a', SA: '#c3a3f2', OC: '#6fd3c4', AN: '#f4f7ff' };
 const PALE = '#dfe5ec';
+const GOLD = '#ffd23f';             // a tapped place on the physical map
 const OCEAN = '#2f86d6';
 const COAST = '#1c5c9e';
 const BORDER = '#ffffff';
@@ -168,6 +176,13 @@ function triangulate(rings) {
   return { lon, lat, tris };
 }
 
+function ringBox(o) {
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  for (let i = 0; i < o.length; i += 2) {
+    x0 = Math.min(x0, o[i]); x1 = Math.max(x1, o[i]); y0 = Math.min(y0, o[i + 1]); y1 = Math.max(y1, o[i + 1]);
+  }
+  return [x0, y0, x1, y1];
+}
 function boxOf(polys) {
   let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
   for (const p of polys) {
@@ -179,12 +194,7 @@ function boxOf(polys) {
 function buildCountry(c, q) {
   const polys = c.polys.map(p => {
     const rings = p.map(r => decode(r, q));
-    const o = rings[0];
-    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
-    for (let i = 0; i < o.length; i += 2) {
-      x0 = Math.min(x0, o[i]); x1 = Math.max(x1, o[i]); y0 = Math.min(y0, o[i + 1]); y1 = Math.max(y1, o[i + 1]);
-    }
-    return { rings, box: [x0, y0, x1, y1] };
+    return { rings, box: ringBox(rings[0]) };
   });
   const pos = [], ll = [], idx = [];
   const v = new THREE.Vector3();
@@ -317,6 +327,7 @@ function hideFlags(hide) {
 
 /* ======== how the map looks ======== */
 function setLook(mode, keep = new Set()) {
+  if (physicalOn) setPhysical(false);
   for (const c of countries) {
     c.mesh.geometry.groups.forEach(g => { g.materialIndex = 0; });   // its flag material stays for the next trip
     c.painted = null;
@@ -336,6 +347,249 @@ function setLook(mode, keep = new Set()) {
     else c.base.color.copy(c.colour);
     c.base.needsUpdate = true;
   }
+}
+
+/* ======== the physical map (Look around) ======== */
+// A relief picture of the Earth from Natural Earth (dev/build_physical.py): the whole Earth at once, then sharper
+// 45° tiles where the camera is close. The countries turn see-through and their borders fainter, and a tap names the
+// mountains, deserts, rivers, lakes and seas in assets/physical.json, or the country where there's none of those.
+let physical = null, physicalOn = false, physLoading = null;
+const lit = new Map();   // what's lit up on the physical map: a place or a country -> { mesh, mat, max, level }
+const texLoader = new THREE.TextureLoader();
+
+// a piece of sphere from (lon0, lat1) at its north-west corner whose texture runs west to east and north to south
+function relief(r, lon0, lat1, dLon, dLat, segs) {
+  return new THREE.SphereGeometry(r, Math.max(4, Math.round(segs * dLon / 360)), Math.max(2, Math.round(segs / 2 * dLat / 180)),
+    (lon0 + 90) * D2R, dLon * D2R, (90 - lat1) * D2R, dLat * D2R);
+}
+function reliefTexture(file) {
+  return new Promise(res => texLoader.load(`assets/physical/${file}?v=${ASSET_V}`,
+    t => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; res(t); }, undefined, () => res(null)));
+}
+
+function loadPhysical() {
+  physLoading ||= Promise.all([
+    reliefTexture('base.jpg'),
+    fetch(`assets/physical.json?v=${ASSET_V}`).then(r => r.json()),
+  ]).then(([tex, data]) => {
+    if (!tex) throw new Error('no relief picture');
+    // under the tiles, pushed back like the ocean so the two never flicker
+    const base = new THREE.Mesh(relief(0.9994, -180, 90, 360, 180, 160),
+      new THREE.MeshLambertMaterial({ map: tex, polygonOffset: true, polygonOffsetFactor: 2, polygonOffsetUnits: 4 }));
+    base.visible = false;
+    globe.add(base);
+    physical = { base, tiles: new Map(), places: data.features.map(f => buildPlace(f, data.q)), check: 0 };
+    SHARP.at(-1).only = new Set(data.sharpest);
+  }).catch(() => { physLoading = null; });
+  return physLoading;
+}
+
+function buildPlace(f, q) {
+  const p = { name: f.name, kind: f.kind, label: f.label };
+  if (f.lines) p.lines = f.lines.map(l => decode(l, q));
+  else {
+    p.polys = f.polys.map(rs => { const rings = rs.map(r => decode(r, q)); return { rings, box: ringBox(rings[0]) }; });
+    const [x0, y0, x1, y1] = boxOf(p.polys);
+    p.size = (x1 - x0) * (y1 - y0) * Math.cos((y0 + y1) / 2 * D2R);
+  }
+  return p;
+}
+
+// A river lit up: a ribbon RIVER_LIT_PX wide on screen (WebGL lines are only ever 1 px). Each segment is a quad whose
+// corners the vertex shader pushes sideways, at right angles to the segment as it looks on screen.
+const screenHalf = { value: new THREE.Vector2(1, 1) };   // half the screen in CSS pixels, kept by resize()
+function ribbon(lines, r) {
+  const pos = [], other = [], side = [], idx = [], a = new THREE.Vector3(), b = new THREE.Vector3();
+  for (const l of lines) {
+    for (let i = 2; i < l.length; i += 2) {
+      dirOf(l[i - 2], l[i - 1], a).multiplyScalar(r); dirOf(l[i], l[i + 1], b).multiplyScalar(r);
+      const n = pos.length / 3;
+      pos.push(...a.toArray(), ...a.toArray(), ...b.toArray(), ...b.toArray());
+      other.push(...b.toArray(), ...b.toArray(), ...a.toArray(), ...a.toArray());
+      side.push(1, -1, -1, 1);   // seen from b the segment runs the other way, so its sides swap
+      idx.push(n, n + 1, n + 2, n, n + 2, n + 3);
+    }
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3));
+  g.setAttribute('other', new THREE.BufferAttribute(new Float32Array(other), 3));
+  g.setAttribute('side', new THREE.BufferAttribute(new Float32Array(side), 1));
+  g.setIndex(idx);
+  return new THREE.Mesh(g, new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, side: THREE.DoubleSide,   // a quad's corners can come out wound either way
+    uniforms: { uColor: { value: new THREE.Color(GOLD) }, uOpacity: { value: 0 }, uHalf: screenHalf, uWidth: { value: RIVER_LIT_PX } },
+    vertexShader: `attribute vec3 other; attribute float side; uniform vec2 uHalf; uniform float uWidth;
+      void main(){
+        vec4 a = projectionMatrix * modelViewMatrix * vec4(position, 1.0), b = projectionMatrix * modelViewMatrix * vec4(other, 1.0);
+        vec2 d = b.xy / b.w * uHalf - a.xy / a.w * uHalf;
+        d = length(d) > 1e-4 ? normalize(d) : vec2(1.0, 0.0);
+        a.xy += vec2(-d.y, d.x) * side * uWidth * 0.5 / uHalf * a.w;
+        gl_Position = a;
+      }`,
+    fragmentShader: 'uniform vec3 uColor; uniform float uOpacity; void main(){ gl_FragColor = vec4(uColor, uOpacity); }',
+  }));
+}
+
+// a tapped place's highlight, made the first time it's tapped: a see-through gold cover, or a gold ribbon for a river
+function shineOf(p) {
+  let m;
+  if (p.lines) m = ribbon(p.lines, 1.0006);
+  else {
+    const pos = [], idx = [], v = new THREE.Vector3();
+    for (const poly of p.polys) {
+      const t = triangulate(poly.rings), base = pos.length / 3;
+      for (let i = 0; i < t.lon.length; i++) { dirOf(t.lon[i], t.lat[i], v).multiplyScalar(1.0002); pos.push(v.x, v.y, v.z); }
+      for (const i of t.tris) idx.push(base + i);
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pos), 3));
+    g.setIndex(idx);
+    m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ color: GOLD, transparent: true, opacity: 0, depthWrite: false }));
+  }
+  globe.add(m);
+  m.visible = false;
+  return m;
+}
+function lightUp(t) {
+  if (!lit.has(t)) {
+    if (t.mesh) lit.set(t, { mesh: t.mesh, mat: t.base, max: PLACE_LIT + 0.2, level: 0 });   // a country, in its own colour
+    else { t.shine ||= shineOf(t); lit.set(t, { mesh: t.shine, mat: t.shine.material, max: t.lines ? 1 : PLACE_LIT, level: 0 }); }
+  }
+  if (shown) shown.lit = t;
+}
+
+// switch between the countries and the physical map; resolves to whether the physical map is showing
+async function setPhysical(on) {
+  const b = $('mapkind');
+  if (on && !physical) {
+    b.classList.add('busy');
+    await loadPhysical();
+    b.classList.remove('busy');
+    if (!physical || mode !== 'look') return physicalOn;
+  }
+  hideName();
+  physicalOn = on && !!physical;
+  b.setAttribute('aria-pressed', physicalOn);
+  b.setAttribute('aria-label', physicalOn ? 'Countries' : 'Mountains, deserts and seas');
+  ocean.visible = coast.visible = !physicalOn;
+  if (physical) {
+    physical.base.visible = physicalOn;
+    for (const t of physical.tiles.values()) t.mesh.visible = false;
+    physical.check = 0;
+  }
+  for (const [, l] of lit) l.mesh.visible = false;
+  lit.clear();
+  for (const c of countries) {
+    c.mesh.visible = !physicalOn;
+    c.base.transparent = physicalOn;
+    c.base.opacity = physicalOn ? 0 : 1;
+    c.base.needsUpdate = true;
+  }
+  return physicalOn;
+}
+
+// Three sets of sharp tiles, each drawn just above the picture before it: 8 × 4 of 45° (t*.jpg, 8192 pixels round the
+// Earth), 16 × 8 of 22.5° (u*.jpg, 16384, coasts drawn sharp), then 32 × 16 of 11.25° (v*.jpg, 32768), made only where
+// there's a coast or a lake shore (`only`, from physical.json). A set loads once a pixel of the picture under it
+// (`under` pixels round the Earth) would cover more than PHYS_TILE_PX screen pixels.
+const SHARP = [{ prefix: 't', cols: 8, r: 0.9996, under: 2048 }, { prefix: 'u', cols: 16, r: 0.9998, under: 8192 },
+  { prefix: 'v', cols: 32, r: 0.9999, under: 16384, only: new Set() }];
+
+// a set's tiles under the screen: wherever a 7 × 7 grid of points on the screen meets the globe, leaving out the rim,
+// seen edge-on, where the picture under it does fine; at most PHYS_TILES_KEPT, nearest the middle first
+function tilesOnScreen(set) {
+  const deg = 360 / set.cols, cam = camera.position.clone().normalize(), want = new Map();
+  for (let i = 0; i <= 6; i++) for (let j = 0; j <= 6; j++) {
+    const ll = lonLatAt(W * i / 6, H * j / 6);
+    if (!ll || dirOf(ll.lon, ll.lat).dot(cam) < TILE_FACING) continue;
+    const at = `${clamp(Math.floor((wrapLon(ll.lon) + 180) / deg), 0, set.cols - 1)}-${clamp(Math.floor((90 - ll.lat) / deg), 0, set.cols / 2 - 1)}`;
+    if (set.only && !set.only.has(at)) continue;
+    const k = set.prefix + at;
+    want.set(k, Math.min(want.get(k) ?? 99, Math.abs(i - 3) + Math.abs(j - 3)));
+  }
+  return [...want].sort((a, b) => a[1] - b[1]).slice(0, PHYS_TILES_KEPT).map(([k]) => k);
+}
+function makeTile(k) {
+  const set = SHARP.find(s => s.prefix === k[0]), deg = 360 / set.cols;
+  const [col, row] = k.slice(1).split('-').map(Number);
+  const mesh = new THREE.Mesh(relief(set.r, -180 + col * deg, 90 - row * deg, deg, deg, 256), new THREE.MeshLambertMaterial());
+  mesh.visible = false;
+  globe.add(mesh);
+  reliefTexture(`${k}.jpg`).then(tex => {
+    if (!tex) return;
+    if (physical.tiles.get(k)?.mesh !== mesh) { tex.dispose(); return; }   // forgotten while it loaded
+    mesh.material.map = tex;
+    mesh.material.needsUpdate = true;
+    physical.check = 0;
+  });
+  return { mesh, used: clock };
+}
+function updateTiles(dt) {
+  physical.check -= dt;
+  if (physical.check > 0) return;
+  physical.check = 0.3;
+  const groundPerPx = view.alt / focal / D2R / renderer.getPixelRatio();   // degrees per device pixel mid-screen
+  const want = new Set();
+  for (const set of SHARP) if (360 / set.under / groundPerPx > PHYS_TILE_PX) for (const k of tilesOnScreen(set)) want.add(k);
+  for (const k of want) {
+    if (!physical.tiles.has(k)) physical.tiles.set(k, makeTile(k));
+    physical.tiles.get(k).used = clock;
+  }
+  for (const [k, t] of physical.tiles) t.mesh.visible = want.has(k) && !!t.mesh.material.map;
+  // past PHYS_TILES_KEPT, forget the ones looked at longest ago
+  const old = [...physical.tiles].filter(([k]) => !want.has(k)).sort((a, b) => a[1].used - b[1].used);
+  for (const [k, t] of old.slice(0, Math.max(0, physical.tiles.size - PHYS_TILES_KEPT))) {
+    globe.remove(t.mesh);
+    t.mesh.geometry.dispose(); t.mesh.material.map?.dispose(); t.mesh.material.dispose();
+    physical.tiles.delete(k);
+  }
+}
+
+// what a tap on the physical map names: a river close by, a lake, a land place (the smallest one), the country, an
+// island a little way off, then a sea, then an ocean, then a country a little way off; null in a sea without a name here
+function placeAt(x, y) {
+  const ll = lonLatAt(x, y);
+  if (!ll) return null;
+  const at = [ll.lon, ll.lat];
+  const tol = RIVER_TAP_PX * clamp(0.6 / view.alt, 0.4, 1);
+  let river = null, best = tol;
+  for (const p of physical.places) {
+    if (!p.lines) continue;
+    for (const l of p.lines) {
+      let a = screenOf(l[0], l[1], 0);
+      for (let i = 2; i < l.length; i += 2) {
+        const b = screenOf(l[i], l[i + 1], 0);
+        if (a.on && b.on) {
+          const dx = b.x - a.x, dy = b.y - a.y, len = dx * dx + dy * dy;
+          const k = len ? clamp(((x - a.x) * dx + (y - a.y) * dy) / len, 0, 1) : 0;
+          const d = Math.hypot(x - a.x - k * dx, y - a.y - k * dy);
+          if (d < best) { best = d; river = p; }
+        }
+        a = b;
+      }
+    }
+  }
+  if (river) return { p: river, at };
+  const rank = p => ({ lake: 0, sea: 2, ocean: 3 }[p.kind] ?? 1);
+  const inside = physical.places.filter(p => p.polys && p.polys.some(q => inPoly(ll.lon, ll.lat, q)))
+    .sort((p, q) => rank(p) - rank(q) || p.size - q.size);
+  if (inside[0] && rank(inside[0]) < 2) return { p: inside[0], at };
+  const hit = hitAt(ll.lon, ll.lat);
+  if (hit) return hit;
+  // in the sea: an island a little way off still counts, as a country does (small islands are hard to hit)
+  for (const r of TAP_SLOP_PX) for (let k = 0; k < 8; k++) {
+    const near = lonLatAt(x + r * Math.cos(k * Math.PI / 4), y + r * Math.sin(k * Math.PI / 4));
+    const island = near && physical.places.find(p => p.kind === 'island' && p.polys.some(q => inPoly(near.lon, near.lat, q)));
+    if (island) return { p: island, at: [near.lon, near.lat] };
+  }
+  if (inside[0]) return { p: inside[0], at };
+  return pickAt(x, y);
+}
+function tapPhysical(x, y) {
+  const hit = placeAt(x, y);
+  if (hit?.p) { showName(null, hit.p.name, hit.at); lightUp(hit.p); say(lines.physical?.[hit.p.name]); }
+  else if (hit) { showName(hit.c, hit.c.name, hit.c.label); lightUp(hit.c); say(line('this', hit.c)); }
+  else if (lonLatAt(x, y)) { hideName(); say(lines.shared.sea); }
 }
 
 /* ======== camera ======== */
@@ -358,6 +612,7 @@ function resize() {
   renderer.setSize(W, H, false);
   camera.aspect = W / H;
   focal = H / 2 / Math.tan(FOV / 2 * D2R);
+  screenHalf.value.set(W / 2, H / 2);
 }
 
 // while the flag cards cover the bottom of the screen, the picture moves up by half their height
@@ -376,7 +631,7 @@ function placeCamera() {
   camera.far = view.alt + 2.2;
   camera.updateProjectionMatrix();
   glow.visible = view.alt > 0.25;
-  border.material.opacity = clamp(0.35 + view.alt * 2, 0.35, 0.8);
+  border.material.opacity = clamp(0.35 + view.alt * 2, 0.35, 0.8) * (physicalOn ? 0.6 : 1);
 }
 
 /* ======== flights ======== */
@@ -528,6 +783,7 @@ canvas.addEventListener('wheel', e => {
 }, { passive: false });
 
 function tap(x, y) {
+  if (mode === 'look' && physicalOn) return tapPhysical(x, y);
   const hit = pickAt(x, y);
   if (mode === 'quiz') answer(hit);
   else if (mode === 'look' && hit) { showName(hit.c, hit.c.name, hit.c.label); say(line('this', hit.c)); }
@@ -539,11 +795,11 @@ let shown = null, labelTimer = 0;
 const stickers = [];
 let ringAt = null;
 
-function screenOf(lon, lat, lift = 0.004) {
+function screenOf(lon, lat, lift = 0.004, minFacing = 0.15) {
   const p = dirOf(lon, lat).multiplyScalar(1 + lift);
   const facing = p.clone().normalize().dot(camera.position.clone().normalize());
   p.project(camera);
-  return { x: (p.x + 1) / 2 * W, y: (1 - p.y) / 2 * H, on: facing > 0.15 && Math.abs(p.x) < 1.1 && Math.abs(p.y) < 1.1 };
+  return { x: (p.x + 1) / 2 * W, y: (1 - p.y) / 2 * H, on: facing > minFacing && Math.abs(p.x) < 1.1 && Math.abs(p.y) < 1.1 };
 }
 function place(el, [lon, lat]) {
   const s = screenOf(lon, lat);
@@ -554,7 +810,7 @@ function place(el, [lon, lat]) {
 
 // lift a country and show its name for a few seconds
 function showName(c, name, at, seconds = LABEL_SECONDS) {
-  if (shown && shown.c !== c) shown.c.liftGoal = shown.c.found ? 0.4 : 0;
+  if (shown?.c && shown.c !== c) shown.c.liftGoal = shown.c.found ? 0.4 : 0;
   shown = { c, at };
   if (c) { c.bump = 1; c.liftGoal = 1; }
   labelEl.textContent = name;
@@ -710,7 +966,7 @@ function sfx(name) {
 
 /* ======== screens ======== */
 let mode = 'start', levels = null, progress = load('progress', {});
-const screens = ['start', 'levels', 'quizbar', 'places', 'end', 'back', 'cards', 'passport'];
+const screens = ['start', 'levels', 'quizbar', 'places', 'end', 'back', 'cards', 'passport', 'mapkind'];
 function showScreens(...on) { for (const s of screens) $(s).hidden = !on.includes(s); }
 
 function goStart() {
@@ -727,8 +983,9 @@ function goLook() {
   stopQuiz();
   mode = 'look';
   setLook('plain');
-  showScreens('places', 'back');
+  showScreens('places', 'back', 'mapkind');
   say(lines.shared['fly-world']);
+  if (load('physical', false)) setPhysical(true);   // the map the child chose last time
 }
 function goLevels() {
   stopQuiz();
@@ -807,6 +1064,12 @@ $('again').addEventListener('click', () => playLevel(levelIdx));
 $('next').addEventListener('click', () => playLevel(levelIdx + 1));
 $('tolevels').addEventListener('click', () => goLevels());
 $('hear').addEventListener('click', () => quiz?.target && say(line(askKind(quiz.target), quiz.target)));
+$('mapkind').addEventListener('click', async () => {
+  const want = !physicalOn;
+  if ((await setPhysical(want)) !== want) return;   // the relief picture couldn't load (offline before it was ever seen)
+  save('physical', want);
+  say(lines.shared[want ? 'map-physical' : 'map-countries']);
+});
 $('places').addEventListener('click', e => {
   const b = e.target.closest('button[data-go]');
   if (!b) return;
@@ -1325,6 +1588,15 @@ function update(dt) {
     if (c.glow) c.base.emissive.setRGB(1, 1, 1).multiplyScalar(0.12 + 0.12 * Math.sin(clock * 6));
     else c.base.emissive.setRGB(0, 0, 0);
   }
+  if (physicalOn) updateTiles(dt);
+  for (const [t, l] of lit) {   // tapped places on the physical map fade in, and out again with their name
+    const goal = shown?.lit === t ? l.max : 0;
+    l.level += (goal - l.level) * Math.min(1, dt * 6);
+    if (!goal && l.level < 0.01) { l.level = 0; lit.delete(t); }
+    if (l.mat.uniforms) l.mat.uniforms.uOpacity.value = l.level;   // a river's ribbon
+    else l.mat.opacity = l.level;
+    l.mesh.visible = l.level > 0;
+  }
   if (shown) {
     labelTimer -= dt;
     if (labelTimer <= 0) hideName();
@@ -1360,6 +1632,9 @@ async function start() {
     ...new Set(Object.values(clips).map(c => url(`assets/voice/${c.file}`))),
     ...new Set(countries.filter(c => c.flag).map(c => url(`assets/flags/${c.flag}.svg`))),
     url(FINALE),
+    url(`assets/physical.json?v=${ASSET_V}`), url(`assets/physical/base.jpg?v=${ASSET_V}`),
+    ...Array.from({ length: 32 }, (_, i) => url(`assets/physical/t${i >> 2}-${i & 3}.jpg?v=${ASSET_V}`)),
+    // not the 128 sharpest tiles (u*.jpg, 14 MB): offline, the close-ups stay at the t*.jpg detail
   ];
 }
 
@@ -1377,6 +1652,9 @@ window.__wm = {
   said,   // the last lines said and whether a clip or the device's voice said them
   clipCount: () => Object.keys(clips).length,
   play: i => playLevel(i), goLevels, goLook, goStart, reset: resetProgress,
+  physical: on => setPhysical(on), physicalOn: () => physicalOn,
+  place: (x, y) => { const h = placeAt(x, y); return h ? (h.p ? h.p.name : h.c.name) : null; },
+  tiles: () => physical && [...physical.tiles].map(([k, t]) => k + (t.mesh.visible ? '*' : '')).join(' '),
   paint: name => { const c = byName[name]; return paintFlag(c, c.polys.map((p, k) => k), c.box, c.label); },   // a flag spreading over a country
   quiz: () => quiz && { level: levelIdx + 1, n: quiz.n, of: quiz.targets.length, target: quiz.target?.name, kind: quiz.target?.kind,
     q: quiz.target?.q, parts: quiz.target?.parts?.length, wrong: quiz.wrong, busy: quiz.busy, firstTry: quiz.firstTry,

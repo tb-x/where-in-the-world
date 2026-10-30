@@ -1,4 +1,4 @@
-/* Layout: the globe fills the screen. Home and back buttons top-left; the start screen, level map and end card float over the globe; in a trip a question bar (🔊 and progress dots) sits top-centre; in Look around a row of place buttons runs along the bottom. Name bubbles, stickers and the hint ring follow points on the globe. */
+/* Layout: the globe fills the screen. Home and back buttons top-left; the start screen, level map and end card float over the globe; in a trip a question bar (🔊 and progress dots) sits top-centre; in Look around a row of place buttons runs along the bottom, and a round picture of the other map (relief or countries) sits beside the back button. Name bubbles, stickers and the hint ring follow points on the globe. */
 :root{
   --sky:#14204a; --sky2:#2b4a8f; --ink:#1d2340; --paper:#fffdf6; --gold:#ffc83d; --go:#3fbf6a; --go-dark:#2a8a4a;
   --read:Verdana, Tahoma, sans-serif; --title:'Fredoka', 'Trebuchet MS', sans-serif;
@@ -21,6 +21,14 @@ button svg{width:55%;height:55%;display:block;margin:auto}
   box-shadow:0 3px 0 rgba(0,0,0,.18);touch-action:manipulation;-webkit-tap-highlight-color:transparent;text-decoration:none;padding:0}
 #back{left:calc(62px + var(--safe-l))}
 #home svg{width:24px;height:24px}
+/* Look around: the other map, drawn as a little picture of it (the relief map, or the countries' colours) */
+#mapkind{position:fixed;top:calc(6px + var(--safe-t));left:calc(116px + var(--safe-l));z-index:50;width:52px;height:52px;border-radius:50%;
+  padding:0;border:3px solid #fff;box-shadow:0 3px 0 rgba(0,0,0,.25);touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  background:url(assets/physical/base.jpg) 61% 30% / 900% auto no-repeat #6aa0d8}
+#mapkind[aria-pressed="true"]{background:conic-gradient(#ffd45c 0 20%, #8fd16a 0 40%, #ff9eb8 0 60%, #c3a3f2 0 80%, #ffad6b 0)}
+#mapkind:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.25)}
+#mapkind.busy{animation:busy 1s ease-in-out infinite}
+@keyframes busy{50%{opacity:.5}}
 #home:active,#back:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.18)}
 
 /* ---------- start screen ---------- */

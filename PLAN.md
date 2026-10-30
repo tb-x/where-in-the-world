@@ -47,7 +47,9 @@ tapping a country, drag and pinch) is built.
   always cheerful (*"What a trip!"*); the next level opens after any finish, not only a good one.
 - **Look around** (free mode, open from the start): drag to turn the globe, pinch to zoom; tap any country to hear its
   name and see its flag pop up. Cheap, since every clip already exists, and probably the part a
-  5-year-old returns to most.
+  5-year-old returns to most. **Physical map** (asked 2026-10-30, as part of Look around, from an open data source):
+  a round button beside back swaps the countries for a relief map and back; there a tap names mountains, deserts,
+  rainforests, rivers, lakes and seas (step 8 of section 7).
 - **Passport**: a booklet of every country stamped so far (flag, sticker, name), kept in
   `localStorage`. Tapping a stamp says the name.
 
@@ -264,10 +266,66 @@ emoji stickers on the map confusing, so found places get only their flag, on the
    `dev/icon.py` (the game's globe over Europe and Africa with a pin on Poland, rendered to PNG in headless Chrome).
    Since a child meets questions the page hasn't loaded yet, game.js lists every voice clip, flag and `finale.js`
    in `window.wmFiles` and the page sends that list to `sw.js` from 20 s after loading, 40 files every 2 s so the
-   clips a question needs right then aren't stuck behind it (about 12 MB, fetched once).
+   clips a question needs right then aren't stuck behind it (about 12 MB, fetched once; 16 MB with the physical map).
    Tested by loading once on the local server, stopping it and reloading: all 696 clips, the flags and the finale
    came from the cache and a capitals question was spoken. Still to do: play-test on a phone and a tablet both
    ways round, then add it to the landing page (parked on the root repo's `landing-world-map` branch).
+8. **Done 2026-10-30.** The physical map in Look around (the user asked for one from an open source, as part of the
+   free browsing). **Source**: Natural Earth, public domain: the 1:10m *Cross Blended Hypsometric Tints with Shaded
+   Relief, Ocean Bottom and Drainages* raster (`HYP_LR_SR_OB_DR`, 16,200 × 8,100, the high-resolution one since step 9; cross-blended means humid lowlands
+   green and dry ones tan, so deserts show, plus ice, sea depth, rivers and lakes), and the 1:50m marine areas,
+   physical regions, lakes and rivers (natural-earth-vector 5.1.2 GeoJSON). NASA Blue Marble (a satellite photo) was the other
+   option, but it shows rivers, mountains and sea depth less clearly than a classroom-style physical map.
+   `dev/build_physical.py` (needs Pillow) makes `assets/physical/base.jpg` (2048 × 1024, 240 KB) and 32 tiles of
+   45° (8192 × 4096 in all, 4 MB), with 30% more colour and a little contrast since the source is pale, and
+   `assets/physical.json` (98 KB): 72 hand-picked places (5 oceans, 18 seas, 6 lakes including the Caspian, 15
+   mountain ranges, 10 deserts, the Amazon and Congo rainforests, the Tibetan Plateau, the Great Plains, 14 rivers),
+   some made of several source shapes (the Mediterranean's own seas, the Andes' cordilleras, the Danube's Donau).
+   Each place has its line under `physical` in `lines.json` (`dev/voices.py` records them; 74 clips; the Gobi,
+   Namib, Thar, Taklamakan, Baikal and Mekong got their sounds by hand). **In the game**: the whole-Earth picture on
+   a sphere under everything; the countries see-through, their borders fainter, the coast lines and the ocean hidden.
+   Sharper tiles load only for the part of the globe facing the camera, once a pixel of the whole-Earth picture
+   would cover more than `PHYS_TILE_PX` screen pixels (so on a phone they come when the child zooms in, not at the
+   whole-globe view), at most `PHYS_TILES_KEPT` at once (nearest the middle first). A tap names, in order: a river
+   within `RIVER_TAP_PX` (less zoomed far out), a lake, the smallest land place under it, the country, a sea, an
+   ocean, then a country a little way off; a sea with no name here says *"That's the sea."* The place lights up in
+   gold (a river as a 5 px ribbon, since WebGL lines are 1 px), a country in its own colour. The choice is kept in
+   `world.physical`; trips, the passport and the finale always switch back to the countries. The pictures and
+   places are in `window.wmFiles`, so the offline copy has them too. Tested in the preview on a desktop and a
+   phone-sized screen; not yet on a real phone, and the new clips are not yet checked by ear.
+9. **Done 2026-10-30.** More detail on the physical map (the user picked "more places to tap" and "sharper
+   close-ups", not landmark icons or written names). **Sharper**: the picture now comes from the high-resolution
+   raster (`HYP_HR_SR_OB_DR`, 21,600 × 10,800, a 400 MB download), and a second step of tiles was added: 16 × 8 tiles
+   of 22.5° (`u*.jpg`, 16384 × 8192 in all, 14 MB) over the 45° ones (`t*.jpg`). Each step loads once a pixel of the
+   picture under it would cover more than `PHYS_TILE_PX` screen pixels (`SHARP` in game.js), so the sharpest come only
+   when the child zooms right in (on a desktop below about 0.3 globe radii, the Tatras' valleys show). Tiles under the
+   screen are now found by a 7 × 7 grid of rays rather than points on each tile, which works for both steps. The
+   sharpest tiles are left out of `window.wmFiles`, so offline (and the 18 MB first download) stays as it was and the
+   close-ups offline stop a step earlier. **More places**: 215 now (from 72): 47 seas, bays and gulfs (the Adriatic and
+   Aegean now apart from the Mediterranean), 25 lakes, 33 mountain ranges, 16 deserts, 17 islands (Greenland, New Guinea,
+   Borneo, Great Britain, Sicily…), 26 plains, plateaus, valleys and peninsulas (the North European Plain *"Most of
+   Poland is on it!"*, the Great Rift Valley, Siberia, Kamchatka, the Horn of Africa…) and 44 rivers (the Thames, Seine,
+   Elbe, Dnipro, Euphrates, Zambezi, Colorado…). Islands and peninsulas count as land places, so on the physical map a
+   tap on Great Britain says the island, not the country. The Colorado comes from the 1:10m rivers (the 1:50m one stops
+   at Lake Mead, missing the Grand Canyon); a place can take a box to pick between two rivers of one name. Facts kept
+   to ones that are safe to say to a child (the biggest, longest, deepest; Lake Nicaragua's sharks). 142 new clips,
+   with 23 more names given their sounds by hand (Onega, Kamchatka, Tanganyika, Dnipro, Yenisei, Karakoram…). Names
+   with a dispute over them stay out (the Sea of Japan, the Persian Gulf, Crimea, Taiwan).
+10. **Done 2026-10-30.** Sharp coasts, the Canary Islands and Madeira (the user, zoomed in on a blurry Gran Canaria: *"it should
+   be more detailed; also include canary islands as separate clickable islands"*). The raster has about 1.9 km to a
+   pixel and soft, blended coasts, so a 50 km island was a blob of 25 pixels. Now the u tiles and a third step, v
+   (32 × 16 tiles of 11.25°, 32768 pixels round the Earth, made only where there's a coast or lake shore,
+   355 of the 512, 34 MB), are drawn by `crisp_tile`: the 1:10m land, minor islands and lakes are drawn
+   as an outline 4 × 4 samples to a pixel; land pixels take their colour from the raster's land only and sea pixels
+   from its sea only (the nearest such pixel, so no blue bleeds onto a beach), each scaled up, and the two are put
+   together along the outline. Inland the v tiles are the raster scaled up with a light unsharp mask (`SHARPEN`), so
+   the coast is sharp but the relief inside an island is as soft as the source. Real detail inside small islands would
+   need elevation data finer than Natural Earth's (SRTM-based terrain tiles, with their own attribution) — not done.
+   The game loads v tiles only where `physical.json`'s `sharpest` says one exists. **The Canary Islands**: Tenerife,
+   Gran Canaria, Lanzarote, Fuerteventura, La Palma, La Gomera and El Hierro, each the 1:10m land shape under a point
+   (source `land10`, kept at 0.003° so their shapes stay), with a line each (Mount Teide, La Gomera's whistling…) and
+   their names' sounds set by hand; then Madeira and Porto Santo the same way (asked next). A tap in the sea within `TAP_SLOP_PX` of an island now finds the island before
+   the sea does, since small islands are hard to hit.
 
 ## 8. Finale: why we have summer and winter (planned and built 2026-10-27)
 

@@ -67,6 +67,44 @@ PHONEMES = {
     'Reykjavik': 'ɹˈeɪkjəvˌɪk',
     'Riyadh': 'ɹiːjˈɑːd',
     'Stockholm': 'stˈɑːkhˌoʊlm',
+    'Gobi Desert': 'ɡˈoʊbi dˈɛzɚt',  # places on the physical map, checked 2026-10-30; "Namib" alone would also hit Namibia
+    'Namib Desert': 'nˈɑːmɪb dˈɛzɚt',
+    'Thar Desert': 'tˈɑːɹ dˈɛzɚt',
+    'Taklamakan Desert': 'tˌɑːkləməkˈɑːn dˈɛzɚt',
+    'Baikal': 'baɪkˈɑːl',
+    'Mekong': 'mˈeɪkɑːŋ',
+    'Onega': 'oʊnˈɛɡə',            # more places, checked 2026-10-30
+    'Ladoga': 'lˈɑːdəɡə',
+    'Kamchatka': 'kæmtʃˈætkə',
+    'Tanganyika': 'tˌæŋɡənjˈiːkə',
+    'Indus': 'ˈɪndəs',
+    'Dnipro': 'dnˈiːpɹoʊ',
+    'Yenisei': 'jˌɛnɪsˈeɪ',
+    'Parana River': 'pˌɑːɹɑːnˈɑː ɹˈɪvɚ',
+    'Karakoram': 'kˌæɹəkˈɔːɹəm',
+    'Karakum': 'kˌɑːɹɑːkˈuːm',
+    'Kyzylkum': 'kˌɪzɪlkˈuːm',
+    'Pantanal': 'pˌæntənˈɑːl',
+    'Patagonia': 'pˌætəɡˈoʊniə',
+    'Pamir': 'pəmˈɪɹ',
+    'Yucatan': 'jˌuːkətˈæn',
+    'Balkhash': 'bælkˈæʃ',
+    'Eyre': 'ˈɛɹ',
+    'Kunlun': 'kˈʊnlʊn',
+    'Amur': 'ɑːmˈʊɹ',
+    'Ob': 'ˈoʊb',
+    'Altai': 'ˈæltaɪ',
+    'Zambezi': 'zæmbˈiːzi',
+    'Sierra Madre': 'siːˈɛɹə mˈɑːdɹeɪ',
+    'Teide': 'tˈeɪdeɪ',            # the Canary Islands, checked 2026-10-30
+    'Gran Canaria': 'ɡɹˈɑːn kənˈɑːɹiə',
+    'Lanzarote': 'lˌænzəɹˈɑːti',
+    'Fuerteventura': 'fwˌɛɹteɪvɛntˈʊɹə',
+    'La Palma': 'lˌɑː pˈɑːlmə',
+    'La Gomera': 'lˌɑː ɡoʊmˈɛɹə',
+    'El Hierro': 'ˌɛl jˈɛɹoʊ',
+    'Madeira': 'mədˈɪɹə',
+    'Porto Santo': 'pˈɔːɹtoʊ sˈɑːntoʊ',
 }
 
 
@@ -102,6 +140,8 @@ def all_lines():
         out[text] = key
     for key, text in lines.get('finale', {}).items():   # the seasons finale
         out[text] = 'finale'
+    for key, text in lines.get('physical', {}).items():   # places on the physical map (Look around)
+        out[text] = 'physical'
     return out
 
 
@@ -196,9 +236,9 @@ def listening_page(lines, clips):
     AUDITION.mkdir(exist_ok=True)
     groups = {}
     for text, kind in lines.items():
-        groups.setdefault(kind if kind in ('where', 'flag', 'yes', 'this', 'capital', 'finale') else 'shared', []).append(text)
+        groups.setdefault(kind if kind in ('where', 'flag', 'yes', 'this', 'capital', 'finale', 'physical') else 'shared', []).append(text)
     parts = []
-    for kind in ('where', 'flag', 'yes', 'this', 'capital', 'shared', 'finale'):
+    for kind in ('where', 'flag', 'yes', 'this', 'capital', 'shared', 'finale', 'physical'):
         rows = ''.join(
             f'<tr><td><audio controls preload="none" src="../../assets/voice/{clips[t]["file"]}"></audio></td>'
             f'<td>{html.escape(t)}</td><td>{clips[t]["dur"]} s</td></tr>' for t in groups.get(kind, []))
@@ -214,7 +254,7 @@ def phonemes():
     world = load('world.json')
     levels = load('levels.json')
     names = sorted({c['say'] for c in world['countries']} | set(levels['continents'].values()) | set(levels['islands'])
-                   | {c[0] for c in levels.get('capitals', {}).values()})
+                   | {c[0] for c in levels.get('capitals', {}).values()} | set(load('lines.json').get('physical', {})))
     for n in names:
         print(f'{n:40} {sounds(n)}{"   (fixed)" if any(p in n for p in PHONEMES) else ""}')
 

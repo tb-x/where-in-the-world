@@ -38,6 +38,22 @@ with every decision and what's still to do, is in [PLAN.md](PLAN.md).
 - **🔍 Look around**: turn and zoom the globe freely; tap any country to hear its name. The animal buttons
   fly to each continent (🏰 Europe, 🦁 Africa, 🐼 Asia, 🦅 North America, 🦜 South America, 🦘 Australia,
   🐧 Antarctica) and 🏠 home.
+- **The physical map** (in Look around): the round button by the back button shows a little picture of the
+  other map; tap it to swap the colourful countries for a real relief map (green lowlands, sandy deserts,
+  brown mountains, white ice, deep blue sea, rivers and lakes), and back. It gets sharper in three steps as
+  the child zooms in, down to single valleys in the Tatras, and close up the coasts are drawn sharp, so even a
+  small island like Gran Canaria has its real shape. A tap now names what's there: 224 places, from
+  the five oceans and 47 seas, bays and gulfs (the Baltic *"by Poland"*) to 33 mountain ranges, 16 deserts,
+  big islands (Greenland, Borneo, Sicily…), each of the seven Canary Islands (*"This is La Gomera, one of the
+  Canary Islands, where people can talk by whistling!"*), Madeira and Porto Santo (a tap just off a small
+  island still finds it), and
+  peninsulas (Scandinavia, Kamchatka…), plains and valleys (the
+  North European Plain, the Great Rift Valley, Siberia, the Pampas), the Amazon and Congo rainforests, 25
+  lakes and 44 rivers like the Nile, the Danube, the Vistula and the Thames. The place lights up in gold,
+  and many come with a little fact (*"These are the Himalayas, the highest mountains in the world."*,
+  *"This is the Colorado River. It made the Grand Canyon."*). Where none of those is, it names the country,
+  which lights up in its own colour. The choice is remembered for the next visit; trips always use the
+  countries map.
 - **🛂 Passport**: every place ever found, with its flag (a continent with its animal), grouped by continent; tap a stamp to
   hear its name. The 🏅 medal from the seasons scene shows here too.
 - **🌞 The seasons**: after the last trip (and from the 🌞 tile afterwards): fly up into space, meet the
@@ -49,7 +65,9 @@ Progress, the passport and the medal are kept on the device (`localStorage`). To
 the same tablet), hold the small ↺ in the bottom corner of the level map for 2 seconds; a tap alone does nothing.
 
 It can be added to the Home Screen and then plays without internet: on the first visit it saves the whole game,
-including every voice clip and flag (about 12 MB, fetched once in the background).
+including every voice clip, flag and the physical map (about 18 MB, fetched once in the background). The
+two sharpest steps of the physical map's close-ups load only online, when the child zooms right in; offline the
+close-ups stop at the first step.
 
 ## Running it
 
@@ -68,16 +86,25 @@ For grown-ups changing it, the tools in `dev/` (plain Python; the voice needs Ko
 - `python dev/flags.py`: copies the flags into `assets/flags/`.
 - `../_tools/kokoro/venv/Scripts/python dev/voices.py`: records any new or changed line; `--phonemes` shows
   how every name will be said, `--audition` compares voices and speeds.
+- `python dev/build_physical.py`: builds the physical map, the relief pictures in `assets/physical/` and the
+  places in `assets/physical.json`, from Natural Earth (downloaded once into `dev/data/physical/`, about 400 MB
+  for the picture; this one needs Pillow, numpy and scipy, and takes a few minutes; `--places` skips the pictures). The list of places is `FEATURES` at its top, and what the voice says
+  about each one is under `"physical"` in `assets/lines.json`.
 - `python dev/icon.py`: draws `icon.svg` from the map and renders `icon-180.png` and `icon-512.png` in headless Chrome.
 - `python dev/check.py`: checks every level (names, islands, flags, clips, capitals inside their country,
-  enough wrong flags) and lists the places that get a camera view of their own. It should say 0 errors.
+  enough wrong flags, the physical map's lines, clips and pictures) and lists the places that get a camera
+  view of their own. It should say 0 errors.
 
 ## Tuning knobs
 
 At the top of `game.js`: `QUESTIONS_PER_LEVEL` (12, when a trip doesn't set its own), `HINT_AFTER` ([2, 4, 6] wrong taps), `RESET_HOLD` (2 seconds to hold ↺), `REMIND_SECONDS` (9),
 `CARDS` (5 flags), `FLAG_SPREAD` (how fast a flag spreads over its country), `TAP_SLOP_PX` (how near a miss still counts), `COUNTRY_FIT` (how much of the screen a
 country flown to fills), `FLY_SPEED`, `MIN_ALT` (how close the camera can get), `IDLE_SPIN`, `CLIP_VOL`,
-`SFX_VOL`, `LIFT`, `COLOURS`.
+`SFX_VOL`, `LIFT`, `COLOURS`. For the physical map: `PHYS_TILE_PX` (how zoomed in before each sharper step
+loads), `PHYS_TILES_KEPT` (how many sharp pictures of each step at once, 12: more looks sharper on a big screen
+but uses more memory), `TILE_FACING`, `RIVER_TAP_PX` (how near a river a tap still names it), `RIVER_LIT_PX`,
+`PLACE_LIT`; the three steps themselves are `SHARP`. In `dev/build_physical.py`: the picture sizes (`BASE`,
+`LEVELS`, `CRISP` for where the sharp coasts start), `SHARPEN`, `COLOUR` and `CONTRAST` (the source is pale) and `FEATURES`.
 
 In `assets/levels.json`, per trip: the places asked (`ask`), how many questions (`questions`; `always` for places in every trip), the camera (`camera`, `view`; `world` for the
 later trips), pale other countries (`pale`), how many flag questions (`flags`) and how alike the wrong flags are
@@ -97,6 +124,11 @@ Sahara, Kosovo, Taiwan, Palestine and Kashmir are drawn as the data has them and
 
 - Map: [Natural Earth](https://www.naturalearthdata.com/) (public domain), via
   [world-atlas](https://github.com/topojson/world-atlas) 2.0.2 (ISC).
+- Physical map: Natural Earth's *Cross Blended Hypsometric Tints with Shaded Relief, Ocean Bottom and
+  Drainages* (1:10m raster, high resolution, public domain), with a little more colour, and its 1:50m marine
+  areas, physical regions, lakes and rivers (1:10m for the Colorado River), and its 1:10m land, minor islands and
+  lakes for the sharp coasts and the Canary Islands (public domain, from
+  [natural-earth-vector](https://github.com/nvkelso/natural-earth-vector) 5.1.2).
 - Flags: [flag-icons](https://github.com/lipis/flag-icons) 7.5.0 by Panayiotis Lipiridis (MIT, see
   `assets/flags/LICENSE`). Country codes from [i18n-iso-countries](https://github.com/michaelwittig/node-i18n-iso-countries) 7.14.0 (MIT).
 - 3D: [three.js](https://threejs.org/) 0.160.0 (MIT), from jsDelivr. Title font: Fredoka (Google Fonts, OFL).
@@ -105,6 +137,6 @@ Sahara, Kosovo, Taiwan, Palestine and Kashmir are drawn as the data has them and
 
 All voices: [Kokoro-82M](https://huggingface.co/hexgrad/Kokoro-82M) v1.0 (Apache 2.0, by hexgrad), run
 locally with kokoro-onnx (MIT) by `dev/voices.py`, voice `af_heart` (American English) at speed 0.85,
-made on 2026-10-27. No ElevenLabs audio, no credit needed. `assets/voice/clips.json` lists every clip with
+made on 2026-10-27 (the physical map's places on 2026-10-30). No ElevenLabs audio, no credit needed. `assets/voice/clips.json` lists every clip with
 its file, its text and the date it was made. A few names are given their sounds by hand (`PHONEMES` in
-`dev/voices.py`: Slovakia, Kyiv, Reykjavik, the Maldives…). Sound effects are synthesized in the browser.
+`dev/voices.py`: Slovakia, Kyiv, Reykjavik, the Maldives, the Gobi, Lake Baikal…). Sound effects are synthesized in the browser.
