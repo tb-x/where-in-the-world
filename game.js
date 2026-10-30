@@ -31,6 +31,11 @@ const RIVER_TAP_PX = 16;            // physical map: a tap this close to a river
 const RIVER_LIT_PX = 5;             // how wide a tapped river's gold ribbon is on screen
 const PLACE_LIT = 0.45;            // how strongly a tapped place lights up (in gold) on the physical map
 const TILE_FACING = 0.55;           // a sharp tile loads only for the part of the globe facing the camera at least this much
+const CITY_MAX_ALT = 1;             // Look around: cities show once the camera is lower than this (globe radii)
+const CITY_ZOOM = 1.5;              // a city shows once the map is this many times as detailed as a web map at the
+                                    // city's zoom level (Natural Earth's min_zoom), so smaller towns come as the child zooms in
+const CITY_MAX = 40;                // city names on screen at once, at most (fewer when they'd overlap)
+const CITY_TAP_PX = 18;             // a tap this close to a city's dot (or on its name) names the city
 const HOME = 'Poland';
 const COLOURS = ['#ffd45c', '#8fd16a', '#ff9eb8', '#c3a3f2', '#ffad6b'];
 const CONT_COLOURS = { EU: '#ff9eb8', AS: '#ffd45c', AF: '#ffad6b', NA: '#8fd16a', SA: '#c3a3f2', OC: '#6fd3c4', AN: '#f4f7ff' };
@@ -783,6 +788,8 @@ canvas.addEventListener('wheel', e => {
 }, { passive: false });
 
 function tap(x, y) {
+  const city = mode === 'look' && cityAt(x, y);
+  if (city) return tapCity(city);
   if (mode === 'look' && physicalOn) return tapPhysical(x, y);
   const hit = pickAt(x, y);
   if (mode === 'quiz') answer(hit);
@@ -854,6 +861,107 @@ function placeLabels() {
       Object.assign(ringEl.style, { width: `${2 * px}px`, height: `${2 * px}px`, margin: `${-px}px 0 0 ${-px}px` });
     }
   }
+}
+
+/* ======== cities in Look around ======== */
+// assets/cities.json (made by dev/build_cities.py from Natural Earth): a dot and a name for each city, capitals with a
+// star. They show only in Look around and only once the camera is low enough (CITY_MAX_ALT): first the capitals and
+// the biggest cities, then smaller towns as the child zooms in (CITY_ZOOM). Names are placed most important first, and
+// one that would overlap a name already placed is left out, so a phone shows fewer than a big screen.
+const citiesEl = $('cities');
+let cities = null, cityLoading = null, citiesOn = [];
+const cityDot = new THREE.Vector3(), camDir = new THREE.Vector3();
+
+function loadCities() {
+  cityLoading ||= fetch(`assets/cities.json?v=${ASSET_V}`).then(r => r.json()).then(d => {
+    cities = d.cities.map(([name, lon, lat, zoom, k, capital]) =>
+      ({ name, at: [lon, lat], dir: dirOf(lon, lat), zoom, country: k >= 0 ? d.countries[k] : null, capital: !!capital, el: null }));
+  }).catch(() => { cityLoading = null; });
+  return cityLoading;
+}
+
+const STAR = '<svg viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5 1.4-7.1-5.3-5 7.2-.9z"/></svg>';
+function cityEl(c) {
+  const el = document.createElement('div');
+  el.className = c.capital ? 'city capital' : 'city';
+  el.innerHTML = `<i>${c.capital ? STAR : ''}</i><span></span>`;
+  el.lastChild.textContent = c.name;
+  citiesEl.append(el);
+  return el;
+}
+
+// the buttons over the globe in Look around, which no city name may go under
+const cityKeepOut = ['home', 'back', 'mapkind', 'places'];
+function keepOutBoxes() {
+  return cityKeepOut.map(id => {
+    const el = $(id);
+    if (el.hidden) return null;
+    const r = id === 'places' ? null : el.getBoundingClientRect();
+    if (r) return { box: [r.left - 4, r.top - 4, r.right + 4, r.bottom + 4] };
+    const a = el.firstElementChild.getBoundingClientRect(), b = el.lastElementChild.getBoundingClientRect();   // the row of buttons, not the whole strip
+    return { box: [Math.min(a.left, b.left) - 4, Math.min(a.top, b.top) - 4, Math.max(a.right, b.right) + 4, Math.max(a.bottom, b.bottom) + 4] };
+  }).filter(Boolean);
+}
+
+function placeCities() {
+  const placed = [];
+  if (mode === 'look' && cities && view.alt < CITY_MAX_ALT) {
+    const zoomMax = Math.log2(focal * D2R / view.alt * 360 / 256 / CITY_ZOOM);   // the web-map zoom the view matches
+    const facing = 1 / (1 + view.alt) + 0.03;   // nearer the rim than this, a city is (almost) behind the globe
+    camDir.copy(camera.position).normalize();
+    const seen = [];
+    for (const c of cities) {
+      if (c.zoom > zoomMax || c.dir.dot(camDir) < facing) continue;
+      cityDot.copy(c.dir).project(camera);
+      const x = (cityDot.x + 1) / 2 * W, y = (1 - cityDot.y) / 2 * H;
+      if (x < 0 || x > W || y < 0 || y > H) continue;
+      seen.push({ c, x, y });
+    }
+    for (const s of seen) if (!s.c.el) s.c.el = cityEl(s.c);   // new names are added together, then measured together
+    const taken = keepOutBoxes();
+    for (const s of seen) {
+      const { c, x, y } = s;
+      if (!c.w) { c.w = c.el.lastChild.offsetWidth; c.h = c.el.lastChild.offsetHeight; }
+      const gap = c.capital ? 12 : 9, left = x + gap + c.w > W;   // a name that would run off the right edge goes on the dot's left
+      const box = left ? [x - gap - c.w, y - c.h / 2, x + gap, y + c.h / 2] : [x - gap, y - c.h / 2, x + gap + c.w, y + c.h / 2];
+      const hits = p => box[0] < p.box[2] && box[2] > p.box[0] && box[1] < p.box[3] && box[3] > p.box[1];
+      if (placed.some(hits) || taken.some(hits)) continue;
+      placed.push({ c, x, y, box, left });
+      if (placed.length >= CITY_MAX) break;
+    }
+  }
+  const now = new Set(placed.map(p => p.c));
+  for (const p of citiesOn) if (!now.has(p.c)) p.c.el.classList.remove('on');
+  for (const p of placed) {
+    p.c.el.style.transform = `translate(${p.x}px, ${p.y}px)`;
+    p.c.el.classList.toggle('left', p.left);
+    p.c.el.classList.add('on');
+  }
+  citiesOn = placed;
+}
+
+// the city whose dot is nearest a tap, or whose name was tapped
+function cityAt(x, y) {
+  let best = null, bestD = CITY_TAP_PX;
+  for (const p of citiesOn) {
+    const d = Math.hypot(p.x - x, p.y - y);
+    const onName = x >= p.box[0] && x <= p.box[2] && y >= p.box[1] - 4 && y <= p.box[3] + 4;
+    if (d < bestD || (onName && !best)) { best = p.c; bestD = Math.min(d, bestD); }
+  }
+  return best;
+}
+
+function tapCity(c) {
+  const country = !physicalOn && byName[c.country];   // on the countries map, the city's country lifts with it
+  showName(country || null, c.name, c.at);
+  say(cityLine(c));
+}
+
+// "This is Kraków, a city in Poland.", "This is Warsaw, the capital city of Poland." or just "This is Taipei."
+function cityLine(c) {
+  const say = byName[c.country]?.say ?? c.country;
+  const kind = !c.country || c.name === c.country || c.name === say ? 'this' : c.capital ? 'capital' : 'in';
+  return (lines.city?.[kind] || '').replace('{city}', c.name).replace('{say}', say);
 }
 
 /* ======== voice: Kokoro clips, the device's voice when a clip is missing ======== */
@@ -985,6 +1093,7 @@ function goLook() {
   setLook('plain');
   showScreens('places', 'back', 'mapkind');
   say(lines.shared['fly-world']);
+  loadCities();
   if (load('physical', false)) setPhysical(true);   // the map the child chose last time
 }
 function goLevels() {
@@ -1602,6 +1711,7 @@ function update(dt) {
     if (labelTimer <= 0) hideName();
   }
   placeLabels();
+  placeCities();
   renderer.render(scene, camera);
 }
 
@@ -1632,7 +1742,7 @@ async function start() {
     ...new Set(Object.values(clips).map(c => url(`assets/voice/${c.file}`))),
     ...new Set(countries.filter(c => c.flag).map(c => url(`assets/flags/${c.flag}.svg`))),
     url(FINALE),
-    url(`assets/physical.json?v=${ASSET_V}`), url(`assets/physical/base.jpg?v=${ASSET_V}`),
+    url(`assets/physical.json?v=${ASSET_V}`), url(`assets/physical/base.jpg?v=${ASSET_V}`), url(`assets/cities.json?v=${ASSET_V}`),
     ...Array.from({ length: 32 }, (_, i) => url(`assets/physical/t${i >> 2}-${i & 3}.jpg?v=${ASSET_V}`)),
     // not the 128 sharpest tiles (u*.jpg, 14 MB): offline, the close-ups stay at the t*.jpg detail
   ];
@@ -1653,6 +1763,7 @@ window.__wm = {
   clipCount: () => Object.keys(clips).length,
   play: i => playLevel(i), goLevels, goLook, goStart, reset: resetProgress,
   physical: on => setPhysical(on), physicalOn: () => physicalOn,
+  cities: () => citiesOn.map(p => p.c.name), city: name => { const p = citiesOn.find(p => p.c.name === name); return p && tap(p.x, p.y); },
   place: (x, y) => { const h = placeAt(x, y); return h ? (h.p ? h.p.name : h.c.name) : null; },
   tiles: () => physical && [...physical.tiles].map(([k, t]) => k + (t.mesh.visible ? '*' : '')).join(' '),
   paint: name => { const c = byName[name]; return paintFlag(c, c.polys.map((p, k) => k), c.box, c.label); },   // a flag spreading over a country

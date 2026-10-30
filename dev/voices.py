@@ -12,7 +12,8 @@ Use (from the world-map folder):
 
 The lines come from assets/lines.json: the country templates for every name in assets/world.json
 ("This is …", said when any country is tapped) and for every name a level asks in assets/levels.json
-("Where is …?", "Find the flag of …", "Yes! This is …"), plus the shared lines. Clips go to
+("Where is …?", "Find the flag of …", "Yes! This is …"), plus the shared lines, and what Look around says about
+the capitals and the biggest cities in assets/cities.json (CITY_VOICE_ZOOM; other towns use the device's voice). Clips go to
 assets/voice/<slug>-<hash>.mp3 and are listed by their exact text in assets/voice/clips.json, which the
 game reads. A changed line or voice setting gets a new file name; clips no line uses any more are deleted.
 Every build also writes dev/audition/clips.html, a page to listen to every clip (not committed).
@@ -44,6 +45,7 @@ SENTENCE_PAUSE = 0.45   # seconds between sentences ("Yes! This is Poland.")
 CLAUSE_PAUSE = 0.2
 BITRATE = '48k'         # mono speech; about 9 KB a clip
 RENDER_V = 1            # bump to render every clip again after changing anything below
+CITY_VOICE_ZOOM = 3     # cities.json: capitals, and the cities shown from this Natural Earth zoom on, get a clip
 
 # Names Kokoro reads wrongly from their spelling: the voice gets this text instead (the game still
 # looks the clip up by the real line). Checked with --phonemes.
@@ -142,7 +144,20 @@ def all_lines():
         out[text] = 'finale'
     for key, text in lines.get('physical', {}).items():   # places on the physical map (Look around)
         out[text] = 'physical'
+    for name, country, _ in voiced_cities():   # a city tapped in Look around (the same choice as cityLine in game.js)
+        kind = 'this' if not country or name in (country['name'], country['say']) else 'capital' if _ else 'in'
+        out[lines['city'][kind].replace('{city}', name).replace('{say}', country['say'] if country else '')] = 'city'
     return out
+
+
+def voiced_cities():
+    """[(name, world.json country or None, capital)] for the cities that get a clip."""
+    path = GAME / 'assets' / 'cities.json'
+    if not path.exists():
+        return []
+    data, world = load('cities.json'), {c['name']: c for c in load('world.json')['countries']}
+    return [(name, world[data['countries'][k]] if k >= 0 else None, bool(capital))
+            for name, _, _, zoom, k, capital in data['cities'] if capital or zoom <= CITY_VOICE_ZOOM]
 
 
 # ======== rendering ========
@@ -236,9 +251,9 @@ def listening_page(lines, clips):
     AUDITION.mkdir(exist_ok=True)
     groups = {}
     for text, kind in lines.items():
-        groups.setdefault(kind if kind in ('where', 'flag', 'yes', 'this', 'capital', 'finale', 'physical') else 'shared', []).append(text)
+        groups.setdefault(kind if kind in ('where', 'flag', 'yes', 'this', 'capital', 'finale', 'physical', 'city') else 'shared', []).append(text)
     parts = []
-    for kind in ('where', 'flag', 'yes', 'this', 'capital', 'shared', 'finale', 'physical'):
+    for kind in ('where', 'flag', 'yes', 'this', 'capital', 'shared', 'finale', 'physical', 'city'):
         rows = ''.join(
             f'<tr><td><audio controls preload="none" src="../../assets/voice/{clips[t]["file"]}"></audio></td>'
             f'<td>{html.escape(t)}</td><td>{clips[t]["dur"]} s</td></tr>' for t in groups.get(kind, []))
@@ -254,7 +269,8 @@ def phonemes():
     world = load('world.json')
     levels = load('levels.json')
     names = sorted({c['say'] for c in world['countries']} | set(levels['continents'].values()) | set(levels['islands'])
-                   | {c[0] for c in levels.get('capitals', {}).values()} | set(load('lines.json').get('physical', {})))
+                   | {c[0] for c in levels.get('capitals', {}).values()} | set(load('lines.json').get('physical', {}))
+                   | {name for name, *_ in voiced_cities()})
     for n in names:
         print(f'{n:40} {sounds(n)}{"   (fixed)" if any(p in n for p in PHONEMES) else ""}')
 

@@ -16,13 +16,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" crossorigin="anonymous">
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=13">
 </head>
 <body>
 <a id="home" href="../index.html" aria-label="All games" title="All games"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 9.8V20h12V9.8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M10 20v-5.5h4V20" fill="currentColor"/></svg></a>
 <button id="back" hidden aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <button id="mapkind" hidden aria-label="Mountains, deserts and seas" aria-pressed="false"></button>
 <canvas id="globe" aria-label="The globe: drag to turn it, pinch to zoom, tap a country to hear its name"></canvas>
+<div id="cities" aria-hidden="true"></div>
 <div id="stickers" aria-hidden="true"></div>
 <div id="ring" aria-hidden="true"></div>
 <div id="label" aria-live="polite"></div>
@@ -78,7 +79,7 @@
 </section>
 
 <div id="loading" aria-hidden="true">🌍</div>
-<script type="module" src="game.js?v=33"></script>
+<script type="module" src="game.js?v=34"></script>
 <script>
 // Offline support: sw.js caches this page. Once the page has loaded, send it every file the page used (fonts,
 // three.js, the map). From 20 s on, also send every voice clip, flag and the seasons scene (window.wmFiles, from

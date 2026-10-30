@@ -327,6 +327,23 @@ emoji stickers on the map confusing, so found places get only their flag, on the
    their names' sounds set by hand; then Madeira and Porto Santo the same way (asked next). A tap in the sea within `TAP_SLOP_PX` of an island now finds the island before
    the sea does, since small islands are hard to hit.
 
+11. **Done 2026-10-30.** Cities in Look around (the user asked for the main cities to show when zoomed in). **Source**:
+   Natural Earth 1:10m populated places, simple (public domain, natural-earth-vector 5.1.2). `dev/build_cities.py` keeps
+   every country's capital and every town Natural Earth shows by web-map zoom 6.1 (3,126 cities, 107 KB,
+   `assets/cities.json`), with English names for a few (Copenhagen, Osaka). The country comes from the game's own map,
+   so it matches what a tap on the map says (Sevastopol is in Ukraine); cities in Western Sahara, Kosovo, Taiwan,
+   Palestine and Kashmir, and Jerusalem, get no country and no star; Vatican City isn't given to Italy. Capitals take
+   levels.json's spelling. **In the game**: from `CITY_MAX_ALT` down, a city shows once the view is `CITY_ZOOM` times as
+   detailed as a web map at its Natural Earth zoom, so capitals and big cities come first and towns follow as the child
+   zooms in. Names are placed most important first, and one that would overlap a name or a button is left out
+   (at most `CITY_MAX`). A capital has a gold star with a dark edge (it must show on yellow countries), a town a white
+   dot. A tap near a dot or on a name names the city, before the country or a physical-map place: *"This is Kraków, a
+   city in Poland."* / *"…, the capital city of Poland."* (lines under `city` in lines.json); on the countries map the
+   country lifts too. Never shown in a trip. `dev/voices.py` records the capitals and the cities shown from zoom 3
+   (`CITY_VOICE_ZOOM`, 217 lines); the other towns use the device's voice. Tested in the preview on a desktop and a
+   phone-sized screen; the clips are not made yet (Kokoro runs on the laptop), and city names are not yet checked with
+   `--phonemes` (Chișinău, Yaoundé and Asunción may need sounds by hand).
+
 ## 8. Finale: why we have summer and winter (planned and built 2026-10-27)
 
 A talking, animated space scene of about 2 minutes, played once after the last level, then any time from
