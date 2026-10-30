@@ -98,6 +98,20 @@ button svg{width:55%;height:55%;display:block;margin:auto}
   border-top-color:var(--paper)}
 #label.on{transform:translate(-50%, calc(-100% - 14px)) scale(1);opacity:1}
 
+/* Look around: city dots and names, a star for a capital; they fade in, and go at once (they'd lag behind the globe) */
+#cities{position:fixed;inset:0;z-index:24;pointer-events:none;overflow:hidden}
+.city{position:absolute;left:0;top:0;visibility:hidden;opacity:0;white-space:nowrap}
+.city.on{visibility:visible;opacity:1;transition:opacity .3s}
+.city i{position:absolute;left:-4px;top:-4px;width:8px;height:8px;border-radius:50%;background:#fff;
+  box-shadow:0 0 0 2px var(--ink)}
+.city.capital i{left:-9px;top:-9px;width:18px;height:18px;border-radius:0;background:none;box-shadow:none}
+.city.capital svg{display:block;width:100%;height:100%;fill:var(--gold);stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}
+.city span{position:absolute;left:9px;top:0;transform:translateY(-50%);font:clamp(12px, 3vmin, 15px)/1.15 var(--read);
+  color:var(--ink);text-shadow:0 0 2px #fff, 0 0 2px #fff, 0 0 3px #fff, 0 0 4px #fff}
+.city.capital span{left:12px;font-weight:bold}
+.city.capital.left span{right:12px}
+.city.left span{left:auto;right:9px}
+
 #stickers{position:fixed;inset:0;z-index:25;pointer-events:none}
 .sticker{position:absolute;left:0;top:0;font-size:clamp(26px, 6vmin, 40px);line-height:1;transform:translate(-50%, -15%);
   filter:drop-shadow(0 2px 2px rgba(0,0,0,.35));animation:pop .5s cubic-bezier(.3,1.6,.5,1) both}

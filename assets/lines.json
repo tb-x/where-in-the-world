@@ -1,5 +1,5 @@
 {
- "note": "Everything the narrator says. {say} is a country's or continent's spoken name (world.json 'say'); {capital} its capital city (levels.json 'capitals'). dev/voices.py renders a clip for each line; the game looks clips up by their exact text. \"physical\" is what Look around says about each place on the physical map (assets/physical.json, made by dev/build_physical.py).",
+ "note": "Everything the narrator says. {say} is a country's or continent's spoken name (world.json 'say'); {capital} its capital city (levels.json 'capitals'). dev/voices.py renders a clip for each line; the game looks clips up by their exact text. \"physical\" is what Look around says about each place on the physical map (assets/physical.json, made by dev/build_physical.py). \"city\" is what Look around says when a city is tapped (assets/cities.json, made by dev/build_cities.py): {city} is its name, {say} its country's spoken name; \"this\" alone where the game names no country (and for a city named like its country).",
  "country": {
   "where": "Where is {say}?",
   "flag": "Find the flag of {say}.",
@@ -57,6 +57,11 @@
   "fall": "Fall!",
   "end1": "The Earth goes round and round, and the seasons come again and again.",
   "end2": "Well done, world explorer!"
+ },
+ "city": {
+  "this": "This is {city}.",
+  "in": "This is {city}, a city in {say}.",
+  "capital": "This is {city}, the capital city of {say}."
  },
  "physical": {
   "Pacific Ocean": "This is the Pacific Ocean, the biggest ocean in the world.",

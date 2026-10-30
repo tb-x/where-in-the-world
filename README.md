@@ -38,6 +38,11 @@ with every decision and what's still to do, is in [PLAN.md](PLAN.md).
 - **🔍 Look around**: turn and zoom the globe freely; tap any country to hear its name. The animal buttons
   fly to each continent (🏰 Europe, 🦁 Africa, 🐼 Asia, 🦅 North America, 🦜 South America, 🦘 Australia,
   🐧 Antarctica) and 🏠 home.
+- **Cities** (in Look around, on both maps): zoom in and cities appear as dots with their names, capitals with a
+  gold ⭐. First the capitals and the biggest cities, then smaller ones as the child zooms in closer (Warsaw, then
+  Kraków and Gdańsk, then Wrocław and Katowice). Names never overlap and never sit under a button, so a phone shows
+  fewer than a big screen. Tap a city to hear it: *"This is Warsaw, the capital city of Poland."*, *"This is
+  Kraków, a city in Poland."* Cities never show during a trip (they would give the capital-city answers away).
 - **The physical map** (in Look around): the round button by the back button shows a little picture of the
   other map; tap it to swap the colourful countries for a real relief map (green lowlands, sandy deserts,
   brown mountains, white ice, deep blue sea, rivers and lakes), and back. It gets sharper in three steps as
@@ -90,6 +95,10 @@ For grown-ups changing it, the tools in `dev/` (plain Python; the voice needs Ko
   places in `assets/physical.json`, from Natural Earth (downloaded once into `dev/data/physical/`, about 400 MB
   for the picture; this one needs Pillow, numpy and scipy, and takes a few minutes; `--places` skips the pictures). The list of places is `FEATURES` at its top, and what the voice says
   about each one is under `"physical"` in `assets/lines.json`.
+- `python dev/build_cities.py`: builds `assets/cities.json` (about 3,100 cities) from Natural Earth's populated
+  places (downloaded once into `dev/data/cities/`). What the voice says about a tapped city is under `"city"` in
+  `assets/lines.json`; capitals and the biggest cities get a recorded clip (`CITY_VOICE_ZOOM` in `dev/voices.py`),
+  the other towns use the device's voice.
 - `python dev/icon.py`: draws `icon.svg` from the map and renders `icon-180.png` and `icon-512.png` in headless Chrome.
 - `python dev/check.py`: checks every level (names, islands, flags, clips, capitals inside their country,
   enough wrong flags, the physical map's lines, clips and pictures) and lists the places that get a camera
@@ -103,7 +112,8 @@ country flown to fills), `FLY_SPEED`, `MIN_ALT` (how close the camera can get), 
 `SFX_VOL`, `LIFT`, `COLOURS`. For the physical map: `PHYS_TILE_PX` (how zoomed in before each sharper step
 loads), `PHYS_TILES_KEPT` (how many sharp pictures of each step at once, 12: more looks sharper on a big screen
 but uses more memory), `TILE_FACING`, `RIVER_TAP_PX` (how near a river a tap still names it), `RIVER_LIT_PX`,
-`PLACE_LIT`; the three steps themselves are `SHARP`. In `dev/build_physical.py`: the picture sizes (`BASE`,
+`PLACE_LIT`; the three steps themselves are `SHARP`. For the cities: `CITY_MAX_ALT` (how close before any show),
+`CITY_ZOOM` (how close before smaller towns show), `CITY_MAX` (most names on screen at once), `CITY_TAP_PX`. In `dev/build_physical.py`: the picture sizes (`BASE`,
 `LEVELS`, `CRISP` for where the sharp coasts start), `SHARPEN`, `COLOUR` and `CONTRAST` (the source is pale) and `FEATURES`.
 
 In `assets/levels.json`, per trip: the places asked (`ask`), how many questions (`questions`; `always` for places in every trip), the camera (`camera`, `view`; `world` for the
@@ -118,7 +128,9 @@ At the top of `finale.js`: `TILT`, `ORBIT`, `SUN_R`, `EARTH_BIG`, `GHOST`, `OBLI
 
 The map is Natural Earth 1:50m. Crimea is drawn as part of Ukraine (the source data has it as Russia;
 `dev/build_map.py` moves it). Northern Cyprus is part of Cyprus and Somaliland part of Somalia. Western
-Sahara, Kosovo, Taiwan, Palestine and Kashmir are drawn as the data has them and never asked about.
+Sahara, Kosovo, Taiwan, Palestine and Kashmir are drawn as the data has them and never asked about. Their
+cities show in Look around, but a tap says only the city's name (*"This is Taipei."*), with no country and no
+capital star; the same goes for Jerusalem.
 
 ## Credits and licences
 
@@ -129,6 +141,7 @@ Sahara, Kosovo, Taiwan, Palestine and Kashmir are drawn as the data has them and
   areas, physical regions, lakes and rivers (1:10m for the Colorado River), and its 1:10m land, minor islands and
   lakes for the sharp coasts and the Canary Islands (public domain, from
   [natural-earth-vector](https://github.com/nvkelso/natural-earth-vector) 5.1.2).
+- Cities: Natural Earth's 1:10m populated places (public domain, natural-earth-vector 5.1.2).
 - Flags: [flag-icons](https://github.com/lipis/flag-icons) 7.5.0 by Panayiotis Lipiridis (MIT, see
   `assets/flags/LICENSE`). Country codes from [i18n-iso-countries](https://github.com/michaelwittig/node-i18n-iso-countries) 7.14.0 (MIT).
 - 3D: [three.js](https://threejs.org/) 0.160.0 (MIT), from jsDelivr. Title font: Fredoka (Google Fonts, OFL).
