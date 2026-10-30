@@ -20,7 +20,8 @@ with every decision and what's still to do, is in [PLAN.md](PLAN.md).
 - **A question**: on the early trips the camera moves to that part of the world; from Look-alike flags on,
   it only zooms out to the whole globe, still facing wherever the child left it, so finding the right part
   of the world is part of the question. The voice asks (🔊 says it again; it is asked again by itself after
-  9 seconds). Drag to turn the globe, pinch to zoom in on small countries.
+  9 seconds). While the question is being read (the 🔊 pulses), nothing can be tapped, dragged or zoomed, so the
+  child hears the whole question first; home and back still work. Drag to turn the globe, pinch to zoom in on small countries.
 - **A wrong tap** names what was tapped (*"This is Spain."*). Hints come slowly, so they don't give the
   answer away: after two wrong taps a wide ring pulses round the area, with the answer somewhere inside but
   not in the middle (on the later trips the globe first turns to it); after four a smaller ring; after six the
