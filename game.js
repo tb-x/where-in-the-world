@@ -733,6 +733,7 @@ function pan(dx, dy) {
 canvas.addEventListener('pointerdown', e => {
   canvas.setPointerCapture(e.pointerId);
   if (mode === 'finale') { finale?.pointer('down', e.clientX, e.clientY); return; }
+  if (asking()) return;   // a finger put down while the question is read does nothing, even after it ends
   pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
   if (flight && mode === 'look') flight = null;
   idle = false; spin = { lon: 0, lat: 0 };
@@ -747,6 +748,7 @@ canvas.addEventListener('pointermove', e => {
   const dx = e.clientX - p.x, dy = e.clientY - p.y;
   p.x = e.clientX; p.y = e.clientY;
   if (flight) return;   // a question's flight finishes before the globe can be turned
+  if (asking()) { gesture.moved = true; spin = { lon: 0, lat: 0 }; return; }   // nor while the question is read
   if (pointers.size >= 2) {
     const now = pinchInfo(), was = gesture.pinch;
     if (was && now.d > 0) {
@@ -781,7 +783,7 @@ canvas.addEventListener('pointerup', pointerEnd);
 canvas.addEventListener('pointercancel', pointerEnd);
 canvas.addEventListener('wheel', e => {
   e.preventDefault();
-  if (mode === 'finale') return;
+  if (mode === 'finale' || asking()) return;
   if (mode === 'look') flight = null;
   idle = false;
   if (!flight) view.alt *= Math.exp(e.deltaY * 0.0015);
@@ -1172,7 +1174,7 @@ $('back').addEventListener('click', () => { closeCards(); if (mode === 'finale')
 $('again').addEventListener('click', () => playLevel(levelIdx));
 $('next').addEventListener('click', () => playLevel(levelIdx + 1));
 $('tolevels').addEventListener('click', () => goLevels());
-$('hear').addEventListener('click', () => quiz?.target && say(line(askKind(quiz.target), quiz.target)));
+$('hear').addEventListener('click', () => quiz?.target && askAloud(quiz.target));   // also while it's read: it starts again
 $('mapkind').addEventListener('click', async () => {
   const want = !physicalOn;
   if ((await setPhysical(want)) !== want) return;   // the relief picture couldn't load (offline before it was ever seen)
@@ -1190,7 +1192,7 @@ $('places').addEventListener('click', e => {
 /* ======== questions ======== */
 let quiz = null, levelIdx = 0, quizToken = 0;
 
-function stopQuiz() { quizToken++; quiz = null; hideRing(); closeCards(); }
+function stopQuiz() { quizToken++; quiz = null; hideRing(); closeCards(); document.body.classList.remove('asking'); }
 
 // what a level can ask about: a country, a continent or an island (part of a country)
 function targetOf(name) {
@@ -1338,19 +1340,32 @@ function ask(t, first, token) {
       if (token !== quizToken) return;
       t.c.glow = 1;
       showName(t.c, t.name, t.at, 1e9);
-      await say(line('this', t));
-      if (token !== quizToken) return;
       quiz.busy = false;
-      await say(line('flag', t));
+      await askAloud(t, line('this', t));   // "This is Italy." then "Find the flag of Italy.", both locked
+      if (token !== quizToken) return;
+      await askAloud(t);
     } else {
       const away = await cameraFor(quiz.L, t, first);
       if (token !== quizToken) return;
       quiz.moved = away;
       quiz.busy = false;
-      await say(line(askKind(t), t));
+      await askAloud(t);
     }
     remind(t, token);
   });
+}
+
+// While the question is read (asked, asked again, or 🔊), the trip takes no taps, flags, drags or pinches
+// (asked 2026-10-30), so the child hears the whole question first. 🔊 (it starts the question again), home and back
+// still work.
+const asking = () => mode === 'quiz' && !!quiz?.asking;
+async function askAloud(t, text = line(askKind(t), t)) {
+  const q = quiz;
+  q.asking = (q.asking || 0) + 1;
+  document.body.classList.add('asking');
+  try { await say(text); } finally {
+    if (--q.asking === 0 && quiz === q) document.body.classList.remove('asking');
+  }
 }
 
 // no tap for a while: ask again, then show the ring (or, for flags, take away some wrong ones)
@@ -1360,7 +1375,7 @@ async function remind(t, token) {
     const since = clock;
     await sleep(REMIND_SECONDS);
     if (token !== quizToken || quiz?.target !== t || quiz.solved || quiz.lastTap > since) continue;
-    if (n++ === 0) say(line(askKind(t), t));
+    if (n++ === 0) askAloud(t);
     else hint(t, quiz.hint + 1, true);
   }
 }
@@ -1386,7 +1401,7 @@ async function solved(t, token) {
 }
 
 async function answer(hit) {
-  if (!quiz || quiz.busy || !quiz.target) return;
+  if (!quiz || quiz.busy || quiz.asking || !quiz.target) return;
   const t = quiz.target, token = quizToken;
   if (t.q === 'flag') {   // the question is about the flags: a tap on the map just names the country
     if (hit && hit.c !== t.c) { showName(hit.c, hit.c.name, hit.c.label, 2); say(line('this', hit.c)); }
@@ -1422,7 +1437,7 @@ async function hint(t, stage, spoken = false) {
   if (t.q === 'flag') {
     thinCards([4, 2, 1][stage - 1]);
     if (stage === 3) cardsEl.querySelector(`[data-name="${CSS.escape(t.c.name)}"]`)?.classList.add('glow');
-    if (spoken) say(line('flag', t));
+    if (spoken) askAloud(t);
     return;
   }
   if (stage === 3) {
@@ -1518,7 +1533,7 @@ function thinCards(keep) {
 }
 
 async function pickCard(c, b) {
-  if (!quiz || quiz.busy || quiz.target?.q !== 'flag' || b.classList.contains('gone')) return;
+  if (!quiz || quiz.busy || quiz.asking || quiz.target?.q !== 'flag' || b.classList.contains('gone')) return;
   const t = quiz.target, token = quizToken;
   quiz.lastTap = clock;
   if (c === t.c) {
@@ -1768,7 +1783,7 @@ window.__wm = {
   tiles: () => physical && [...physical.tiles].map(([k, t]) => k + (t.mesh.visible ? '*' : '')).join(' '),
   paint: name => { const c = byName[name]; return paintFlag(c, c.polys.map((p, k) => k), c.box, c.label); },   // a flag spreading over a country
   quiz: () => quiz && { level: levelIdx + 1, n: quiz.n, of: quiz.targets.length, target: quiz.target?.name, kind: quiz.target?.kind,
-    q: quiz.target?.q, parts: quiz.target?.parts?.length, wrong: quiz.wrong, busy: quiz.busy, firstTry: quiz.firstTry,
+    q: quiz.target?.q, parts: quiz.target?.parts?.length, wrong: quiz.wrong, busy: quiz.busy, asking: !!quiz.asking, firstTry: quiz.firstTry,
     plan: quiz.targets.map(t => `${t.q === 'flag' ? '🏳' : t.q === 'capital' ? '⭐' : ''}${t.name}`).join(' '),
     cards: [...cardsEl.children].map(b => b.dataset.name + (b.classList.contains('gone') ? ' (gone)' : '')) },
   // answer the current question: right, or wrong with a named country (on the map, or that country's flag card)
