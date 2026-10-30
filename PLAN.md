@@ -30,10 +30,10 @@ tapping a country, drag and pinch) is built.
     was too suggestive): after the 2nd wrong tap a wide ring pulses round the area, the answer inside but
     off-centre; after the 4th a smaller ring; after the 6th the camera flies to the country and it glows until
     tapped. Waiting gives the same steps, one per reminder. Nothing ends, nothing is lost.
-  - **While the question is read** (asked 2026-10-30): nothing can be tapped, dragged, pinched or zoomed, and 🔊 does
-    nothing, so the child hears the whole question before answering; the same when it's asked again after 9 s or from
-    🔊, and in flag questions for both lines (*"This is Italy. Find the flag of Italy."*). 🔊 pulses meanwhile. Home and
-    back still work. (`askAloud` and `asking()` in game.js; a finger put down during the question does nothing even after.)
+  - **While the question is read** (asked 2026-10-30): the globe and the flag cards can't be tapped, dragged, pinched or
+    zoomed, so the child hears the whole question before answering; the same when it's asked again after 9 s or from
+    🔊, and in flag questions for both lines (*"This is Italy. Find the flag of Italy."*). 🔊 pulses meanwhile; it,
+    home and back still work (🔊 then starts the question again; asked the same day). (`askAloud` and `asking()` in game.js; a finger put down during the question does nothing even after.)
 - **Flag question**, two kinds:
   - *"Which flag is Italy's?"* with five flag cards (the user's idea).
   - Later levels: a country found earlier in the level lights up on the map, *"This is Italy. Which flag

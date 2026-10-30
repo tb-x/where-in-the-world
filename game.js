@@ -1174,7 +1174,7 @@ $('back').addEventListener('click', () => { closeCards(); if (mode === 'finale')
 $('again').addEventListener('click', () => playLevel(levelIdx));
 $('next').addEventListener('click', () => playLevel(levelIdx + 1));
 $('tolevels').addEventListener('click', () => goLevels());
-$('hear').addEventListener('click', () => quiz?.target && !asking() && askAloud(quiz.target));
+$('hear').addEventListener('click', () => quiz?.target && askAloud(quiz.target));   // also while it's read: it starts again
 $('mapkind').addEventListener('click', async () => {
   const want = !physicalOn;
   if ((await setPhysical(want)) !== want) return;   // the relief picture couldn't load (offline before it was ever seen)
@@ -1355,8 +1355,9 @@ function ask(t, first, token) {
   });
 }
 
-// While the question is read (asked, asked again, or 🔊), the trip takes no taps, flags, drags, pinches or 🔊
-// (asked 2026-10-30), so the child hears the whole question first. Home and back still work.
+// While the question is read (asked, asked again, or 🔊), the trip takes no taps, flags, drags or pinches
+// (asked 2026-10-30), so the child hears the whole question first. 🔊 (it starts the question again), home and back
+// still work.
 const asking = () => mode === 'quiz' && !!quiz?.asking;
 async function askAloud(t, text = line(askKind(t), t)) {
   const q = quiz;

@@ -70,8 +70,8 @@ button svg{width:55%;height:55%;display:block;margin:auto}
   padding:6px 14px 6px 6px;border-radius:30px;background:rgba(255,255,255,.85);box-shadow:0 3px 0 rgba(0,0,0,.2)}
 #hear{width:48px;height:48px;border-radius:50%;background:var(--gold);font-size:24px;box-shadow:0 3px 0 #b88a00;padding:0}
 #hear:active{transform:translateY(2px);box-shadow:0 1px 0 #b88a00}
-/* while the question is read nothing can be tapped: 🔊 pulses, the globe and the flags show no hand */
-body.asking #hear{animation:speak 1s ease-in-out infinite;cursor:default}
+/* while the question is read only 🔊, home and back can be tapped: 🔊 pulses, the globe and the flags show no hand */
+body.asking #hear{animation:speak 1s ease-in-out infinite}
 body.asking #globe, body.asking .card{cursor:default}
 @keyframes speak{50%{transform:scale(1.12)}}
 #dots{display:flex;gap:6px}
